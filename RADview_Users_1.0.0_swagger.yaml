@@ -1,7 +1,8 @@
 openapi: 3.0.0
 #############################################################################
-# In the servers object, you specify the basepath used in your API requests. 
+# In the servers object, you specify the basepath used in you API requests. 
 # The basepath is the part of the URL that appears before the endpoint.
+# Test
 #############################################################################
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
