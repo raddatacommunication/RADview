@@ -2,6 +2,7 @@ openapi: 3.0.0
 #############################################################################
 # In the servers object, you specify the basepath used in your API requests. 
 # The basepath is the part of the URL that appears before the endpoint.
+# Raz Git hub test
 #############################################################################
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
