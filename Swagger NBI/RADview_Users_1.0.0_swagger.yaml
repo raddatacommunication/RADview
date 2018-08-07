@@ -1,7 +1,7 @@
 openapi: 3.0.0
 #############################################################################
 # In the servers object, you specify the basepath used in your API requests. 
-# The basepath is the part of the URL that appears before the endpoint
+# The basepath is the part of the URL that appears before the endpoint.
 #############################################################################
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
@@ -72,6 +72,8 @@ paths:
       summary: Create a new user to the users colletion
       operationId: createUser
       description: creating new User
+      parameters:
+        - $ref: "#/components/parameters/auth"
       requestBody:
         $ref: '#/components/requestBodies/User'
       responses:
@@ -96,6 +98,7 @@ paths:
       tags:
         - User
       parameters:
+        - $ref: "#/components/parameters/auth"
         - $ref: "#/components/parameters/query"
       responses:
         200:
@@ -214,6 +217,8 @@ paths:
       summary: Create a new role to the roles colletion
       operationId: createRole
       description: creating new Role
+      parameters:
+        - $ref: "#/components/parameters/auth"
       requestBody:
         $ref: '#/components/requestBodies/Role'
       responses:
@@ -238,6 +243,7 @@ paths:
       tags:
         - Role
       parameters:
+        - $ref: "#/components/parameters/auth"
         - $ref: "#/components/parameters/query"
       responses:
         200:
