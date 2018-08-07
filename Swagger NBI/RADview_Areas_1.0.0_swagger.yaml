@@ -264,13 +264,20 @@ components:
         parentSubnetId:
           type: string
           default: ""
-        rvId:
-          type: integer
-          format: int64
-          default: 0
-          description: "RADview internal id. This is RADview NER id"
+#        rvId:
+#          type: integer
+#          format: int64
+#          default: 0
+#          description: "RADview internal id. This is RADview NER id"
         severity:
           $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+        domainIds:
+          nullable: true
+          type: array
+          items:
+            type: integer
+            format: int32
+          
         
   #---------------------------------------------#
   # Parameters copied from Domain               #
