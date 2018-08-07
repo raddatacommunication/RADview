@@ -261,9 +261,16 @@ components:
           default: ""
         operStatus:
           $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
-        parentSubnetId:
+          
+         # parentSubnetId is NOT relevant for Area since each domain has its own parent id.
+#        parentSubnetId:
+#          type: string
+#          default: ""
+
+        parentAreaId:
           type: string
           default: ""
+          
 #        rvId:
 #          type: integer
 #          format: int64
