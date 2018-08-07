@@ -1,5 +1,5 @@
 info:
-  description: "Common ENUMs and data structures for Inventory"
+  description: "Common ENUMs and data structures for Inventory "
   # This is a domain and NOT API. So enums are defined under definitions and NOT components/schemas
   version: "1.0.0"
   title: RADview Common Enums
