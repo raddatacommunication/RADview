@@ -1,0 +1,77 @@
+### Domains, a place to put your reusable components
+
+### Examples...
+
+info:
+  description: "Responses Domain "
+  version: '1.0.0'
+  title: Responses Domain
+
+definitions:
+  ErrorModel:
+    required:
+      - "code"
+      - "message"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+        example: 10045
+      message:
+        type: "string"
+        example: wrong range
+  ErrorModel2:
+    required:
+      - "p1"
+      - "p2"
+    properties:
+      p1:
+        type: "integer"
+        format: "int32"
+        example: 77777
+      p2:
+        type: "string"
+        example: wrong range2333
+    example:
+      p1: 45567
+      p2: abcdefg
+  IdResponse:
+    description: Successfully create/update task. 
+    type: object
+    properties:
+      data:
+        type: integer
+        format: int32
+        readOnly: true
+        example: 8057
+  ErrorResponse:
+    description: Bad Request. There was some error for this request.  
+    type: object
+    properties:
+      error:
+        type: integer
+        format: int32
+        readOnly: true
+        example: 1
+      errorName:
+        type: string
+        readOnly: true
+        example: 'java.lang.IllegalArgumentException'
+      errorMessage:
+        type: string
+        readOnly: true
+        example: 'Missing/invalid field Task Action.'
+      errorMessages:
+        type: array
+        readOnly: true
+        items:
+          type: string
+        example: ["Missing/invalid field Task Action."]
+                
+      
+      
+responses:
+  GeneralError:
+    description: General Error search results matching criteria
+    schema:
+      $ref: '#/definitions/ErrorModel'
