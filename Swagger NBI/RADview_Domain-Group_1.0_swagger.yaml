@@ -1,0 +1,356 @@
+openapi: 3.0.0
+info:
+  version: "1.0"
+  title: 'RADview Domain Server Group'
+  description: 'Domain Server Group'
+  
+servers:
+  - url: '{protocol}://{host}:{port}/{environment}'
+    description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      host:
+        default: localhost
+        description: RADview server IP Address or host name.
+      port:
+        default: '8282'
+        description: RADview server port number.
+      environment:
+        default: mng164
+        
+paths:
+  /hub/domain-group:
+    parameters:
+    - $ref: "#/components/parameters/auth"
+    get:
+      summary: Get all domains groups
+      operationId: getDomain
+      description: Get all domain groups.
+      tags:
+        - Domain Group
+      parameters:
+        - $ref: "#/components/parameters/query"
+      responses:
+        200:
+          description: All domain groups returned successfully.
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DomainGroup'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+    post:
+      summary: Create a new Domain Group server
+      operationId: createDomainGroup
+      description: creating new Domain Group
+      tags:
+        - Domain Group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomainGroup'
+      responses:
+        200:
+          $ref: '#/components/responses/DomainResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+    put:
+      summary: Update Domain Group
+      operationId: updateDomainGroup
+      description: Update specific Domain Group.
+      tags:
+        - Domain Group
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomainGroup'
+      responses:
+        200:
+          $ref: '#/components/responses/DomainResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+
+  /hub/domain-group/{id}:
+    parameters:
+      - $ref: "#/components/parameters/auth"
+      - $ref: "#/components/parameters/id"
+    get:
+      summary: Get Domain Group by id
+      operationId: getDomainGroupById
+      description: Get specific Domain Group.
+      tags:
+        - Domain Group
+      responses:
+        200:
+          description: Domain returned successfully.
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                    example: 1
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+    delete:
+      summary: Delete Domain Group by id
+      operationId: deleteDomainGroupById
+      description: Delete specific Domain Group.
+      tags:
+        - Domain Group
+      responses:
+        200:
+          description: Domain Group deleted successfully.
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                    example: 1
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+
+components:
+  schemas:
+    DomainGroup:
+      description: Model containing Domain Group info.
+      type: object
+      properties:
+        id:
+          description: Id of this Domain Group
+          type: string
+          readOnly: true
+          example: 1
+        name:
+          description: Name of this Domain Group
+          type: string
+          example: DomainA 
+        description:
+          description: Description of this Domain Group
+          type: string
+          example: RADview Server domain (TLV)
+        parentGroupId:
+          description:  Domain Group Server parent Group Id
+          type: string
+          example: 1
+        operSatus:
+          description: Operational status of this Domain Group
+          type: integer
+          format: int32
+          readOnly: true
+          enum:
+            - value: 1
+              name: UP
+              description: Domain Group is UP
+            - value: 2
+              name: DOWN
+              description: Domain Group is DOWN
+            - value: 255
+              name: UNKNOWN
+  parameters:
+    auth:
+      name: auth
+      in: header
+      required: true
+      description: authentication 
+      allowEmptyValue: false
+      schema:
+        type: string
+      example: entlf31e7qlsmrhhq14s6h0h43
+    id:
+      name: id
+      in: path
+      required: true
+      description: Numeric ID of the Domain.
+      schema:
+        type: string
+      example: 1
+    query:
+      name: query
+      in: query
+      required: false
+      description: Enable query on get response 
+      schema:
+        type: string
+      example: ?name=domainGroup1&operStatus=1
+  
+  responses:
+    DomainResponse:
+      description: Successfully create/update Domain Group. 
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: false
+              successful:
+                type: boolean
+                readOnly: true
+                example: true
+              data:
+                type: string
+                readOnly: true
+                example: "{data as json}"
+    BadRequestErrorResponse:
+      description: Bad Request. There was some error for this request.  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 400
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Missing/invalid field name.
+    UnauthorizedErrorResponse:
+      description: Unauthorized, Token is not valid or missing  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 401
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Unauthorized operation
+    NotFoundErrorResponse:
+      description: Resource not found for operation  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 404
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Resource not found
+    ServerResourceErrorResponse:
+      description: Server Resource operation error  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 500
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Resource operation error

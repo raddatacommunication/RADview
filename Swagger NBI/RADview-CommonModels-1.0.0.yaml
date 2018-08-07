@@ -1,0 +1,53 @@
+info:
+  description: "This is a port identifier Domain"
+  version: '1.0.0'
+  title: Common Models Domain
+      
+      
+definitions:
+  FileInfo:
+    description: Model containing file info.
+    type: object
+    properties:
+      name:
+        type: string
+        example: fileName
+      link:
+        type: string
+        example: \java\nms_ems\files\CONFIG_TEMPLATE\config_template_1529925365637.txt
+      srvName:
+        type: string
+        example: name
+  PortIdentifier:
+    description: Model containing port identifier.
+    type: object
+    properties:
+      neId:
+        type: integer
+        format: int32
+        example: 1
+      vendorId:
+        type: integer
+        format: int32
+        example: 164
+      portNum:
+        type: integer
+        format: int32
+        example: 0
+      cardNum:
+        type: integer
+        format: int32
+        example: 0
+      portIndex:
+        type: integer
+        format: int32
+        example: 
+      portName:
+        type: string
+        example: portName
+      entityType:
+        $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ObjectTypeEnum"
+      portType:
+        type: integer
+        format: int32
+        example: 0

@@ -1,0 +1,1239 @@
+openapi: 3.0.0
+#############################################################################
+# In the servers object, you specify the basepath used in your API requests. 
+# The basepath is the part of the URL that appears before the endpoint.
+#############################################################################
+servers:
+  - url: '{protocol}://{host}:{port}/{environment}'
+    description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      host:
+        default: localhost
+        description: RADview server IP Address or host name.
+      port:
+        enum: 
+          - '8282'  # RADview Hub Server
+          - '8181'  # RADview FE Server 
+        default: '8282'
+        description: RADview server port number.
+      environment:
+        enum: 
+          - mng164  # RADview Hub Server 
+          - object  # RADview FE FE Server
+        default: mng164
+        
+info:
+  description: |
+    This is MEs NBI. You can find
+    out more about Swagger at
+    [http://swagger.io](http://swagger.io) or on
+    [irc.freenode.net, #swagger](http://swagger.io/irc/).
+  version: "1.0.0"
+  title: RADview NEs
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+#############################################################################
+# The security object specifies the security or authorization protocol 
+# used when submitting requests.
+############################################################################# 
+security:
+  - BasicAuth:  []
+  - ApiKeyAuth: []
+tags:
+  - name: ne
+    description: Everything about your Nes
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+paths:
+  /ne:
+    post:
+      tags:
+        - ne
+      summary: Add a new ne to the system
+      operationId: addNe
+      responses:
+        '405':
+          description: Invalid input
+      requestBody:
+        $ref: '#/components/requestBodies/Ne'
+    put:
+      tags:
+        - ne
+      summary: Update an existing ne
+      operationId: updateNe
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Ne not found
+        '405':
+          description: Validation exception
+      requestBody:
+        $ref: '#/components/requestBodies/Ne'
+    get:
+      tags:
+        - ne
+      summary: Returns NEs inventory
+      description: Returns an array of all NEs
+      operationId: getNesInventory
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ne'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ne'
+  '/ne/{neId}':
+    get:
+      tags:
+        - ne
+      summary: Find ne by ID
+      description: Returns a single ne
+      operationId: getNeById
+      parameters:
+        - name: neId
+          in: path
+          description: ID of ne to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ne'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Ne'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Ne not found
+    delete:
+      tags:
+        - ne
+      summary: Deletes Ne
+      operationId: deleteNe
+      parameters:
+        - name: neId
+          in: path
+          description: Ne id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Ne not found
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+components:
+  schemas:
+#start my components
+    PortIdentifier:
+      required:
+        - cardNum
+      properties:
+        cardNum:
+          type: integer
+          format: int32
+          example: 3
+        entityType:
+          type: integer
+          # lOOK IN ObjectTypeEnum
+          format: int32
+        neId:
+          type: integer
+          format: int32
+        portIndex:
+          type: integer
+          format: int32
+        portName:
+          type: string
+          example: "ethernet 1"
+        portNum:
+          type: integer
+          format: int32
+        portType:
+          type: integer
+          format: int32
+          # look at ObjectTypeEnum.java
+        vendorId:
+          type: integer
+          format: int32
+          description: "RAD_VENDOR_ID(164), RAD_NETYPE_GENERIC_ID(1000), TRD_PARTY_NETYPE_GENERIC_ID(1001)"
+    PortIdentifiersList:
+      type: array
+      items:
+        $ref: "#/components/schemas/PortIdentifier"
+    PortSecurityConfiguration:
+      nullable: true
+      properties:
+          reAuthentication:
+            type: boolean
+            default: false
+          reAuthenticaionInterval:
+            type: integer
+            format: int32
+            default: 3600
+          quietPeriod:
+            type: integer
+            format: int32
+            default: 60
+          retransmissionTime:
+            type: integer
+            format: int32
+            default: 30
+          retransmissionAttempts:
+            type: integer
+            format: int32
+            default: 2
+          authenticaionAttempts:
+            type: integer
+            format: int32
+            default: 2
+    Port:
+      required:
+        - adminStatus
+      properties:
+        adminStatus: 
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+        classificationKeys:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/IntArray"
+        classifierKey:
+          type: integer
+          format: int32
+        defaultPortMode:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/PortModeEnum"
+        descr:
+          type: string
+          example: "mng port"
+        lagIndex:
+          type: integer
+          format: int32
+        macAddress:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/MacAddr"
+        name:
+          type: string
+          example: "mng port"
+        operStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+        portId:
+          $ref: "#/components/schemas/PortIdentifier"
+        portIndex:
+          type: integer
+          format: int32
+        portMode:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/PortModeEnum"
+        rvId:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+        securityConfiguration:
+          $ref: "#/components/schemas/PortSecurityConfiguration"
+        severity:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+        speed:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+    PortsMap:   # <------------- Dictionary (Map)
+      type: object
+      additionalProperties:
+        $ref: "#/components/schemas/Port"
+    ComputeNodeNetworkInfo:
+      nullable: true
+      required:
+        - controllerNetIpAddress
+        - computeNodeIp
+      properties:
+        availabilityZone:
+          type: string
+          example: "CustomerB-Branch2"
+        computeNodeIp:  # must be with mask
+          description: "Compoute Node IP with mask"
+          type: string
+          example: "159.36.23.11/24"
+        controllerId:
+          type: integer
+          format: int32
+        controllerNetIpAddress:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NetAddr"
+        gateWay:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NetAddr"
+        hostName:
+          type: string
+          example: "CustomerB-Branch2"
+        l2Mechanism:
+          type: boolean
+          default: false
+        nfvPassword:
+          type: string
+          example: password1234
+        nfvUser:
+          type: string
+          example: rad
+    HwResourceInfo:
+      nullable: true
+      properties:
+        disk:
+          type: integer
+          format: int32
+          description: "disk size in GB"
+          example: 104
+        ram:
+          type: integer
+          format: int32
+          description: "RAM (memory) size in MB"
+          example: 7971
+        usedDisk:
+          type: integer
+          format: int32
+          description: "Used disk size in GB"
+          example: 10
+        usedRam:
+          type: integer
+          format: int32
+          description: "Used RAM (memory) size in MB"
+          example: 512
+        usedVcpuNumber:
+          type: integer
+          format: int32
+          description: "Used CPUs number"
+          example: 1
+        vCpuNumber:
+          type: integer
+          format: int32
+          description: "CPUs number"
+          example: 2
+        x86BoardType:
+          type: string
+          description: "X86 physical board type"
+          example: "x86_64"
+    SwResourceInfo:
+      properties:
+        dnfvOsVer:
+          type: string
+          description: "Version of DNFV-OS of the compute node"
+          example: 2.0.0.10
+        osVer:
+          type: string
+          description: "Compute OpenStack version"
+          example: "Openstack - 14.1.0 (NEWTON)"
+        versionTypeId:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ControllerVersionEnum"
+        x86OsVer:
+          type: string
+          description: "Core version (UBUNTO version number)"
+          example: "Linux - Ubuntu 16.04.3 LTS"
+    ComputeNodeResourceInfo:
+      properties:
+        hwResourceInfo:
+          $ref: "#/components/schemas/HwResourceInfo"
+        swResourceInfo:
+          $ref: "#/components/schemas/SwResourceInfo"
+    PmCeilometerKpi:
+      properties:
+        avg:
+          type: number
+          format: double
+          example: 25.8965732087227
+        ceiling:
+          type: number
+          format: double
+          example: 100.0
+        errorMessage:
+          nullable: true
+          type: string
+        floor:
+          type: number
+          format: double
+          example: 0.0
+        id:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+        max:
+          type: number
+          format: double
+          example: 32.0
+        min:
+          type: number
+          format: double
+          example: 25.0
+        name:
+          type: string
+          example: "CPU Utilization (%)"
+        tcaAlarmId:
+          nullable : true
+          type: string
+        tcaAlarmName:
+          nullable : true
+          type: string
+          example: "ALARM_TCA_CPU Utilization (%)_51_1_1_145.59.170.134"
+        type:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VnfKpiType"
+        valid: 
+          type: boolean
+          default: true
+    PmCeilometerKpis:
+      description: "Array of PmCeilometerKpi info"
+      type: array
+      items:
+        $ref: "#/components/schemas/PmCeilometerKpi"
+    PmSchedule:
+      properties:
+        end:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+        interval:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VnfKpiInterval"
+        start:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+    Ceilometer:
+      properties:
+        kpiList:
+          $ref: "#/components/schemas/PmCeilometerKpis"
+        profileId:
+          type: integer
+          format: int32
+        schedule:
+          $ref: "#/components/schemas/PmSchedule"
+    PmVnf:
+      properties:
+        ceilometer:
+          $ref: "#/components/schemas/Ceilometer"
+    VMPort:
+      properties:
+        addr:
+          type: string
+        addrType:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VNFAddressType"
+        externalId:
+          type: string
+        _id:
+          type: integer
+          format: int32
+        macAddr:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/MacAddr"
+        name:
+          type: string
+        netId:
+          type: integer
+          format: int32
+        networkExternalId:
+          type: string
+        ownerEquipmentId:
+          type: string
+        status:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VNFPortStatus"
+        ver:
+          type: integer
+          format: int32
+    VMPorts:
+      type: array
+      items:
+        $ref: "#/components/schemas/VMPort"
+    ControllerData:
+      properties:
+        configState:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ConfigStateEnum"
+        controllerId:
+          type: integer
+          format: int32
+        inUse:
+          type: boolean
+          default: false
+        operState:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+        severity:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+        uuid:
+          type: string
+    ControllersDataMap:   # <------------- Dictionary (Map)
+      nullable: true
+      type: object
+      additionalProperties:
+        $ref: "#/components/schemas/ControllerData"
+    FileInf:
+      properties:
+        link:
+          type: string
+        name:
+          type: string
+        size:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+    FileInfs:
+      type: array
+      items:
+        $ref: "#/components/schemas/FileInf"
+    VnfAppParam:
+      properties:
+        #nullable: true
+        defaultVal:
+          type: string
+          example: "em0"
+        description:
+          type: string
+          example: "WAN interface name"
+        name:
+          type: string
+          example: "PORTS WAN"
+        value:
+          type: string
+          example: "em0"
+    VnfAppParams:
+      description: "Array of VnfAppParam"
+      nullable: true
+      type: array
+      items:
+        $ref: "#/components/schemas/VnfAppParam"
+    VnfAppData:
+      properties:
+        params:
+          $ref: "#/components/schemas/VnfAppParams"
+        scriptText:
+          type: string
+          default: ""
+          example: "#PORTS\t\t\n-wan em0\n-lan em1\n-opt1 em2\n#WAN-4\t\t\n-address\t 12.12.12.12\n-subnet\t\t24\n-gateway \t12.12.12.1\n#LAN-4\t\t\n-address\t10.10.10.10\n-subnet\t\t24 \n-gateway\t10.10.10.1\n#OPT1-4\t\t\n-address\t 5.5.5.5\n-subnet\t\t 24\n-gateway\t 5.5.5.1\n#WEBCONF\t\t\n-http"
+    VnfImageType:
+      properties:
+        #nullable: true
+        imageTypeId:
+          type: integer
+          format: int32
+        versionNumbers:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/StringArray"
+    VnfAppConfig:
+      nullable: true
+      properties:
+        configType:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VnfConfigType"
+        description:
+          type: string
+        files:
+          $ref: "#/components/schemas/FileInfs"
+        _id:
+          type: string
+        inUse:
+          type: boolean
+          default: false
+        name:
+          type: string
+          example: "PfSense-vFw"
+        vnfData:
+          $ref: "#/components/schemas/VnfAppData"
+        vnfImageType:
+          $ref: "#/components/schemas/VnfImageType"
+    VnfAppConfigImpl:
+      properties:
+        configured:
+          type: boolean
+          default: false
+        configuredAttempted:
+          type: boolean
+          default: false
+        vnfInitialConfig:
+          $ref: "#/components/schemas/VnfAppConfig"
+        vnfInitialConfigId:
+          type: integer
+          format: int32
+        vnfLicenseId:
+          type: integer
+          format: int32
+        vnfOptionalConfig:
+          $ref: "#/components/schemas/VnfAppConfig"
+        vnfOptionalConfigId:
+          type: integer
+          format: int32
+    VirtualMachine:
+      nullable: true
+      properties:
+        #accessUri: - Not needed according to Zah
+        adminState: 
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+        controllersData:
+          $ref: "#/components/schemas/ControllersDataMap"
+        description:
+          type: string
+          default: ""
+        flavorId:
+          type: integer
+          format: int32
+          default: 0
+        instStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VMInstanceStatus"
+        inUse:
+          type: boolean
+          default: false
+        name:
+          type: string
+          default: ""
+        osName:
+          type: string
+          default: ""
+        pI:
+          $ref: "#/components/schemas/PortIdentifier"
+        pm:
+          $ref: "#/components/schemas/PmVnf"
+        portId2port:
+          $ref: "#/components/schemas/VMPorts"
+        runState:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VMRunningPowerState"
+        taskState:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VMInstanceTaskStatus"
+        vmImageId:
+          type: integer
+          format: int32
+        vmIndex:
+          type: integer
+          format: int32
+        #VncConsole: - Not needed according to Zah
+        vnf:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VnfType"
+        vnfAppConfig:
+          $ref: "#/components/schemas/VnfAppConfigImpl"
+    VirtualMachinesMap:   # <------------- Dictionary (Map)
+      type: object
+      description: "VirtualMachine by vm number"
+      additionalProperties:
+        $ref: "#/components/schemas/VirtualMachine"
+    VMHostComputeServiceInfo:
+      properties:
+        binary:
+          type: string
+          default: "na"
+        disabledReason:
+          type: string
+          default: ""
+        state: # UP | DOWN | miss-confiured | UNKNOWN
+          description: "One of the following values:  UP | DOWN | miss-confiured | UNKNOWN"
+          type: string
+          example: "UP"
+        status:
+          description: "One of the following values: enabled, disabled, unknown"
+          type: string
+          example: "enabled"
+        updateTime:
+          type: string
+          default: na
+        zone:
+          type: string
+          default: na
+    ComputeCard:
+      required:
+        - cardNumber
+        - adminStatus
+      properties:
+        adminStatus: 
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+        cardNumber:
+          type: integer
+          format: int32
+        computeNodeConfigured:
+          type: boolean
+          default: true
+        computeNodeNetworkInfo:
+          $ref: "#/components/schemas/ComputeNodeNetworkInfo"
+        computeNodeResourceInfo:
+          $ref: "#/components/schemas/ComputeNodeResourceInfo"
+        configStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ConfigStateEnum"
+        hypervisorType:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/HypervisorType"
+        #info:   - Not needed according to Zah
+        #  $ref: "#/components/schemas/VMHostComputeServiceInfo"
+        name:
+          type: string
+          example: "Slot 1"
+        neId:
+          description: "The id given to the device by management system"
+          type: integer
+          format: int32
+          example: 3
+        operStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+        pm:
+          $ref: "#/components/schemas/PmVnf"
+        portNumber2Port:
+          $ref: "#/components/schemas/PortsMap"
+        rvId:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+        severity:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+        status:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+        # supportedPhysNetKeys - Not needed according to Zah
+        type:
+          type: integer
+          format: int32
+          default: 0
+        vmNumber2VM:
+          $ref: "#/components/schemas/VirtualMachinesMap"
+        _class_name:
+          type: string
+          example: "com.rad.model.vnf.ComputeNode"
+    RegCard:
+      required:
+        - cardNumber
+        - adminStatus
+      properties:
+        adminStatus: 
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+        cardNumber:
+          type: integer
+          format: int32
+        computeNodeConfigured:
+          type: boolean
+          default: false
+        computeNodeNetworkInfo:
+          $ref: "#/components/schemas/ComputeNodeNetworkInfo"
+        configStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ConfigStateEnum"
+        name:
+          type: string
+          example: "Slot 0"
+        neId:
+          type: integer
+          format: int32
+        operStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+        portNumber2Port:
+          $ref: "#/components/schemas/PortsMap"
+        rvId:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+        severity:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+        status:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+        type:
+          type: integer
+          format: int32
+          default: 0
+        _class_name:
+          type: string
+          example: "com.rad.model.network.Card"
+    #Card:
+      # type: object
+      #$ref: "#/components/schemas/ComputeCard"
+       #oneof:
+       # - $ref: "#/components/schemas/RegCard"
+       # - $ref: "#/components/schemas/ComputeCard"
+    #discriminator:
+    #  propertyName: _class_name
+    CardsMap:   # <------------- Dictionary (Map)
+      type: object
+      additionalProperties:
+        oneOf:
+          - $ref: "#/components/schemas/RegCard"
+          - $ref: "#/components/schemas/ComputeCard"
+    EnterpriseDataHolder:
+      nullable: true
+      properties:
+        enterpriseId:
+          type: integer
+          format: int32
+        isParentEnterprise:
+          type: boolean
+          default: false
+    Fan:
+      properties:
+        adminStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+        fanNumber:
+          type: integer
+          format: int32
+          example: 1
+        name:
+          type: string
+          default: ""
+          example: "Fan 1"
+        operStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+        rvId:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+        severity:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+        status:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+    FansMap:   # <------------- Dictionary (Map)
+      type: object
+      description: "Fan by fan number"
+      additionalProperties:
+        $ref: "#/components/schemas/Fan"
+    AIpMonController:
+      properties:
+        controllerDeviceIndex:
+          type: integer
+          format: int32
+          default: 0
+        controllerNextHopAddress:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NetAddr"
+        _id:
+          type: integer
+          format: int32
+          example: 286
+          default: 0
+        Ip:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NetAddr"
+        name:
+          type: string
+          example: CustomerC
+        neId:
+          type: integer
+          format: int32
+        portId:
+          $ref: "#/components/schemas/PortIdentifier"
+        rvId:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+        severity:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+        staticRoute:
+          type: string
+        type:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/TwampControllerTypeEnum"
+        vlanId:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VlanIdType"
+    AIpMonControllersMap:   # <------------- Dictionary (Map)
+      type: object
+      description: "IpMonController by controll Ip"
+      additionalProperties:
+        $ref: "#/components/schemas/AIpMonController"
+    NeLag:
+      properties:
+        adminKeyType:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminKeyTypeEnum"
+        adminStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+        bind2Ports:
+          $ref: "#/components/schemas/PortIdentifiersList"
+        classificationKeys:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/IntArray"
+        classifierKey:
+          type: integer
+          format: int32
+        defaultPortMode:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/PortModeEnum"
+        descr:
+          type: string
+          example: "LAG 1"
+        lagIndex:
+          type: integer
+          format: int32
+        macAddress:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/MacAddr"
+        name:
+          type: string
+          example: "LAG 1"
+        operStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ALagOperStateEnum"
+        portId:
+          $ref: "#/components/schemas/PortIdentifier"
+        portIndex:
+          type: integer
+          format: int32
+        portMode:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/PortModeEnum"
+        rvId:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+        securityConfiguration:
+          $ref: "#/components/schemas/PortSecurityConfiguration"
+        severity:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+        speed:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+        status:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ALagOperStateEnum"
+        sys_priority:
+          type: integer
+          minimum: 0
+          maximum: 65535
+        tx_activity:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/TxAcitivityEnum"
+        tx_speed:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/TxSpeedStrEnum"
+    NeLagsMap:   # <------------- Dictionary (Map)
+      type: object
+      description: "Lags map by its id in SW" 
+      additionalProperties:
+        $ref: "#/components/schemas/NeLag"
+    Location:
+      properties:
+        address:
+          type: string
+          nullable: true
+          example: "E.G South"
+        latitude:
+          type: number
+          nullable: true
+          format: float
+        longitude:
+          type: number
+          nullable: true
+          format: float
+    PS:
+      properties:
+        adminStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+        name:
+          type: string
+          description: "Name of this Power Supply"
+          example: "Power Supply 1"
+        operStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+        psNumber:
+          type: integer
+          format: int32
+          example: 1
+        rvId:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+        severity:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+        status:
+          type: integer
+          format: int32
+          # Ask Zah if it is with operStatus format
+    PSsMap:   # <------------- Dictionary (Map)
+      type: object
+      description: "PS's map by PS number" 
+      additionalProperties:
+        $ref: "#/components/schemas/PS"
+    RouterInterface:
+      required:
+        - adminStatus
+      properties:
+        adminStatus: 
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+        classificationKeys:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/IntArray"
+        classifierKey:
+          type: integer
+          format: int32
+        defaultPortMode:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/PortModeEnum"
+        descr:
+          type: string
+          example: "Router Interface Port"
+        lagIndex:
+          type: integer
+          format: int32
+        macAddress:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/MacAddr"
+        name:
+          type: string
+          example: "1/F 1.1"
+        netAddress:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NetAddr"
+        operStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+        portId:
+          $ref: "#/components/schemas/PortIdentifier"
+        portIndex:
+          type: integer
+          format: int32
+        portMode:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/PortModeEnum"
+        rvId:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+        securityConfiguration:
+          $ref: "#/components/schemas/PortSecurityConfiguration"
+        severity:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+        speed:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+    RouterInterfacesMap:   # <------------- Dictionary (Map)
+      type: object
+      description: "Router Interfaces map by Router Interface number" 
+      additionalProperties:
+        $ref: "#/components/schemas/RouterInterface"
+    Router:
+      properties:
+        adminStatus: 
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+        name:
+          type: string
+          description: "Router name"
+          example: "Router#1"
+        operStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+        routerInterfaceNumber2RouterInterface:
+          $ref: "#/components/schemas/RouterInterfacesMap"
+        routerNumber:
+          type: integer
+          format: int32
+          example: 1
+        rvId:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+        severity:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+    RoutersMap:   # <------------- Dictionary (Map)
+      type: object
+      description: "Routers map by Router number" 
+      additionalProperties:
+        $ref: "#/components/schemas/Router"
+    TaskCapabilitiesType:
+      properties:
+        capabilities:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/IntArray"
+        computeNodeSnmpSupportedVersion:
+          type: string
+          description: "Compute Node Snmp Supported version"
+          default: "6.5.0(0.11)"
+    
+    Ne:
+      properties:
+        _id: 
+          type: integer
+          format: int32
+          default: 0
+          example: 123
+        adminState:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+          #bridgeNumber2Bridge - Not needed according to Zah
+        cardNumber2Card:
+          $ref: "#/components/schemas/CardsMap"
+        # cliConnectivityStatus - Not needed according to Zah
+        cliPassword:
+          type: string
+          nullable: true
+          default: "1234"
+          example: "23ery"
+        cliProtocolType:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/CliProtocolTypeEnum"
+        cliUser:
+          type: string
+          example: su
+        commdate:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+        #confIndex:  - Not needed according to Zah (?)
+        #  type: integer
+        #  format: int32
+        contact:
+          type: string
+          description: "Name of contact person"
+          default: "Name of contact person"
+          example: "John k. Davis"
+        #context:  - Not needed according to Zah (?)
+        #  type: string
+        customerId:
+          type: integer
+          format: int32
+          description: "Interna; Customer Id"
+          default: 0
+          example: 33
+        descr:
+          type: string
+          description: "Description of the device with HW and SW versions"
+          example: "ETX-2v Hw: 1.0/a, Sw: 2.0.0(0.10)"
+          default: ""
+        enterpriseData:
+          $ref: "#/components/schemas/EnterpriseDataHolder"
+        fanNumber2Fan:
+          $ref: "#/components/schemas/FansMap"
+        # formatter - Not needed according to Zah
+        httpPort:
+          type: integer
+          minimum: 1
+          maximum: 65535
+          default: 80
+        httpsPort:
+          type: integer
+          minimum: 1
+          maximum: 65535
+          default: 443
+        hwVer:
+          description: "HW version of the device"
+          type: string
+          example: "1.0/a"
+        inProgress:
+          type: boolean
+          default: false
+        IP:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NetAddr"
+        ipMonControllerIp2Controller:
+          $ref: "#/components/schemas/AIpMonControllersMap"
+        IPNative:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NetAddr"
+        lagNumber2Lag:
+          $ref: "#/components/schemas/NeLagsMap"
+        licStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/LicStatusEnum"
+        location:
+          $ref: "#/components/schemas/Location"
+        name:
+          type: string
+          description: "Device name. It can be its IP address or any other name"
+          example: "23.23.23.23"
+        neTypeId:
+          type: integer
+          format: int32
+        notes:
+          type: string
+          default: ""
+          description: "Any notes one wants to keep concerning this device"
+        operStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+        parentSubnetId:
+          type: integer
+          format: int32
+          description: "Id of the subnet in which this device exists"
+        psNumber2PS:
+          $ref: "#/components/schemas/PSsMap"
+        readCommunity:
+          type: string
+          default: public
+        routerNumber2Router:
+          $ref: "#/components/schemas/RoutersMap"
+        # rvEnabled - Not needed according to Zah
+        rvid:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+        # sapIndexHolder2SapPort - Not needed according to Zah
+        # serial:  Not needed according to Zah
+        #  type: string
+        severity:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+        snmpConnectivityStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ConnectivityStateEnum"
+        snmpPollingInterval:
+          type: integer
+          format: int32
+          description: "SNMP polling interval in milliseconds"
+          default: 600
+        snmpRetries:
+          type: integer
+          format: int32
+          description: "Snmp retries number for this device"
+          default: 1
+        snmpTimeOut:
+          type: integer
+          format: int32
+          description: "Snmp timeout in milliseconds for this device"
+          default: 20000
+        snmpv3AuthPassword:
+          type: string
+          description: "Snmp V3 authentication password"
+          default: ""
+        snmpv3AuthProtocol:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SNMPV3Protocol"
+        snmpv3PrivacyPassword:
+          type: string
+          description: "SNMP V3 privacy password"
+          default: ""
+        snmpv3PrivacyProtocol:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SNMPV3PrivacyProtocol"
+        snmpv3SecurityLevel:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SNMPV3SecurityLevel"
+        snmpv3User:
+          type: string
+          description: "Snmp V3 user name"
+          default: initial
+        snmpVersion:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SNMPVersion"
+        softVer:
+          type: string
+          nullable: true
+          description: "Device Software version"
+          example: "2.1.0.16"
+        ssh:
+          type: boolean
+          description: "True if device supports SSH"
+          default: false
+        sshPort:
+          type: integer
+          minimum: 1
+          maximum: 65535
+          default: 22
+        # sviNumber2Svi - Not needed according to Zah
+        sysName:
+          type: string
+          example: "ETX-2v"
+        sysOid:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SysoidType"
+        taskCapabilities:
+          $ref: "#/components/schemas/TaskCapabilitiesType"
+        telnetPort:
+          type: integer
+          format: int32
+          default: 23
+        # telnetId - Not needed according to Zah
+        udpPort:
+          type: integer
+          format: int32
+          description: "UDP port. For SNMP requests it is 161"
+          default: 161
+        # vendor - Not needed according to Zah
+        vendorId:
+          type: integer
+          format: int32
+          description: "Vendor Id in MIB"
+          example: 164
+        violatedSlots:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/IntArray"
+        vnfCapable:
+          type: boolean
+          description: "True indicates that this device has VNF capabilities"
+          default: false
+        writeCommunity:
+          type: string
+          description: "Snmp V1 write community"
+          default: private
+  requestBodies:
+    Port:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Port'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Port'
+      description: Port Object
+      required: true
+    Ne:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Ne'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Ne'
+      description: Ne Object
+      required: true
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: >-
+          Login with user name and password
+    ApiKeyAuth:
+      # The type of authorization — apiKey, http, oauth2, or openIdConnect.
+      type: apiKey 
+      
+      # Description of your security method
+      description: >-
+        **Authentication key**. *Example: augtt$93eee2ddsad34jjk*. Every request
+        that your application sends to the RADview API, it needs to identify
+        your application. You can use an API key, or you can use an OAuth 2.0
+        client ID. You should use a client ID when you are making calls on
+        behalf of a given user.   
+        
+      #The name of the header value submitted in the request. Used only for apiKey type security
+      name: auth 
+      
+      # Options are query, header or cookie. Used only for apiKey type security.
+      in: header

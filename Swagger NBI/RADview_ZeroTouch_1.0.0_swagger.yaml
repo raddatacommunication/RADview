@@ -1,0 +1,937 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: RADview Zero Touch
+  description: RADview Zero Touch
+  contact:
+    name: RAD Data Communications Ltd.
+    url: 'http://www.rad.com/71-2379/support/'
+    email: support@rad.com
+    
+servers:
+  - url: 'http://localhost:8181/mng164/zt'
+  - url: 'http://localhost:8282/mng164/zt'
+  - url: '{protocol}://{host}:{port}/{environment}'
+    description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      host:
+        default: localhost
+        description: RADview server IP Address or host name.
+      port:
+        enum: 
+          - '8282'  # RADview Hub Server
+          - '8181'  # RADview FE Server 
+        default: '8282'
+        description: RADview server port number.
+      environment:
+        enum: 
+          - mng164  # RADview Hub Server 
+          - object  # RADview FE FE Server
+        default: mng164
+paths:
+  /targetedconfiguration:
+    post:
+      tags:
+        - Targeted Configuration
+      operationId: addTargetParameterType
+      summary: Create Targeted Configuration
+      description: Create Targeted Configuration
+      parameters:
+        - $ref: '#/components/parameters/username'
+        - $ref: '#/components/parameters/password'
+        - $ref: '#/components/parameters/tenant'
+      responses:
+        '200':
+          description: OK - Request was successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetParameterType'
+        '202':
+          description: >-
+            Accepted - The request has been accepted for processing, but the
+            processing has not been completed for asynchronous operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetParameterType'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '422':
+          description: Resource Issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetParameterType'
+        description: The Targeted Configuration to create
+        required: true
+    get:
+      tags:
+        - Targeted Configuration
+      operationId: getAllTargetParametersTypes
+      summary: Get all Target Parameters Types
+      description: Get all Target Parameters Types
+      parameters:
+        - $ref: '#/components/parameters/username'
+        - $ref: '#/components/parameters/password'
+        - $ref: '#/components/parameters/tenant'
+      responses:
+        '200':
+          description: All Target Parameters Types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetParameterType'
+        '202':
+          description: >-
+            Accepted - The request has been accepted for processing, but the
+            processing has not been completed for asynchronous operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetParameterType'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '422':
+          description: Resource Issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+  '/targetedconfiguration/{targetParameterTypeId}':
+    get:
+      tags:
+        - Targeted Configuration
+      operationId: getTargetParameterType
+      summary: 'Get a Targeted Configuration identified by {targetParameterTypeId}'
+      description: 'Returns a Targeted Configuration identified by {targetParameterTypeId}'
+      parameters:
+        - $ref: '#/components/parameters/username'
+        - $ref: '#/components/parameters/password'
+        - $ref: '#/components/parameters/tenant'
+        - name: targetParameterTypeId
+          in: path
+          required: true
+          description: The Targeted Configuration ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A Targeted Configuration with all its parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetParameterType'
+        '202':
+          description: >-
+            Accepted - The request has been accepted for processing, but the
+            processing has not been completed for asynchronous operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetParameterType'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '422':
+          description: Resource Issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+    put:
+      tags:
+        - Targeted Configuration
+      operationId: updateTargetParameterType
+      summary: >-
+        Modify an TargetParameterType identified by
+        {targetParameterTypeId} attribute(s) identified by {targetParameterTypeId}
+      description: >-
+        Update an existing TargetParameterType identified by {targetParameterTypeId}
+      parameters:
+        - $ref: '#/components/parameters/username'
+        - $ref: '#/components/parameters/password'
+        - $ref: '#/components/parameters/tenant'
+        - name: targetParameterTypeId
+          in: path
+          required: true
+          description: The Targeted Configuration ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK - Request was successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetParameterType'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '422':
+          description: Resource Issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TargetParameterType'
+        description: Targeted Configuration
+        required: true
+    delete:
+      tags:
+        - Targeted Configuration
+      operationId: removeTargetParameterType
+      summary: removeTargetParameterType
+      description: removeTargetParameterType
+      parameters:
+        - $ref: '#/components/parameters/username'
+        - $ref: '#/components/parameters/password'
+        - $ref: '#/components/parameters/tenant'
+        - name: targetParameterTypeId
+          in: path
+          required: true
+          description: Targeted Configuration ID
+          schema:
+            type: integer        
+      responses:
+        '200':
+          description: OK - Request was successful
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '422':
+          description: Resource Issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+  /massrule:
+    post:
+      tags:
+        - Mass-provisioning ZT rule
+      operationId: addMassZtRule
+      summary: Create mass-provisioning ZT rule
+      description: Create mass-provisioning ZT rule
+      parameters:
+        - $ref: '#/components/parameters/username'
+        - $ref: '#/components/parameters/password'
+        - $ref: '#/components/parameters/tenant'
+      responses:
+        '200':
+          description: OK - Request was successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZeroTouchMassRule'
+        '202':
+          description: >-
+            Accepted - The request has been accepted for processing, but the
+            processing has not been completed for asynchronous operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZeroTouchMassRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '422':
+          description: Resource Issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ZeroTouchMassRule'
+        description: The mass-provisioning ZT rule to create
+        required: true
+    get:
+      tags:
+        - Mass-provisioning ZT rule
+      operationId: getMassZtRule
+      summary: Get the mass-provisioning ZT rule
+      description: Returns the mass-provisioning ZT rule.
+      parameters:
+        - $ref: '#/components/parameters/username'
+        - $ref: '#/components/parameters/password'
+        - $ref: '#/components/parameters/tenant'
+      responses:
+        '200':
+          description: A mass-provisioning ZT rule with all its parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZeroTouchMassRule'
+        '202':
+          description: >-
+            Accepted - The request has been accepted for processing, but the
+            processing has not been completed for asynchronous operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZeroTouchMassRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '422':
+          description: Resource Issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+    put:
+      tags:
+        - Mass-provisioning ZT rule
+      operationId: updateMassZtRule
+      summary: >-
+        Modify an existing mass-provisioning ZT rule attribute(s) identified by
+        {ztRuleId}
+      description: >-
+        Update an existing mass-provisioning ZT rule attribute(s) identified by
+        {ztRuleId}
+      parameters:
+        - $ref: '#/components/parameters/username'
+        - $ref: '#/components/parameters/password'
+        - $ref: '#/components/parameters/tenant'
+        - name: ztRuleId
+          in: path
+          required: true
+          description: The ZT rule ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK - Request was successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZeroTouchMassRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '422':
+          description: Resource Issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ZeroTouchMassRule'
+        description: The mass-provisioning ZT rule
+        required: true
+    delete:
+      tags:
+        - Mass-provisioning ZT rule
+      operationId: removeMassZtRule
+      summary: Delete an existing mass-provisioning ZT rule and all its sub rules
+      description: Delete an existing mass-provisioning ZT rule and all its sub rules
+      parameters:
+        - $ref: '#/components/parameters/username'
+        - $ref: '#/components/parameters/password'
+        - $ref: '#/components/parameters/tenant'
+      responses:
+        '200':
+          description: OK - Request was successful
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '422':
+          description: Resource Issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+  /nerule:
+    post:
+      tags:
+        - NE-specific provisioning rule
+      operationId: addNeZtRule
+      summary: Create NE-specific ZT provisioning rule
+      description: Create NE-specific ZT provisioning rule
+      parameters:
+        - $ref: '#/components/parameters/username'
+        - $ref: '#/components/parameters/password'
+        - $ref: '#/components/parameters/tenant'
+      responses:
+        '200':
+          description: OK - Request was successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZeroTouchNeRule'
+        '202':
+          description: >-
+            Accepted - The request has been accepted for processing, but the
+            processing has not been completed for asynchronous operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZeroTouchNeRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '422':
+          description: Resource Issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ZeroTouchNeRule'
+        description: The NE-specific ZT provisioning rule to create
+    get:
+      tags:
+        - NE-specific provisioning rule
+      operationId: getAllNeZtRules
+      summary: Get all NE-specific ZT provisioning rules
+      description: Get all NE-specific ZT provisioning rules
+      parameters:
+        - $ref: '#/components/parameters/username'
+        - $ref: '#/components/parameters/password'
+        - $ref: '#/components/parameters/tenant'
+        - name: pageNumber
+          required: true
+          in: query
+          description: Page number
+          schema:
+            type: integer
+        - name: pageSize
+          required: true
+          in: query
+          description: Page size
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK - Request was successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ZeroTouchNeRule'
+        '202':
+          description: >-
+            Accepted - The request has been accepted for processing, but the
+            processing has not been completed for asynchronous operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZeroTouchNeRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '422':
+          description: Resource Issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+  '/nerule/{ztRuleId}':
+    get:
+      tags:
+        - NE-specific provisioning rule
+      operationId: getNeZtRule
+      summary: 'Get a NE-specific ZT provisioning rule identified by {ztRuleId}'
+      description: 'Returns a NE-specific ZT provisioning rule identified by {ztRuleId}'
+      parameters:
+        - $ref: '#/components/parameters/username'
+        - $ref: '#/components/parameters/password'
+        - $ref: '#/components/parameters/tenant'
+        - name: ztRuleId
+          in: path
+          required: true
+          description: The ZT rule ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A NE-specific ZT provisioning rule with all its parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZeroTouchNeRule'
+        '202':
+          description: >-
+            Accepted - The request has been accepted for processing, but the
+            processing has not been completed for asynchronous operations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZeroTouchNeRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '422':
+          description: Resource Issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+    put:
+      tags:
+        - NE-specific provisioning rule
+      operationId: updateNeZtRule
+      summary: >-
+        Modify an existing NE-specific ZT provisioning rule identified by
+        {ztRuleId} ZT rule attribute(s) identified by {ztRuleId}
+      description: >-
+        Update an existing NE-specific ZT provisioning rule attribute(s)
+        identified by {ztRuleId}
+      parameters:
+        - $ref: '#/components/parameters/username'
+        - $ref: '#/components/parameters/password'
+        - $ref: '#/components/parameters/tenant'
+        - name: ztRuleId
+          in: path
+          required: true
+          description: The ZT rule ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK - Request was successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZeroTouchNeRule'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '422':
+          description: Resource Issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ZeroTouchNeRule'
+        description: NE-specific ZT provisioning rule
+        required: true
+    delete:
+      tags:
+        - NE-specific provisioning rule
+      operationId: removeNeZtRule
+      summary: >-
+        Delete an existing NE-specific ZT provisioning rule identified by
+        {ztRuleId}
+      description: >-
+        Delete an existing NE-specific ZT provisioning rule identified by
+        {ztRuleId}
+      parameters:
+        - $ref: '#/components/parameters/username'
+        - $ref: '#/components/parameters/password'
+        - $ref: '#/components/parameters/tenant'
+        - name: ztRuleId
+          in: path
+          required: true
+          description: The ZT rule ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK - Request was successful
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '422':
+          description: Resource Issue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+components:
+  parameters:
+    username:
+      name: username
+      in: header
+      required: true
+      description: Authentication user name
+      schema:
+        type: string
+    password:
+      name: password
+      in: header
+      required: true
+      description: Authentication password
+      schema:
+        type: string
+    tenant:
+      name: tenant
+      in: header
+      required: true
+      description: Authentication tenant
+      schema:
+        type: string
+  schemas:
+    ZeroTouchMassRule:
+      required:
+        - ztRuleName
+        - ztRuleNerAppendHostname
+        - ztRuleNerAppendIp
+      properties:
+        ztRuleId:
+          type: integer
+          description: The ZT rule ID
+        ztRuleName:
+          type: string
+          description: The ZT rule name
+        ztRuleEnabled:
+          type: boolean
+          description: The ZT state
+          default: true
+        ztRuleDescr:
+          type: string
+          description: The ZT rule description
+        ztRuleSubnetArray:
+          type: array
+          items:
+            $ref: '#/components/schemas/subnet'
+        ztRuleNerSubdomain:
+          type: string
+        ztRuleNerNodeNamePrefix:
+          type: string
+        ztRuleNerNodeNameSuffix:
+          type: string
+        ztRuleNerAppendHostname:
+          type: boolean
+        ztRuleNerAppendIpAddress:
+          type: boolean
+        ztRuleNetworkScaning:
+          type: boolean
+          default: false
+        ztRuleInterval:
+          type: integer
+          default: 6
+        ztRuleSnmpPort:
+          type: integer
+          default: 161
+        ztRuleHttpPort:
+          type: integer
+          default: 80
+        ztRuleTelnetPort:
+          type: integer
+          default: 23
+        ztRuleSshPort:
+          type: integer
+          default: 22
+        ztScanThirdPartyDevices:
+          type: boolean
+          default: false
+        ztSnmpVersion:
+          type: integer
+          default: 3
+        ztSnmpTimeout:
+          type: integer
+          default: 800
+        ztSnmpRetries:
+          type: integer
+          default: 1
+        ztSnmpV1ReadCommunity:
+          type: string
+        ztSnmpV1WriteCommunity:
+          type: string
+        ztSnmpV3UserName:
+          type: string
+          default: initial
+        ztSnmpV3AuthenticationProtocol:
+          type: string
+          default: No Auth.
+        ztSnmpV3AuthenticationPassword:
+          type: string
+        ztSnmpV3PrivacyProtocol:
+          type: string
+          default: No Priv.
+        ztSnmpV3PrivacyPassword:
+          type: string
+        ztCliSshUserName:
+          type: string
+          default: su
+        ztCliSshPassword:
+          type: string
+          default: 1234
+    ZeroTouchNeRule:
+      required:
+        - ztRuleCustomer
+        - ztRulePhysicalLocation
+        - ztRuleBootstrappingMethod
+      properties:
+        ztRuleId:
+          type: integer
+        ztRuleEnabled:
+          type: boolean
+          description: The ZT state
+          default: true
+        ztRuleCustomer:
+          type: string
+          description: A pointer to a customer configured in RV database
+        ztRulePhysicalLocation:
+          type: string
+          description: The physical location expected for the particular deployed NE
+        ztRuleBootstrappingMethod:
+          type: string
+          description: >-
+            Determines whether a device-specific artifact shall be generated for
+            bootstrapping over public network
+          enum:
+            - Public
+            - VPN
+        ztRuleDeviceType:
+          type: string
+          description: 'The device type, related to a product family'
+        ztRuleCpeUid:
+          type: string
+          description: A unique identifier of the NE
+          pattern: '^([0-9A-Fa-f]{2}[:-]?){5}([0-9A-Fa-f]{2})$'
+        ztRuleNerSubdomain:
+          type: string
+          description: A pointer to a pre-defined subdomain in RV
+        ztRuleNerNodeNamePrefix:
+          type: string
+        ztRuleNerNodeNameSuffix:
+          type: string
+        ztRuleNerAppendHostname:
+          type: boolean
+        ztRuleNerAppendIpAddress:
+          type: boolean
+        ztRuleManagementIpAndPrefixLength:
+          type: string
+        ztRuleManagementDefaultGateway:
+          type: string
+        ztRuleNeSwImageName:
+          type: string
+          description: >-
+            A textual pointer to 'first time SW upload' Network Element SW image
+            stored in RV database
+        ztRuleVcpeosModuleSwImageName:
+          type: string
+          description: >-
+            A textual pointer to a Network Element vCPEOS-Module image stored in
+            RV database
+        ztRuleConfigurationTemplateName:
+          type: string
+          description: >-
+            A textual pointer to a configuration template file stored in RV
+            database
+        ztRuleCliScriptName:
+          type: string
+          description: A textual pointer to a predefined CLI script stored in RV database
+        ztRuleSnmpPort:
+          type: integer
+          default: 161
+        ztRuleHttpPort:
+          type: integer
+          default: 80
+        ztRuleTelnetPort:
+          type: integer
+          default: 23
+        ztRuleSshPort:
+          type: integer
+          default: 22
+        ztRuleComputeIpAddressAndPrefixLength:
+          type: string
+        ztRuleComputeDefaultGateway:
+          type: string
+        ztRuleComputeControllerIpAddress:
+          type: string
+        ztRuleComputeHostname:
+          type: string
+        ztRuleAvailabilityZone:
+          type: string
+        ztTargetParametersArray:
+          type: array
+          items:
+            $ref: '#/components/schemas/targetparametersvalues'
+    TargetParameterType:
+          required:
+            - targetParameterTypeName
+          properties:
+            targetParameterTypeName:
+              type: string
+              description: The Targeted Configuration name
+            targetParameterType:
+              type: string
+              description: The Targeted Configuration
+    subnet:
+      type: object
+      properties:
+        ip:
+          type: string
+          description: IP subnet criterion
+      required:
+        - ip
+    targetparametersvalues:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Target Parameter Name
+        value:
+          type: string
+          description: Target Parameter Value
+      required:
+        - id
+        - value    
+    Error_Response:
+      description: Error addition information
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        description:
+          type: string

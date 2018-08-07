@@ -1,0 +1,496 @@
+openapi: 3.0.0
+#############################################################################
+# In the servers object, you specify the basepath used in your API requests. 
+# The basepath is the part of the URL that appears before the endpoint.
+#############################################################################
+servers:
+  - url: '{protocol}://{host}:{port}/{environment}'
+    description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      host:
+        default: localhost
+        description: RADview server IP Address or host name.
+      port:
+        enum: 
+          - '8282'  # RADview Hub Server
+          - '8181'  # RADview FE Server 
+        default: '8282'
+        description: RADview server port number.
+      environment:
+        enum: 
+          - mng164/hub  # RADview Hub Server 
+          - object  # RADview FE FE Server
+        default: mng164/hub
+        
+info:
+  description: |
+    This is Areas NBI. You can find
+    out more about Swagger at
+    [http://swagger.io](http://swagger.io) or on
+    [irc.freenode.net, #swagger](http://swagger.io/irc/).
+  version: "1.0.0"
+  title: RADview Areas
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+#############################################################################
+# The security object specifies the security or authorization protocol 
+# used when submitting requests.
+############################################################################# 
+security:
+  - BasicAuth:  []
+  - ApiKeyAuth: []
+tags:
+  - name: Area
+    description: Everything about your Areas
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+#  - name: administration
+#    description: Access to Users actions
+  - name: role
+    description: Operations about roles
+#    externalDocs:
+#      description: Find out more about our roles
+#      url: 'http://swagger.io'
+paths:
+  /area:
+    #------------------------------------ #
+    #          Create an Area             #
+    #------------------------------------ #
+    post:
+      tags:
+        - Area
+      summary: Create a new area
+      operationId: createArea
+      description: creating new area
+      parameters:
+        - $ref: "#/components/parameters/auth"
+        - $ref: "#/components/parameters/circle"
+      requestBody:
+        $ref: '#/components/requestBodies/Area'
+      responses:
+        200:
+          $ref: '#/components/responses/AreaResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+          
+    #----------------------------------------------- #
+    #         Get all Areas by filter (query)  #
+    #----------------------------------------------- #
+    get:
+      summary: Get all areas
+      operationId: getAreas
+      description: Get all areas.
+      tags:
+        - Area
+      parameters:
+        - $ref: "#/components/parameters/auth"
+        - $ref: "#/components/parameters/circle"
+        - $ref: "#/components/parameters/query"
+      responses:
+        200:
+          description: All Areas returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Area'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+
+  '/area/{id}':
+    parameters:
+      - $ref: "#/components/parameters/auth"
+      - $ref: "#/components/parameters/id"
+    #--------------------------------------------- #
+    #       Update a specific Area (by ID)         #
+    #--------------------------------------------- #
+    patch:
+      tags:
+        - Area
+      summary: Update an existing area
+      operationId: updateArea
+      description: Update specific area
+      requestBody:
+        $ref: '#/components/requestBodies/Area'
+      responses:
+        200:
+          $ref: '#/components/responses/AreaResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+          
+    #----------------------------------------- #
+    #       Get a specific Area (by ID)   #
+    #----------------------------------------- #
+    get:
+      summary: Get area by id
+      operationId: getAreaById
+      description: Get specific area.
+      tags:
+        - Area
+      responses:
+        200:
+          description: Area returned successfully.
+          content:
+            application/json:    
+              schema:
+                $ref: '#/components/schemas/Area'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+
+    #------------------------------------------ #
+    #    Delete a specific Area (by ID)         #
+    #------------------------------------------ #
+    delete:
+      summary: Delete area by id
+      operationId: deleteAreaById
+      description: Delete specific area.
+      tags:
+        - Area
+      responses:
+        200:
+          description: Area deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                    example: 1
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+          
+ 
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+#--------------------------------------------------------------------------------------------------------
+components:
+  schemas:
+  #Start Areas objects
+    Location:
+      nullable: true
+      properties:
+        address:
+          type: string
+          default: ""
+          example: "2000 Headwater Lane, Austin, Texas"
+          description: "Address string"
+          nullable: true
+        latitude:
+          nullable: true
+          type: number
+          format: float
+          default: 0.0
+        longitude:
+          nullable: true
+          type: number
+          format: float
+          default: 0.0
+    Area:
+      properties:
+        id:
+          type: string
+          default: ""
+        countNe:
+          type: integer
+          format: int32
+          default: 0
+          description: "No. of NEs under this Area, in this Doamin Server"
+        countVnfInstance:
+          type: integer
+          format: int32
+          default: 0
+          description: "No. of VNF instances under this Area, in this Doamin Server"
+        countVnfService:
+          type: integer
+          format: int32
+          default: 0
+          description: "No. of VNF services under this Area, in this Doamin Server"
+        location:
+          $ref: "#/components/schemas/Location"
+        name:
+          type: string
+          description: "A unique name to the Area"
+          example: "East-Area"
+          default: ""
+        operStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+        parentSubnetId:
+          type: string
+          default: ""
+        rvId:
+          type: integer
+          format: int64
+          default: 0
+          description: "RADview internal id. This is RADview NER id"
+        severity:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+        
+  #---------------------------------------------#
+  # Parameters copied from Domain               #
+  #---------------------------------------------#
+  parameters:
+    auth:
+      name: auth
+      in: header
+      required: true
+      description: authentication 
+      allowEmptyValue: false
+      schema:
+        type: string
+      example: entlf31e7qlsmrhhq14s6h0h43
+    id:
+      name: id
+      in: path
+      required: true
+      description: Numeric ID of the Area.
+      schema:
+        type: string
+      example: 1
+    query:
+      name: query
+      in: query
+      required: false
+      description: Enable query on get response 
+      schema:
+        type: string
+      example: ?name=subD_1&rvId=1
+    circle:
+      name: circle
+      in: header
+      required: true
+      description: Circle containing the Area 
+      allowEmptyValue: false
+      schema:
+        type: string
+      example: NorthState
+  
+  #---------------------------------------------#
+  # Rresponses copied from Domain               #
+  #---------------------------------------------#
+  responses:
+    AreaResponse:
+      description: Operation on Area ended Successfully. 
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: false
+              successful:
+                type: boolean
+                readOnly: true
+                example: true
+              data:
+                type: string
+                readOnly: true
+                example: "{data as json}"
+
+    BadRequestErrorResponse:
+      description: Bad Request. There was some error for this request.  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 400
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Missing/invalid field name.
+                
+    UnauthorizedErrorResponse:
+      description: Unauthorized, Token is not valid or missing  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 401
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Unauthorized operation
+                
+    NotFoundErrorResponse:
+      description: Resource not found for operation  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 404
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Resource not found
+                
+    ServerResourceErrorResponse:
+      description: Server Resource operation error  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 500
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Resource operation error                
+                
+  
+    #------------------------------------ #
+    #       Request Bodies                #
+    #------------------------------------ #
+  requestBodies:
+
+    Area:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Area'
+#        application/xml:
+#          schema:
+#            $ref: '#/components/schemas/User'
+      description: Area Object to create/update
+      required: true
+
+    #------------------------------------ #
+    #       Security Schema (copied)      #
+    #------------------------------------ #
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: >-
+          Login with user name and password
+    ApiKeyAuth:
+      # The type of authorization — apiKey, http, oauth2, or openIdConnect.
+      type: apiKey 
+      
+      # Description of your security method
+      description: >-
+        **Authentication key**. *Example: augtt$93eee2ddsad34jjk*. Every request
+        that your application sends to the RADview API, it needs to identify
+        your application. You can use an API key, or you can use an OAuth 2.0
+        client ID. You should use a client ID when you are making calls on
+        behalf of a given user.   
+        
+      #The name of the header value submitted in the request. Used only for apiKey type security
+      name: auth 
+      
+      # Options are query, header or cookie. Used only for apiKey type security.
+      in: header

@@ -1,0 +1,1609 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'Tasks'
+  description: 'This API is for manage tasks in RADView for example adding new task, stop task or update and Etc.'
+#############################################################################
+# In the servers object, you specify the basepath used in your API requests. 
+# The basepath is the part of the URL that appears before the endpoint.
+#############################################################################
+servers:
+  - url: http://localhost:8282/mng164
+    description: RADview Internal FE Server
+    
+  - url: '{protocol}://{host}:{port}/{environment}'
+    description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      host:
+        default: localhost
+        description: RADview server IP Address or host name.
+      port:
+        enum: 
+          - '8282'  # RADview Hub Server
+          - '8181'  # RADview FE Server 
+        default: '8282'
+        description: RADview server port number.
+      environment:
+        enum: 
+          - mng164  # RADview Hub Server 
+          - object  # RADview FE FE Server
+        default: mng164
+
+paths:
+
+#######  TASKS   #########
+
+  /tasks/task:
+    parameters:
+    - $ref: "#/components/parameters/auth"
+    get:
+      summary: Get all tasks
+      operationId: getTask
+      description: Get all tasks.
+      tags:
+        - Task Methods
+      responses:
+        200:
+          description: All tasks returned successfully.
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Task'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          description: "authentication is required and has failed or has not yet been provided"
+        403:
+          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
+  
+    post:
+      summary: Add a new Task
+      operationId: addTask
+      description: adding new task to RADView.
+      tags:
+        - Task Methods
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        200:
+          $ref: '#/components/responses/IdResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          description: "authentication is required and has failed or has not yet been provided"
+        403:
+          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
+    patch:
+      summary: Update Task
+      operationId: updateTask
+      description: Update specific task.
+      tags:
+        - Task Methods
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        200:
+          $ref: '#/components/responses/IdResponse'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          description: "authentication is required and has failed or has not yet been provided"
+        403:
+          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
+                    
+                    
+  /tasks/task/{Id}:
+    parameters:
+      - $ref: "#/components/parameters/auth"
+      - $ref: "#/components/parameters/id"
+    get:
+      summary: Get task by id
+      operationId: getTaskById
+      description: Get specific task.
+      tags:
+        - Task Methods By Id
+      responses:
+        200:
+          description: task returned successfully.
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Task'
+
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          description: "authentication is required and has failed or has not yet been provided"
+        403:
+          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
+          
+    delete:
+      summary: Delete task by id
+      operationId: deleteTaskById
+      description: Delete specific task.
+      tags:
+        - Task Methods By Id
+      responses:
+        200:
+          description: task deleted successfully.
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          description: "authentication is required and has failed or has not yet been provided"
+        403:
+          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"            
+                    
+  /tasks/operation:
+    parameters:
+      - $ref: "#/components/parameters/auth"
+    post:
+      summary: Do an action on tasks
+      operationId: taskAction
+      description: Do an action on tasks. For example resume/stop/delete task by list of ids.
+      tags:
+        - Task Actions By Ids
+      requestBody:
+        $ref: '#/components/requestBodies/OperationRequest'
+      responses:
+        200:
+          description: task action created successfully.
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          description: "authentication is required and has failed or has not yet been provided"
+        403:
+          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
+          
+          
+#######  TASK REPORTS   #########
+
+  /tasks/report:
+    parameters:
+    - $ref: "#/components/parameters/auth"
+    get:
+      summary: Get all task reports
+      operationId: getTaskReport
+      description: Get all task report.
+      tags:
+        - Task Report Methods
+      responses:
+        200:
+          description: All task reports returned successfully.
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TaskReport'
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          description: "authentication is required and has failed or has not yet been provided"
+        403:
+          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
+    
+  /tasks/report/{Id}:
+    parameters:
+      - $ref: "#/components/parameters/auth"
+      - $ref: "#/components/parameters/id"
+    get:
+      summary: Get task report by id
+      operationId: getTaskReportById
+      description: Get specific task report.
+      tags:
+        - Task Report Methods By Id
+      responses:
+        200:
+          description: task report returned successfully.
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TaskReport'
+
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          description: "authentication is required and has failed or has not yet been provided"
+        403:
+          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
+    
+    delete:
+      summary: Delete task report by id
+      operationId: deleteTaskReportById
+      description: Delete specific task report.
+      tags:
+        - Task Report Methods By Id
+      responses:
+        200:
+          description: task report deleted successfully.
+        400:
+          $ref: '#/components/responses/ErrorResponse'
+        401:
+          description: "authentication is required and has failed or has not yet been provided"
+        403:
+          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"  
+    
+    
+components:
+  schemas:
+    Task:
+      description: Model containing task info.
+      type: object
+      properties:
+        id:
+          description: The id of this task.
+          type: integer
+          format: int32
+          readOnly: true
+          example: 1
+        taskAttr:
+          $ref: "#/components/schemas/TaskAttributes"
+        taskObjects:
+          $ref: "#/components/schemas/TaskObjects"
+        taskParams:
+          $ref: '#/components/schemas/TaskParameters'
+        schedule:
+          $ref: "#/components/schemas/TaskSchedule" 
+      example:
+        - taskAttr:
+            taskAction: 56
+            taskName: UploadAuxilaryFile
+          taskParams:
+            fileNameWithinNe: 22
+          taskObjects:
+            objects:
+              '3':
+                - '203'
+        - taskAttr:
+            taskName: DownloadAuxilaryFile
+            taskAction: 52
+          taskParams:
+            fileNameWithinNe: 22
+            auxiliaryFileParameters:
+              fileType: db-schema
+          taskObjects:
+            objects:
+              '3':
+              - '204'
+        - taskAttr:
+            taskAction: 1
+            taskName: DownloadConfiguration
+          taskParams:
+            fileNameWithinNe: 3
+          taskObjects:
+            objects:
+              '3':
+                - '200'
+                - '204'
+        - taskAttr:
+            taskAction: 33
+            taskName: DownloadLog
+          taskObjects:
+            objects:
+              '3':
+                - '201'
+        - taskAttr:
+            taskAction: 2
+            taskName: DownloadSoftware
+          taskParams:
+            swFileType: 1
+          taskObjects:
+            objects:
+              '3':
+                - '201'
+        - taskAttr:
+            taskAction: 20
+            taskName: ExecuteCliScript
+          taskParams:
+            script:
+              - ''
+              - "\t\t\tsave"
+          taskObjects:
+            objects:
+              '3':
+                - '202'
+        - taskAttr:
+            taskAction: 30
+            taskName: InstallSoftware
+          taskParams:
+            swFileType: 1
+            archiveFileId: 8
+          taskObjects:
+            objects:
+              '3':
+                - '197'
+        - taskAttr:
+            taskAction: 22
+            taskName: Reboot
+          taskObjects:
+            objects:
+              '3':
+                - '201'
+        - taskAttr:
+            taskAction: 34
+            taskName: SaveConfiguration
+          taskObjects:
+            objects:
+              '3':
+                - '202'
+        - taskAttr:
+            taskAction: 11
+            taskName: UploadConfiguration
+          taskParams:
+            fileNameWithinNe: 3
+            activateConfiguration: false
+            localFile: false
+            archiveMultiFilesType: 3
+            archiveFileId: 147
+          taskObjects:
+            objects:
+              '3':
+                - '204'
+        - taskAttr:
+            taskAction: 54
+            taskName: UploadLicense
+          taskObjects:
+            objects:
+              '3':
+                - '200'
+          taskParams:
+            files:
+              - name: shahar script.txt
+                link: /uploads/8a5a155d95b3ea2c67bd6132474b9ef7.txt
+                size: 2
+            fileAdded: 1
+        - taskAttr:
+            taskAction: 12
+            taskName: UploadSoftware
+          taskParams:
+            swFileType: 1
+            fileNameWithinNe: 1001
+            rebootAfterOperation: false
+            archiveFileId: 7
+          taskObjects:
+            objects:
+              '3':
+                - '200'
+        - taskAttr:
+            taskAction: 60
+            taskName: ComputeNodeBackup
+          taskObjects:
+            objects:
+              '4':
+                - '202_1'
+        - taskAttr:
+            taskAction: 1005
+            taskName: ComputeNodeReboot
+          taskObjects:
+            objects:
+              '3':
+                - '204_1'
+              '4':
+                - '204_1'
+        - taskAttr:
+            taskAction: 61
+            taskName: ComputeNodeRestore
+          taskParams:
+            archiveFileId: null
+            fileIndex: null
+          taskObjects:
+            objects:
+              '4':
+                - '201_1'
+        - taskAttr:
+            taskAction: 70
+            taskName: PacketCapture
+          taskParams:
+            packetCaptureParameters:
+              configurationParameters:
+                packetTruncation: false
+                overrideCurrentSessions: false
+                timestampSource: 1
+                portToCapture:
+                  - 2
+              endSessionCriteriaList:
+                - criteriaType: 4
+                  criteriaNumber: 10485760
+              filteringRuleList: []
+          taskObjects:
+            objects:
+              '4':
+                - '201_1'
+        - taskAttr:
+            taskName: ScanForNetworkElement
+            taskAction: 1000
+          taskParams:
+            networkDiscoveryParams:
+              addOnlyRadDevices: '1'
+              timeOut: 2
+              startIp: 172.17.231.30
+              endIp: 172.17.231.30
+              CIDR: ''
+              ne:
+                name: ''
+                customerId: 1
+                operStatus: 1
+                parentSubnetId: 1
+                IP: 0.0.0.0
+                readCommunity: public
+                writeCommunity: private
+                snmpv3User: initial
+                snmpv3SecurityLevel: 1
+                snmpv3AuthProtocol: 1
+                snmpv3PrivacyProtocol: 0
+                cliUser: su
+                cliPassword: '1234'
+                cliProtocolType: 2
+                snmpVersion: 3
+              objectType: 0
+              logAll: false
+        - taskAttr:
+            taskAction: 1004
+            taskName: ScanForServices
+          taskParams:
+            serviceDiscoveryParams:
+              name: ''
+              neIds:
+                - 197
+              subnetIds:
+                - 15
+              portsIds:
+                - _class_name: com.rad.model.network.PortIdentifier
+                  neId: 204
+                  vendorId: 164
+                  portNum: 4
+                  cardNum: 0
+                  portIndex: -1
+                  portName: ethernet 0/4
+                  entityType: 3
+                  portType: 3
+                - _class_name: com.rad.model.network.PortIdentifier
+                  neId: 204
+                  vendorId: 164
+                  portNum: 175
+                  cardNum: 1
+                  portIndex: -1
+                  portName: I/F 1.2
+                  entityType: 3
+                  portType: 37
+                - _class_name: com.rad.model.network.PortIdentifier
+                  neId: 204
+                  vendorId: 164
+                  portNum: 4
+                  cardNum: 0
+                  portIndex: -1
+                  portName: ethernet 0/4
+                  entityType: 3
+                  portType: 3
+              serviceType: 0
+              discoveryType: 0
+              discoverySourceType: 0
+              ports:
+                - '204_0_4'
+        - taskAttr:
+            taskAction: 5
+            taskName: CollectStatistics
+          taskParams:
+            statisticsParams:
+              daysToSaveStatisticsData: 90
+              statisticsCollectionMode: []
+          schedule:
+            frequency: 3
+            start: 1533197357446
+            endType: 0
+            reoccur: 900
+          taskObjects:
+            objects:
+              '3':
+                - '202'
+        - taskAttr:
+            taskAction: 50
+            taskName: GenerateStatisticsReport
+          taskParams:
+            statisticsReportParams:
+              reportType: 3
+              periodVal: 1
+              reportFormatIndex: 1
+              numberOfMonthsToKeep: -1
+              distributionType: 1
+          taskObjects:
+            objects:
+              '3':
+                - '201'
+        - taskAttr:
+            taskAction: 1001
+            taskName: NmsBackup
+          schedule:
+            frequency: 4
+            start: 1533197458069
+            endType: 1
+            reoccur: 3
+            endAfter: 17
+            
+          
+
+
+    TaskAttributes:
+      description: This object is mandatory in case this task is not part of this actions - Backup DB/Network Discovery/Service Discovery/IPMON. 
+      type: object
+      properties:
+        taskId:
+          description: Id of this task
+          type: integer
+          format: int64
+          example: 1
+        taskName:
+          description: Name of this task
+          type: string
+          example: 'Download Auxiliary File - 1.1.1.1'
+        taskAction:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/TaskActionsEnum"
+        description:
+          type: string
+          example: Download Auxiliary File from NE - 1.1.1.1
+        creator:
+          description: Name of the person who has created the task.
+          type: string
+          example: 'Bob Jondan'
+        creationTime:
+          description: Timestamp that the task has been created.
+          type: integer
+          format: int64
+          example: 1506349188575
+        lastUpdateBy:
+          description: User name of the user who has last updated the task.
+          type: string
+          example: 'Bob Jondan'
+        lastUpdateTime:
+          description: Timestamp that the task has been last changed.
+          type: integer
+          format: int64
+          example: 1506349188575
+        lastOperationBy:
+          description: User name of the user who has last updated the task state or status.
+          type: string
+          example: 'Israel Israeli'
+        lastOperationTime:
+          description: Timestamp that the task state or status has been last changed.
+          type: integer
+          format: int64
+          example: 1506349188575
+        taskActivation:
+          description: The activation of the task - Active or Not Active.
+          type: boolean 
+          example: false
+        taskState:
+          $ref: "#/components/schemas/TaskStatusEnum"
+        progression:
+          description: In case the state of the task is Running - the progreesion of the execution in %.  
+          type: integer
+          format: int32
+          example: 0
+        scheduling:
+          description: String for the task scheduling(in rv).
+          readOnly: true
+          type: string
+          example: 'Immediate'
+        nextScheduling:
+          description: The date and time the task is scheduled to run next time.
+          readOnly: true
+          type: integer
+          format: int64
+          example: 1521372058179
+        historyTask:
+          description: Indicates if task was moved to history list.
+          readOnly: true
+          type: boolean 
+          example: false
+        owner:
+          description: The owner of this task.
+          readOnly: true
+          type: string
+          example: 'Israel'
+        firstRunTime:
+          readOnly: true
+          type: integer
+          format: int64
+          example: 1506440772889
+        lastRunTime:
+          readOnly: true
+          type: integer
+          format: int64
+          example: 1506440772889
+        lastReportStatus:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ReportStatusEnum"
+        executionsNum:
+          readOnly: true
+          type: integer
+          format: int32
+          example: 1
+        fromUpgrade:
+          readOnly: true
+          type: boolean
+          example: true
+  
+    TaskObjects:
+      description: This object is mandatory in case this task is not part of this actions - Backup DB/LLDP/Network Discovery/Service Discovery/IPMON. 
+      type: object
+      properties:
+        neSelectionMethod:
+          $ref: "#/components/schemas/NesSesetionMethodEnum"
+        objects:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        groupId:
+          description: Applicable when ne_selection_method is SELECT_GROUP or BY_CRITERIA.  
+          type: integer
+          format: int64
+          example: 0
+        filterId:
+          type: integer
+          format: int64
+          example: 0
+  
+    TaskParameters:
+      type: object
+      properties:
+        rebootAfterOperation:
+          type: boolean 
+          example: false
+        activateConfiguration:
+          type: boolean 
+          example: false
+        localFile:
+          type: boolean 
+          example: false
+        fileNameWithinNe:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/FileTypeEnum"
+        archiveFileId:
+          type: integer
+          format: int64
+          example: 0
+        archiveMultiFilesType:
+          $ref: "#/components/schemas/FileLoadingTypeEnum"
+        archiveMultiFilesDate:
+          type: integer
+          format: int64
+          example: 0
+        files:
+          type: array
+          items:
+            $ref: "https://api.swaggerhub.com/domains/RADview/CommonModels/1.0.0#/definitions/FileInfo"
+        reportFormat:
+          type: boolean 
+          example: false
+        reportOnFailure:
+          type: boolean 
+          example: false
+        mailingList:
+          description: list of mails.
+          type: array
+          items:
+            type: string
+          example: ["abc@gmail.com","efg@gmail.com"]
+        maxNumOfConcurrentNeTasksForJob:
+          type: integer
+          format: int32
+          example: 0
+        logTasksMode:
+          $ref: "#/components/schemas/LogModeEnum"
+        script:
+          description: list of scripts.
+          type: array
+          items:
+            type: string
+        internalTask:
+          readOnly: true
+          type: boolean 
+          example: false
+        rebootMode:
+          $ref: "#/components/schemas/RebootModeEnum"
+        swFileType:
+          $ref: "#/components/schemas/SwFileTypeEnum"
+        statisticsParams:
+          $ref: "#/components/schemas/StatisticsParameters"
+        statisticsReportParams:
+          $ref: "#/components/schemas/StatisticsReportParameters"
+        networkDiscoveryParams:
+          $ref: "#/components/schemas/NetworkDiscoveryParameters"
+        serviceDiscoveryParams:
+          $ref: "#/components/schemas/ServiceDiscoveryParameters"
+        lldpParams:
+          $ref: "#/components/schemas/LldpParameters"
+        auxiliaryFileParameters:
+          $ref: "#/components/schemas/AuxiliaryFileParameters"
+        packetCaptureParameters:
+          $ref: "#/components/schemas/PacketCaptureParameters"
+  
+  
+    StatisticsParameters:
+      description: Model containing statistics parameters. Parameter applicable only when action is download statistics
+      type: object
+      properties:
+        daysToSaveStatisticsData:
+          type: integer
+          format: int32
+          example: 0
+        statisticsCollectionMode:
+          type: array
+          items:
+            type: integer
+            format: int32
+          example: [1,2]
+    StatisticsReportParameters:
+      description: Model containing statistics Report parameters. Parameter applicable only when action is statistics report
+      type: object
+      properties:
+        reportType:
+          $ref: "#/components/schemas/StatisticsReportTypeEnum"
+        periodVal:
+          description: Report Period, is used for specific day\month
+          type: integer
+          format: int64
+          example: 0
+        reportFormatIndex:
+          $ref: "#/components/schemas/ReportFormatEnum"
+        distributionType:
+          $ref: "#/components/schemas/ReportDistributionEnum"
+        distributionLevel:
+          type: integer
+          format: int32
+          example: -1
+        numberOfMonthsToKeep:
+          type: integer
+          format: int32
+          example: -1
+    NetworkDiscoveryParameters:
+      description: Model containing network discovery parameters.
+      type: object
+      properties:
+        startIp:
+          type: string
+          example: '1.1.1.0'
+        endIp:
+          type: string
+          example: '1.1.2.0'
+        CIDR:
+          type: string
+          example: 'CIDR'
+        addOnlyRadDevices:
+          description: 0 - false | 1 - true
+          type: integer
+          format: int32
+          example: 0
+        timeOut:
+          type: integer
+          format: int32
+          example: 4
+        ne:
+          $ref: "https://api.swaggerhub.com/apis/RADview/NEs/1.0.0#/components/schemas/Ne"
+    ServiceDiscoveryParameters:
+      description: Model containing service discovery parameters.
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'name'
+        single:
+          type: boolean
+          example: false
+        subnetIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          example: [1,2]
+        neIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+          example: [1,2]
+        portsIds:
+          type: array
+          items:
+            $ref: 'https://api.swaggerhub.com/domains/RADview/CommonModels/1.0.0#/definitions/PortIdentifier'
+        serviceType:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ServiceTypeEnum"
+        discoveryType:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ServiceDiscoveryTypeEnum"
+        discoverySourceType:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ServiceDiscoveryTypeEnum"
+    LldpParameters:
+      description: Model containing lldp parameters.
+      type: object
+      properties:
+        types:
+          description: //26=NE, 11=NOC/SUBDOMAIN
+          type: array
+          items:
+            type: integer
+            format: int32
+          example: [1,2]
+        ids:
+          type: array
+          items:
+            type: integer
+            format: int32
+          example: [1,2]
+        name:
+          type: string
+          example: 'name'
+    AuxiliaryFileParameters:
+      description: Model containing auxiliary file parameters.
+      type: object
+      properties:
+        fileType:
+          type: string
+          example: 'fileType'
+        configurationTemplateId:
+          type: integer
+          format: int32
+          example: 1
+        installConfigurationNeeded:
+          type: boolean
+          example: false
+    PacketCaptureParameters:
+      description: Model containing packetCapture parameters.
+      type: object
+      properties:
+        configurationParameters:
+          $ref: "#/components/schemas/PacketCaptureConfigurationParameters"
+        filteringRuleList:
+          description: Filtering Rules
+          type: array
+          items:
+             $ref: "#/components/schemas/PacketCaptureFilteringRule"
+        endSessionCriteriaList:
+          description: End Session Criteria
+          type: array
+          items:
+             $ref: "#/components/schemas/PacketCaptureEndSessionCriteria"
+    PacketCaptureConfigurationParameters:
+      description: Model containing packetCapture configuration parameters.
+      type: object
+      properties:
+        timestampSource:
+          $ref: "#/components/schemas/PacketCaptureTimestampSourceEmun"
+        portToCapture:
+          description: The ports to Capture - ETHERNET_1_SFP, ETHERNET_2_MSA
+          type: array
+          items:
+            type: integer
+            format: int32
+          example: [1,2]
+        packetTruncation:
+          type: boolean
+          example: false
+        packetTruncationSize:
+          type: integer
+          format: int32
+        overrideCurrentSessions:
+          type: boolean
+          example: false
+    PacketCaptureFilteringRule:
+      description: Model containing packetCapture filter rule parameters.
+      type: object
+      properties:
+        sourceIPAddress:
+          type: string
+          example: '1.1.1.1'
+        sourceSubnetMask:
+          type: string
+          example: '1.1.1.1'
+        destinationIPAddress:
+          type: string
+          example: '1.1.1.1'
+        destinationSubnetMask:
+          type: string
+          example: '/24'
+        protocol:
+          description: User can enter the protocol number in a decimal form or by using a IANA keyword
+          type: string
+          example: '8181'
+        sourcePort:
+          minimum: 0
+          maximum: 65535
+          type: integer
+          format: int32
+          example: 200
+        destinationPort:
+          minimum: 0
+          maximum: 65535
+          type: integer
+          format: int32
+          example: 400
+    PacketCaptureEndSessionCriteria:
+      description: Model containing packetCapture end session criteria parameters.
+      type: object
+      properties:
+        criteriaType:
+          $ref: "#/components/schemas/PacketCaptureEndSessionCriteriaTypeEnum"
+        criteriaNumber:
+          description: for BY_FILE_SIZE it is number of MB, for BY_NUMBER_OF_PACKETS it is number of packets, for BY_TIME_PERIOD it is number of seconds in BE, and in FE it is number of minutes
+          type: integer
+          format: int64
+          example: 0
+    TaskSchedule:
+      description: Model containing task schedule parameters.
+      type: object
+      properties:
+        frequency:
+          $ref: "#/components/schemas/TaskSchedulingEnum"
+        taskRecurrencePattern:
+          $ref: "#/components/schemas/TaskRecurrencePatternEnum"
+        start:
+          description: Start task time
+          type: integer
+          format: int64
+          example: 1521372058179
+        endType:
+          $ref: "#/components/schemas/TimeEndEnum"
+        endAfter:
+          type: integer
+          format: int32
+          example: 0
+        end:
+          description: Relevant when endType is END_DATE 
+          type: integer
+          format: int64
+          example: 0
+        reoccur:
+          description: Recur every X seconds / X minutes / X Hours / X Days / X Weeks / X Months
+          type: integer
+          format: int32
+          example: 0
+        daysInWeek:
+          description: Relevant if frequency is WEEKLY(5)
+          type: array
+          items:
+            type: integer
+            format: int32
+          example: [1,2]
+        daysInMonth:
+          description: Relevant if frequency is MONTHLY(6)
+          type: array
+          items:
+            type: integer
+            format: int32
+          example: [1,2]
+          
+          
+    TaskReport:
+      description: Model containing task report info.
+      type: object
+      readOnly: true
+      properties:
+        id:
+          description: The id of this report.
+          type: integer
+          format: int32
+          example: 1
+        taskId:
+          description: The task id for this report.
+          type: integer
+          format: int32
+          example: 1
+        reportRvId:
+          type: integer
+          format: int64
+          example: 1
+        taskName:
+          description: The name of the task
+          type: string
+          example: "GenerateStatisticsReport"
+        status:
+          $ref: "#/components/schemas/ReportStatusEnum"
+        startTime:
+          type: integer
+          format: int64
+          example: 1506349188575
+        endTime:
+          type: integer
+          format: int64
+          example: 1506349188575
+        totalNumberOfNes:
+          type: integer
+          format: int32
+          example: 5
+        succeedNesNum:
+          type: integer
+          format: int32
+          example: 5
+        failedNesNum:
+          type: integer
+          format: int32
+          example: 5
+        taskDuration:
+          description: The name of the task
+          type: string
+          example: " 00:00:05"
+        message:
+          description: The name of the task
+          type: string
+          example: "Tue Sep 19 16:58:14 IDT 2017: LLDP scan finished"
+        reportNeDetailsList:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReportNeDetails"
+        reportFileDetailsList:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReportFileDetails"
+          
+          
+    ReportNeDetails:
+      type: object
+      readOnly: true
+      properties:
+        neId:
+          type: integer
+          format: int32
+          example: 5
+        cardId:
+          type: integer
+          format: int32
+          example: 2
+        neName:
+          description: The name of the network element
+          type: string
+          example: "172.17.233.45"
+        neIp:
+          type: string
+          example: "172.17.233.45"
+        neExecutionStart:
+          type: integer
+          format: int64
+          example: 1506349188575
+        neExecutionEnd:
+          type: integer
+          format: int64
+          example: 1506349188575
+        neStatus:
+          description: "When task is running it using ReportNeStatusEnum, when not running ReportStatusEnum"
+          oneOf:
+            - $ref: "#/components/schemas/ReportStatusEnum"
+            - $ref: "#/components/schemas/ReportNeStatusEnum"
+        neError:
+          type: string
+          example: "Failed"
+        neErrorDetails:
+          type: string
+          example: "Failed"
+        neFileId:  
+          type: integer
+          format: int64
+          example: 0
+        logFileId:  
+          type: integer
+          format: int64
+          example: 0
+        advancement:
+          description: "Used when task is on running"
+          type: string
+          example: "advancement"
+        packetCaptureDetails:
+          $ref: "#/components/schemas/ReportNeDetailsPacketCapture"
+          
+          
+    ReportNeDetailsPacketCapture: 
+      type: object
+      readOnly: true
+      properties:
+        transmittedPackets:
+          type: integer
+          format: int32
+          example: 7
+        writtenPackets:
+          type: integer
+          format: int32
+          example: 5
+          
+    ReportFileDetails:
+      type: object
+      readOnly: true
+      properties:
+        reportStatus:
+          type: integer
+          format: int32
+          example: 1
+        reportName:
+          type: string
+          example: "Advancement log"
+        fileName:
+          type: string
+          example: "Advancement log"
+        fileType:
+          type: integer
+          format: int32
+          example: 0
+        fileId:
+          type: integer
+          format: int64
+          example: -1
+        logFileId:
+          type: integer
+          format: int64
+          example: 1
+        log:
+          type: string
+          example: 'going to execute command: cmd /c "C:\RV32\FE\backup\BackupRunner.bat'
+          
+          
+          
+  ###########  ENUMS  ####################################
+  
+    SwFileTypeEnum:
+      description: Enum containing the software file types.
+      type: integer
+      format: int32
+      enum:
+        - value: 1
+          name: NE
+        - value: 2
+          name: VCPEOS_MODULE
+        - value: 255
+          name: UNKNOWN
+      example: 1
+      
+    RebootModeEnum:
+      description: Enum containing the reboot modes.
+      type: integer
+      format: int32
+      enum:
+        - value: 2
+          name: NE
+        - value: 4
+          name: VCPEOS_MODULE
+        - value: 255
+          name: UNKNOWN
+      example: 2
+      
+    LogModeEnum:
+      description: Enum containing the log modes.
+      type: integer
+      format: int32
+      enum:
+        - value: 0
+          name: NONE
+        - value: 1
+          name: WHEN_ERRORS
+        - value: 2
+          name: ALL
+      example: 2
+      
+    FileLoadingTypeEnum:
+      description: Enum containing all the file loading types
+      type: integer
+      format: int32
+      enum:
+        - value: 1
+          name: LAST_RUNNING
+        - value: 2
+          name: LAST_STARTUP
+        - value: 3
+          name: BASELINE
+        - value: 4
+          name: BY_DATE
+        - value: 5
+          name: LAST_LICENSE
+        - value: 255
+          name: UNKNOWN
+      example: 1
+      
+    TaskStatusEnum:
+      description: Enum containing all the task statuses.
+      type: integer
+      format: int32
+      enum:
+        - value: 0
+          name: SUSPENDED
+          description: BE INACTIVE
+        - value: 1
+          name: RUNNING
+        - value: 2
+          name: ABORTING
+          description: STOPPING
+        - value: 3
+          name: ABORTED
+          description: STOPPED
+        - value: 4
+          name: COMPLETED
+        - value: 5
+          name: SCHEDULED
+        - value: 6
+          name: EXPIRED
+        - value: 7
+          name: ARCHIVED
+          description: CANCELLED
+        - value: 8
+          name: WAITING
+          description: UNKNOWN STATUS
+        - value: 9
+          name: PENDING_STOP
+          description: Aborted
+        - value: 10
+          name: CANT_STOP
+        - value: 11
+          name: WARNING
+        - value: 12
+          name: FAILURE
+        - value: 13
+          name: TASK_CRASH
+        - value: 14
+          name: HISTORY
+        - value: 15
+          name: BACKGROUND_RUNNING
+        - value: 255
+          name: UNKNOWN
+      example: 1
+      
+    StatisticsReportTypeEnum:
+      description: Enum containing all the statistics report types.
+      type: integer
+      format: int32
+      enum:
+        - value: 1
+          name: ETH_OAM
+        - value: 3
+          name: ETH_SERVICE
+        - value: 4
+          name: DAILY_RAW_DATA_A
+        - value: 5
+          name: DAILY_RAW_DATA_B
+        - value: 6
+          name: DAILY_RAW_DATA_C
+        - value: 7
+          name: TWAMP
+        - value: 8
+          name: SINGLE_TABLE_PER_CUSTOMER
+        - value: 255
+          name: UNKNOWN
+      example: 1
+      
+    ReportFormatEnum:
+      description: Enum containing all the report formats.
+      type: integer
+      format: int32
+      enum:
+        - value: 1
+          name: SLA_PDF
+        - value: 2
+          name: CSV_INTERFACE
+        - value: 3
+          name: SUB_INTERFACE_OAM_CSV
+        - value: 4
+          name: DETAIL_OAM_PDF
+        - value: 5
+          name: DETAIL_OAM_CSV
+        - value: 6
+          name: SUMMARY_OAM
+        - value: 7
+          name: DETAILED_OAM_WITH_THROUGHPUT
+        - value: 8
+          name: TWAMP_ROUND_TRIP
+        - value: 9
+          name: TWAMP_ONE_WAY
+        - value: 10
+          name: SLA_SINGLE_TABLE_PDF
+        - value: 11
+          name: SLA_SINGLE_TABLE_CSV
+        - value: 255
+          name: UNKNOWN
+      example: 1
+      
+    ReportDistributionEnum:
+      description: Enum containing all the report distributions.
+      type: integer
+      format: int32
+      enum:
+        - value: 1
+          name: SINGLE_REPORT
+        - value: 2
+          name: PER_CUSTOMER_HIRERACHY
+        - value: 3
+          name: PER_CUSTOMER_RANKING
+        - value: 255
+          name: UNKNOWN
+      example: 1
+      
+    PacketCaptureTimestampSourceEmun:
+      description: Enum containing all the packet capture timestamp source.
+      type: integer
+      format: int32
+      enum:
+        - value: 0
+          name: UNKNOWN
+        - value: 1
+          name: FREE_RUN
+        - value: 2
+          name: NTP
+      example: 1
+      
+    PacketCaptureEndSessionCriteriaTypeEnum:
+      description: Enum containing all the packet capture End session criteria types.
+      type: integer
+      format: int32
+      enum:
+        - value: 2
+          name: NONE
+        - value: 4
+          name: BY_FILE_SIZE
+        - value: 8
+          name: BY_NUMBER_OF_PACKETS
+        - value: 16
+          name: BY_TIME_PERIOD
+      example: 4
+      
+    NesSesetionMethodEnum:
+      description: Enum containing all the NEs sesetion methods.
+      type: integer
+      format: int32
+      enum:
+        - value: 1
+          name: SELECT_GROUP
+        - value: 2
+          name: EXPLICIY
+        - value: 3
+          name: BY_CRITERIA
+        - value: 4
+          name: BY_CUSTOMER
+        - value: 255
+          name: UNKNOWN
+      example: 4
+      
+    TaskSchedulingEnum:
+      description: Enum containing all the task scheduling.
+      type: integer
+      format: int32
+      enum:
+        - value: 1
+          name: NOW
+        - value: 2
+          name: ONCE
+        - value: 3
+          name: SHORT_PERIOD
+        - value: 4
+          name: DAILY
+        - value: 5
+          name: WEEKLY
+        - value: 6
+          name: MONTHLY
+        - value: 255
+          name: UNKNOWN
+      example: 4
+      
+    TaskRecurrencePatternEnum:
+      description: Enum containing all the task recurrence patterns.
+      type: integer
+      format: int32
+      enum:
+        - value: 1
+          name: RECURRENCE_PATTERN_EVERY_MINUTE
+        - value: 2
+          name: RECURRENCE_PATTERN_EVERY_DAY
+        - value: 3
+          name: SHORT_PERIOD
+        - value: 4
+          name: RECURRENCE_PATTERN_EVERY_MONTH
+        - value: 5
+          name: RECURRENCE_PATTERN_EVERY_YEAR
+        - value: 6
+          name: RECURRENCE_PATTERN_EVERY_SECOND
+        - value: 255
+          name: UNKNOWN
+      example: 4
+      
+    TimeEndEnum:
+      description: Enum containing all the time ends.
+      type: integer
+      format: int32
+      enum:
+        - value: 0
+          name: INFINITY
+        - value: 1
+          name: OCCURRENCES
+        - value: 2
+          name: END_DATE
+        - value: 255
+          name: UNKNOWN
+      example: 0
+      
+    TaskActionEnum:
+      description: Enum containing all the task actions.
+      type: string
+      enum:
+        - value: Start
+          name: Start
+        - value: Stop
+          name: Stop
+        - value: Resume
+          name: Resume
+        - value: Suspend
+          name: Suspend
+        - value: Archive
+          name: Archive
+        - value: Delete
+          name: Delete
+        - value: UNKNOWN
+          name: UNKNOWN
+      example: Start
+      
+    ReportStatusEnum:
+      description: Enum containing all the report statuses.
+      type: integer
+      format: int32
+      enum:
+        - value: 0
+          name: INTERRUPTED
+        - value: 1
+          name: FAIL
+        - value: 2
+          name: SKIPPED
+        - value: 3
+          name: WARNING
+        - value: 4
+          name: STOPPED
+        - value: 5
+          name: OK
+        - value: 6
+          name: NA
+        - value: 10
+          name: RUNNING
+        - value: 11
+          name: PENDING
+        - value: 255
+          name: UNKNOWN
+      example: 0
+      
+    ReportNeStatusEnum:
+      description: Enum containing all the report NE statuses.
+      type: integer
+      format: int32
+      enum:
+        - value: 0
+          name: INTERRUPTED
+        - value: 2
+          name: PENDING
+        - value: 3
+          name: PROCESSING
+        - value: 4
+          name: STOPPED
+        - value: 5
+          name: COMPLETED
+        - value: 255
+          name: UNKNOWN
+      example: 0
+      
+       
+  ###########  PARAMETERS  ####################################
+        
+  parameters:
+    auth:
+      name: auth
+      in: header
+      required: true
+      description: authentication 
+      allowEmptyValue: false
+      schema:
+        type: string
+      example: 'entlf31e7qlsmrhhq14s6h0h43'
+    domain-id:
+      name: domain-id
+      in: header
+      required: false
+      description: The domain id of RadView 
+      allowEmptyValue: false
+      schema:
+        type: string
+      example: '1'
+    domain-group-id:
+      name: domain-group-id
+      in: header
+      required: false
+      description: The domain group id of RadView 
+      allowEmptyValue: false
+      schema:
+        type: string
+      example: '1'
+    id:
+      name: Id
+      in: path
+      required: true
+      description: Numeric ID of the task.
+      schema:
+        type: string
+      example: '1'
+
+
+  ###########  REQUEST BODIES  ####################################
+
+  requestBodies:
+    OperationRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              operation:
+                $ref: '#/components/schemas/TaskActionEnum'
+              ids:
+                type: array
+                items:
+                  type: integer
+                  format: int32
+                  readOnly: true
+                example: [1,2,3]
+                
+                
+  ###########  RESPONSES  ####################################
+                
+  responses:
+    IdResponse:
+      description: Successfully create/update task. 
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              data:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 8057
+    ErrorResponse:
+      description: Bad Request. There was some error for this request.  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 1
+              errorName:
+                type: string
+                readOnly: true
+                example: 'java.lang.IllegalArgumentException'
+              errorMessage:
+                type: string
+                readOnly: true
+                example: 'Missing/invalid field Task Action.'
+              errorMessages:
+                type: array
+                readOnly: true
+                items:
+                  type: string
+                example: ["Missing/invalid field Task Action."]
