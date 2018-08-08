@@ -110,7 +110,7 @@ paths:
       operationId: getDomainById
       description: Get specific domain.
       tags:
-        - Domain
+        - Domain Servers
       responses:
         200:
           description: Domain returned successfully.
@@ -131,7 +131,7 @@ paths:
       operationId: deleteDomainById
       description: Delete specific domain.
       tags:
-        - Domain
+        - Domain Servers
       responses:
         200:
           description: Domain deleted successfully.
