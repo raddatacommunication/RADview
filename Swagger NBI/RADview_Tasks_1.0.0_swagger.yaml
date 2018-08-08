@@ -30,15 +30,15 @@ servers:
         description: RADview server port number.
       environment:
         enum: 
-          - mng164  # RADview Hub Server 
+          - mng164/task-management  # RADview Hub Server 
           - object  # RADview FE FE Server
-        default: mng164
+        default: mng164/task-management
 
 paths:
 
 #######  TASKS   #########
 
-  /tasks/task:
+  /tasks:
     parameters:
     - $ref: "#/components/parameters/auth"
     get:
@@ -46,7 +46,7 @@ paths:
       operationId: getTask
       description: Get all tasks.
       tags:
-        - Task CRUD Methods
+        - Tasks
       responses:
         200:
           description: All tasks returned successfully.
@@ -71,7 +71,7 @@ paths:
       operationId: createTask
       description: creating new task to RADView.
       tags:
-        - Task CRUD Methods
+        - Tasks
       requestBody:
         required: true
         content:
@@ -92,7 +92,7 @@ paths:
       operationId: updateTask
       description: Update specific task.
       tags:
-        - Task CRUD Methods
+        - Tasks
       requestBody:
         required: true
         content:
@@ -110,7 +110,7 @@ paths:
           description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
                     
                     
-  /tasks/task/{Id}:
+  /tasks/{Id}:
     parameters:
       - $ref: "#/components/parameters/auth"
       - $ref: "#/components/parameters/id"
@@ -119,7 +119,7 @@ paths:
       operationId: getTaskById
       description: Get specific task.
       tags:
-        - Task CRUD Methods
+        - Tasks
       responses:
         200:
           description: task returned successfully.
@@ -143,7 +143,7 @@ paths:
       operationId: deleteTaskById
       description: Delete specific task.
       tags:
-        - Task CRUD Methods
+        - Tasks
       responses:
         200:
           description: task deleted successfully.
@@ -154,7 +154,7 @@ paths:
         403:
           description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"            
                     
-  /tasks/operation:
+  /tasks/action:
     parameters:
       - $ref: "#/components/parameters/auth"
     post:
@@ -162,7 +162,7 @@ paths:
       operationId: taskAction
       description: Do an action on tasks. For example resume/stop/delete task by list of ids.
       tags:
-        - Task Actions
+        - Tasks Actions
       requestBody:
         $ref: '#/components/requestBodies/OperationRequest'
       responses:
@@ -178,7 +178,7 @@ paths:
           
 #######  TASK REPORTS   #########
 
-  /tasks/report:
+  /reports:
     parameters:
     - $ref: "#/components/parameters/auth"
     get:
@@ -186,7 +186,7 @@ paths:
       operationId: getTaskReport
       description: Get all task report.
       tags:
-        - Task Report CRUD Methods
+        - Task Reports
       responses:
         200:
           description: All task reports returned successfully.
@@ -206,7 +206,7 @@ paths:
         403:
           description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
     
-  /tasks/report/{Id}:
+  /reports/{Id}:
     parameters:
       - $ref: "#/components/parameters/auth"
       - $ref: "#/components/parameters/id"
@@ -215,7 +215,7 @@ paths:
       operationId: getTaskReportById
       description: Get specific task report.
       tags:
-        - Task Report CRUD Methods
+        - Task Reports
       responses:
         200:
           description: task report returned successfully.
@@ -239,7 +239,7 @@ paths:
       operationId: deleteTaskReportById
       description: Delete specific task report.
       tags:
-        - Task Report CRUD Methods
+        - Task Reports
       responses:
         200:
           description: task report deleted successfully.
