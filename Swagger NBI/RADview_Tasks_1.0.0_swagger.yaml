@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: '1.0.0'
   title: 'Tasks'
-  description: 'This API is for manage tasks in RADView for example adding new task, stop task or update and Etc.'
+  description: 'This API is for manage tasks in RADView for example adding new task, stop task or update and Etc'
 #############################################################################
 # In the servers object, you specify the basepath used in your API requests. 
 # The basepath is the part of the URL that appears before the endpoint.
