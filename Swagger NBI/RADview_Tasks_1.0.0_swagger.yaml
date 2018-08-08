@@ -8,9 +8,6 @@ info:
 # The basepath is the part of the URL that appears before the endpoint.
 #############################################################################
 servers:
-  - url: http://localhost:8282/mng164
-    description: RADview Internal FE Server
-    
   - url: '{protocol}://{host}:{port}/{environment}'
     description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
     variables:
