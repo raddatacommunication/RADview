@@ -255,7 +255,7 @@ components:
           example: "East-Area"
           default: ""
         operStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
           
          # parentSubnetId is NOT relevant for Area since each domain has its own parent id.
 #        parentSubnetId:
@@ -272,7 +272,7 @@ components:
 #          default: 0
 #          description: "RADview internal id. This is RADview NER id"
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
         domainIds:
           nullable: true
           type: array
