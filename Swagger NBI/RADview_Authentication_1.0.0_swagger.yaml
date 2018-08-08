@@ -1,0 +1,283 @@
+openapi: 3.0.0
+#############################################################################
+# In the servers object, you specify the basepath used in your API requests
+# The basepath is the part of the URL that appears before the endpoint.
+#############################################################################
+servers:
+  - url: '{protocol}://{host}:{port}/{environment}'
+    description: "RADview NBI Server. For example: https://localhost:8181/mng164"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      host:
+        default: localhost
+        description: RADview server IP Address or host name.
+      port:
+        default: '8181'
+        description: RADview server port number.
+      environment:
+        enum: 
+          - mng164  # RADview Production Server 
+          - object  # RADview Internal FE Server
+        default: mng164/auth
+info:
+  description: |
+    This is Tokess NBI. You can find
+    out more about Swagger at
+    [http://swagger.io](http://swagger.io) or on
+    [irc.freenode.net, #swagger](http://swagger.io/irc/).
+  version: "1.0.0"
+  title: RADview Authentication
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+#############################################################################
+# The security object specifies the security or authorization protocol 
+# used when submitting requests.
+############################################################################# 
+security:
+  - BasicAuth:  []
+  - ApiKeyAuth: []
+tags:
+  - name: Tokens
+    description: Everything about your Tokenss
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+paths:
+  /tokens:
+    post:
+      tags:
+        - Tokens
+      summary: Create a new Tokens, which is actually login
+      operationId: createTokens
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokensToken'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/TokensToken'
+        '405':
+          description: Invalid input
+      requestBody:
+        $ref: '#/components/requestBodies/TokensReq'
+    get:
+      tags:
+        - Tokens
+      summary: Get Tokens by user name
+      operationId: getTokensByUserName
+      parameters:
+        - name: username
+          in: query
+          description: The name of the user that created that Tokens
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokensToken'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/TokensToken'
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
+
+  '/tokens/{id}':
+    get:
+      tags:
+        - Tokens
+      summary: Find Tokens by ID
+      description: Returns a single Tokens
+      operationId: getTokensById
+      parameters:
+        - name: id
+          in: path
+          description: ID of Tokens to be returned
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokensToken'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/TokensToken'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+    delete:
+      tags:
+        - Tokens
+      summary: Deletes a Tokens
+      operationId: deleteTokens
+      parameters:
+        - name: id
+          in: path
+          description: Tokens id to delete
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Tokens not found
+  /validate:
+    post:
+      tags:
+        - Authentication Validation
+      summary: Validates that the given token is a valid one
+      description: Validates that the given token is a valid one
+      operationId: validateTokensToken
+      requestBody:
+          content:
+            application/json:
+              schema:
+                type: string
+                format: byte # base64-encoded file contents
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid Token supplied
+        '404':
+          description: Token not found
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+#--------------------------------------------------------------------------------------------------------
+components:
+  schemas:
+  #Start Tokenss objects
+    TokensReq:
+      properties:
+        username: 
+          type: string
+          default: ""
+          example: "jio"
+          description: "User name for first login, when token not used"
+        password:
+          type: string
+          default: ""
+          example: "mano"
+          description: "Password for first login, when token not used"
+
+    TokensToken:
+      properties:
+        client_id:
+          type: integer
+          format: int32
+          default: 0
+        client_name:
+          type: string
+          example: "JEP"
+        username: 
+          type: string
+          default: ""
+          example: "jio"
+          description: "User name for first login, when token not used"
+        customer_updated_at:
+          type: string
+          format: date-time
+          # format date-time according to RFC 3339, section 5.6,
+          # date-time = full-date "T" full-time
+          # full-date = date-fullyear (4 digits) "-" date-month (2 digits: 01-12) "-" date-mday (2 digits: 01-31)
+          # full-time = time-hour (2 digits: 00-23)":" time-minute (2 digits: 00-59) ":" time-second (2 digits: 00-59) time-offset ("Z" / time-numoffset)
+          # time-numoffset = ("+" / "-") time-hour ":" time-minute
+          description: Date and time for token customer updating (e.g. 2018-06-14T18:34:29Z) according to RFC 3339, section 5.6"
+          example: "2018-04-22T12:38:00+05:30"
+        customer_created_at:
+          type: string
+          format: date-time
+          # format date-time according to RFC 3339, section 5.6,
+          # date-time = full-date "T" full-time
+          # full-date = date-fullyear (4 digits) "-" date-month (2 digits: 01-12) "-" date-mday (2 digits: 01-31)
+          # full-time = time-hour (2 digits: 00-23)":" time-minute (2 digits: 00-59) ":" time-second (2 digits: 00-59) time-offset ("Z" / time-numoffset)
+          # time-numoffset = ("+" / "-") time-hour ":" time-minute
+          description: Date and time for token customer creation (e.g. 2018-06-14T18:34:29Z) according to RFC 3339, section 5.6"
+          example: "2018-04-22T12:38:00+05:30"
+        token_created_datetime:
+          type: string
+          format: date-time
+          # format date-time according to RFC 3339, section 5.6,
+          # date-time = full-date "T" full-time
+          # full-date = date-fullyear (4 digits) "-" date-month (2 digits: 01-12) "-" date-mday (2 digits: 01-31)
+          # full-time = time-hour (2 digits: 00-23)":" time-minute (2 digits: 00-59) ":" time-second (2 digits: 00-59) time-offset ("Z" / time-numoffset)
+          # time-numoffset = ("+" / "-") time-hour ":" time-minute
+          description: Date and time for token creation (e.g. 2018-06-14T18:34:29Z) according to RFC 3339, section 5.6"
+          example: "2018-04-22T12:38:00+05:30"
+        token_expired_datetime:
+          type: string
+          format: date-time
+          # format date-time according to RFC 3339, section 5.6,
+          # date-time = full-date "T" full-time
+          # full-date = date-fullyear (4 digits) "-" date-month (2 digits: 01-12) "-" date-mday (2 digits: 01-31)
+          # full-time = time-hour (2 digits: 00-23)":" time-minute (2 digits: 00-59) ":" time-second (2 digits: 00-59) time-offset ("Z" / time-numoffset)
+          # time-numoffset = ("+" / "-") time-hour ":" time-minute
+          description: Date and time for token expiration (e.g. 2018-06-14T18:34:29Z) according to RFC 3339, section 5.6"
+          example: "2018-04-22T12:38:00+05:30"
+        token:
+          type: string
+          format: byte
+          description: "The returned token"
+          
+         
+  requestBodies:
+
+    TokensReq:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TokensReq'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/TokensReq'
+      description: User Object
+      required: true
+
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: >-
+          Login with user name and password
+    ApiKeyAuth:
+      # The type of authorization — apiKey, http, oauth2, or openIdConnect.
+      type: apiKey 
+      
+      # Description of your security method
+      description: >-
+        **Authentication key**. *Example: augtt$93eee2ddsad34jjk*. Every request
+        that your application sends to the RADview API, it needs to identify
+        your application. You can use an API key, or you can use an OAuth 2.0
+        client ID. You should use a client ID when you are making calls on
+        behalf of a given user.   
+        
+      #The name of the header value submitted in the request. Used only for apiKey type security
+      name: auth 
+      
+      # Options are query, header or cookie. Used only for apiKey type security.
+      in: header
