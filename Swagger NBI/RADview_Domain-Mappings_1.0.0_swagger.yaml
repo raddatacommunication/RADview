@@ -2,5 +2,5 @@ openapi: 3.0.0
 info:
   version: '1.0.0'
   title: 'Domain-Mappings'
-  description: 'Domain-Mappings '
+  description: 'Domain-Mappings'
 paths: {}
