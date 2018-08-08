@@ -151,7 +151,7 @@ paths:
         403:
           description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"            
                     
-  /tasks/action:
+  /actions:
     parameters:
       - $ref: "#/components/parameters/auth"
     post:
