@@ -221,14 +221,14 @@ components:
         - adminStatus
       properties:
         adminStatus: 
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/AdminStatusType"
         classificationKeys:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/IntArray"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/IntArray"
         classifierKey:
           type: integer
           format: int32
         defaultPortMode:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/PortModeEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/PortModeEnum"
         descr:
           type: string
           example: "mng port"
@@ -236,27 +236,27 @@ components:
           type: integer
           format: int32
         macAddress:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/MacAddr"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/MacAddr"
         name:
           type: string
           example: "mng port"
         operStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
         portId:
           $ref: "#/components/schemas/PortIdentifier"
         portIndex:
           type: integer
           format: int32
         portMode:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/PortModeEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/PortModeEnum"
         rvId:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/RvIdType"
         securityConfiguration:
           $ref: "#/components/schemas/PortSecurityConfiguration"
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
         speed:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NumberLong"
     PortsMap:   # <------------- Dictionary (Map)
       type: object
       additionalProperties:
@@ -278,9 +278,9 @@ components:
           type: integer
           format: int32
         controllerNetIpAddress:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NetAddr"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NetAddr"
         gateWay:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NetAddr"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NetAddr"
         hostName:
           type: string
           example: "CustomerB-Branch2"
@@ -341,7 +341,7 @@ components:
           description: "Compute OpenStack version"
           example: "Openstack - 14.1.0 (NEWTON)"
         versionTypeId:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ControllerVersionEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ControllerVersionEnum"
         x86OsVer:
           type: string
           description: "Core version (UBUNTO version number)"
@@ -370,7 +370,7 @@ components:
           format: double
           example: 0.0
         id:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NumberLong"
         max:
           type: number
           format: double
@@ -390,7 +390,7 @@ components:
           type: string
           example: "ALARM_TCA_CPU Utilization (%)_51_1_1_145.59.170.134"
         type:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VnfKpiType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/VnfKpiType"
         valid: 
           type: boolean
           default: true
@@ -402,11 +402,11 @@ components:
     PmSchedule:
       properties:
         end:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NumberLong"
         interval:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VnfKpiInterval"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/VnfKpiInterval"
         start:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NumberLong"
     Ceilometer:
       properties:
         kpiList:
@@ -425,14 +425,14 @@ components:
         addr:
           type: string
         addrType:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VNFAddressType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/VNFAddressType"
         externalId:
           type: string
         _id:
           type: integer
           format: int32
         macAddr:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/MacAddr"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/MacAddr"
         name:
           type: string
         netId:
@@ -443,7 +443,7 @@ components:
         ownerEquipmentId:
           type: string
         status:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VNFPortStatus"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/VNFPortStatus"
         ver:
           type: integer
           format: int32
@@ -454,7 +454,7 @@ components:
     ControllerData:
       properties:
         configState:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ConfigStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ConfigStateEnum"
         controllerId:
           type: integer
           format: int32
@@ -462,9 +462,9 @@ components:
           type: boolean
           default: false
         operState:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
         uuid:
           type: string
     ControllersDataMap:   # <------------- Dictionary (Map)
@@ -479,7 +479,7 @@ components:
         name:
           type: string
         size:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NumberLong"
     FileInfs:
       type: array
       items:
@@ -520,12 +520,12 @@ components:
           type: integer
           format: int32
         versionNumbers:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/StringArray"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/StringArray"
     VnfAppConfig:
       nullable: true
       properties:
         configType:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VnfConfigType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/VnfConfigType"
         description:
           type: string
         files:
@@ -568,7 +568,7 @@ components:
       properties:
         #accessUri: - Not needed according to Zah
         adminState: 
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/AdminStatusType"
         controllersData:
           $ref: "#/components/schemas/ControllersDataMap"
         description:
@@ -579,7 +579,7 @@ components:
           format: int32
           default: 0
         instStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VMInstanceStatus"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/VMInstanceStatus"
         inUse:
           type: boolean
           default: false
@@ -596,9 +596,9 @@ components:
         portId2port:
           $ref: "#/components/schemas/VMPorts"
         runState:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VMRunningPowerState"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/VMRunningPowerState"
         taskState:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VMInstanceTaskStatus"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/VMInstanceTaskStatus"
         vmImageId:
           type: integer
           format: int32
@@ -607,7 +607,7 @@ components:
           format: int32
         #VncConsole: - Not needed according to Zah
         vnf:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VnfType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/VnfType"
         vnfAppConfig:
           $ref: "#/components/schemas/VnfAppConfigImpl"
     VirtualMachinesMap:   # <------------- Dictionary (Map)
@@ -643,7 +643,7 @@ components:
         - adminStatus
       properties:
         adminStatus: 
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/AdminStatusType"
         cardNumber:
           type: integer
           format: int32
@@ -655,9 +655,9 @@ components:
         computeNodeResourceInfo:
           $ref: "#/components/schemas/ComputeNodeResourceInfo"
         configStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ConfigStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ConfigStateEnum"
         hypervisorType:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/HypervisorType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/HypervisorType"
         #info:   - Not needed according to Zah
         #  $ref: "#/components/schemas/VMHostComputeServiceInfo"
         name:
@@ -669,17 +669,17 @@ components:
           format: int32
           example: 3
         operStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
         pm:
           $ref: "#/components/schemas/PmVnf"
         portNumber2Port:
           $ref: "#/components/schemas/PortsMap"
         rvId:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/RvIdType"
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
         status:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
         # supportedPhysNetKeys - Not needed according to Zah
         type:
           type: integer
@@ -696,7 +696,7 @@ components:
         - adminStatus
       properties:
         adminStatus: 
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/AdminStatusType"
         cardNumber:
           type: integer
           format: int32
@@ -706,7 +706,7 @@ components:
         computeNodeNetworkInfo:
           $ref: "#/components/schemas/ComputeNodeNetworkInfo"
         configStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ConfigStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ConfigStateEnum"
         name:
           type: string
           example: "Slot 0"
@@ -714,15 +714,15 @@ components:
           type: integer
           format: int32
         operStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
         portNumber2Port:
           $ref: "#/components/schemas/PortsMap"
         rvId:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/RvIdType"
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
         status:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
         type:
           type: integer
           format: int32
@@ -756,7 +756,7 @@ components:
     Fan:
       properties:
         adminStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/AdminStatusType"
         fanNumber:
           type: integer
           format: int32
@@ -766,13 +766,13 @@ components:
           default: ""
           example: "Fan 1"
         operStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
         rvId:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/RvIdType"
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
         status:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
     FansMap:   # <------------- Dictionary (Map)
       type: object
       description: "Fan by fan number"
@@ -785,14 +785,14 @@ components:
           format: int32
           default: 0
         controllerNextHopAddress:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NetAddr"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NetAddr"
         _id:
           type: integer
           format: int32
           example: 286
           default: 0
         Ip:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NetAddr"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NetAddr"
         name:
           type: string
           example: CustomerC
@@ -802,15 +802,15 @@ components:
         portId:
           $ref: "#/components/schemas/PortIdentifier"
         rvId:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/RvIdType"
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
         staticRoute:
           type: string
         type:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/TwampControllerTypeEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/TwampControllerTypeEnum"
         vlanId:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/VlanIdType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/VlanIdType"
     AIpMonControllersMap:   # <------------- Dictionary (Map)
       type: object
       description: "IpMonController by controll Ip"
@@ -819,18 +819,18 @@ components:
     NeLag:
       properties:
         adminKeyType:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminKeyTypeEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/AdminKeyTypeEnum"
         adminStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/AdminStatusType"
         bind2Ports:
           $ref: "#/components/schemas/PortIdentifiersList"
         classificationKeys:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/IntArray"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/IntArray"
         classifierKey:
           type: integer
           format: int32
         defaultPortMode:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/PortModeEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/PortModeEnum"
         descr:
           type: string
           example: "LAG 1"
@@ -838,37 +838,37 @@ components:
           type: integer
           format: int32
         macAddress:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/MacAddr"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/MacAddr"
         name:
           type: string
           example: "LAG 1"
         operStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ALagOperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ALagOperStateEnum"
         portId:
           $ref: "#/components/schemas/PortIdentifier"
         portIndex:
           type: integer
           format: int32
         portMode:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/PortModeEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/PortModeEnum"
         rvId:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/RvIdType"
         securityConfiguration:
           $ref: "#/components/schemas/PortSecurityConfiguration"
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
         speed:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NumberLong"
         status:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ALagOperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ALagOperStateEnum"
         sys_priority:
           type: integer
           minimum: 0
           maximum: 65535
         tx_activity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/TxAcitivityEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/TxAcitivityEnum"
         tx_speed:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/TxSpeedStrEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/TxSpeedStrEnum"
     NeLagsMap:   # <------------- Dictionary (Map)
       type: object
       description: "Lags map by its id in SW" 
@@ -891,21 +891,21 @@ components:
     PS:
       properties:
         adminStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/AdminStatusType"
         name:
           type: string
           description: "Name of this Power Supply"
           example: "Power Supply 1"
         operStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
         psNumber:
           type: integer
           format: int32
           example: 1
         rvId:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/RvIdType"
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
         status:
           type: integer
           format: int32
@@ -920,14 +920,14 @@ components:
         - adminStatus
       properties:
         adminStatus: 
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/AdminStatusType"
         classificationKeys:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/IntArray"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/IntArray"
         classifierKey:
           type: integer
           format: int32
         defaultPortMode:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/PortModeEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/PortModeEnum"
         descr:
           type: string
           example: "Router Interface Port"
@@ -935,29 +935,29 @@ components:
           type: integer
           format: int32
         macAddress:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/MacAddr"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/MacAddr"
         name:
           type: string
           example: "1/F 1.1"
         netAddress:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NetAddr"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NetAddr"
         operStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
         portId:
           $ref: "#/components/schemas/PortIdentifier"
         portIndex:
           type: integer
           format: int32
         portMode:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/PortModeEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/PortModeEnum"
         rvId:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/RvIdType"
         securityConfiguration:
           $ref: "#/components/schemas/PortSecurityConfiguration"
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
         speed:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NumberLong"
     RouterInterfacesMap:   # <------------- Dictionary (Map)
       type: object
       description: "Router Interfaces map by Router Interface number" 
@@ -966,13 +966,13 @@ components:
     Router:
       properties:
         adminStatus: 
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/AdminStatusType"
         name:
           type: string
           description: "Router name"
           example: "Router#1"
         operStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
         routerInterfaceNumber2RouterInterface:
           $ref: "#/components/schemas/RouterInterfacesMap"
         routerNumber:
@@ -980,9 +980,9 @@ components:
           format: int32
           example: 1
         rvId:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/RvIdType"
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
     RoutersMap:   # <------------- Dictionary (Map)
       type: object
       description: "Routers map by Router number" 
@@ -991,7 +991,7 @@ components:
     TaskCapabilitiesType:
       properties:
         capabilities:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/IntArray"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/IntArray"
         computeNodeSnmpSupportedVersion:
           type: string
           description: "Compute Node Snmp Supported version"
@@ -1005,7 +1005,7 @@ components:
           default: 0
           example: 123
         adminState:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/AdminStatusType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/AdminStatusType"
           #bridgeNumber2Bridge - Not needed according to Zah
         cardNumber2Card:
           $ref: "#/components/schemas/CardsMap"
@@ -1016,12 +1016,12 @@ components:
           default: "1234"
           example: "23ery"
         cliProtocolType:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/CliProtocolTypeEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/CliProtocolTypeEnum"
         cliUser:
           type: string
           example: su
         commdate:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NumberLong"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NumberLong"
         #confIndex:  - Not needed according to Zah (?)
         #  type: integer
         #  format: int32
@@ -1066,15 +1066,15 @@ components:
           type: boolean
           default: false
         IP:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NetAddr"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NetAddr"
         ipMonControllerIp2Controller:
           $ref: "#/components/schemas/AIpMonControllersMap"
         IPNative:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/NetAddr"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/NetAddr"
         lagNumber2Lag:
           $ref: "#/components/schemas/NeLagsMap"
         licStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/LicStatusEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/LicStatusEnum"
         location:
           $ref: "#/components/schemas/Location"
         name:
@@ -1089,7 +1089,7 @@ components:
           default: ""
           description: "Any notes one wants to keep concerning this device"
         operStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
         parentSubnetId:
           type: integer
           format: int32
@@ -1103,14 +1103,14 @@ components:
           $ref: "#/components/schemas/RoutersMap"
         # rvEnabled - Not needed according to Zah
         rvid:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/RvIdType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/RvIdType"
         # sapIndexHolder2SapPort - Not needed according to Zah
         # serial:  Not needed according to Zah
         #  type: string
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
         snmpConnectivityStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ConnectivityStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ConnectivityStateEnum"
         snmpPollingInterval:
           type: integer
           format: int32
@@ -1131,21 +1131,21 @@ components:
           description: "Snmp V3 authentication password"
           default: ""
         snmpv3AuthProtocol:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SNMPV3Protocol"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SNMPV3Protocol"
         snmpv3PrivacyPassword:
           type: string
           description: "SNMP V3 privacy password"
           default: ""
         snmpv3PrivacyProtocol:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SNMPV3PrivacyProtocol"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SNMPV3PrivacyProtocol"
         snmpv3SecurityLevel:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SNMPV3SecurityLevel"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SNMPV3SecurityLevel"
         snmpv3User:
           type: string
           description: "Snmp V3 user name"
           default: initial
         snmpVersion:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SNMPVersion"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SNMPVersion"
         softVer:
           type: string
           nullable: true
@@ -1165,7 +1165,7 @@ components:
           type: string
           example: "ETX-2v"
         sysOid:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SysoidType"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SysoidType"
         taskCapabilities:
           $ref: "#/components/schemas/TaskCapabilitiesType"
         telnetPort:
@@ -1185,7 +1185,7 @@ components:
           description: "Vendor Id in MIB"
           example: 164
         violatedSlots:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/IntArray"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/IntArray"
         vnfCapable:
           type: boolean
           description: "True indicates that this device has VNF capabilities"
