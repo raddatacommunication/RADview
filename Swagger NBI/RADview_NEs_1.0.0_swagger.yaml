@@ -1,7 +1,7 @@
 openapi: 3.0.0
 #############################################################################
 # In the servers object, you specify the basepath used in your API requests. 
-# The basepath is the part of the URL that appears before the endpoint.
+# The basepath is the part of the URL that appears before the endpoin
 # Raz Git hub test
 #############################################################################
 servers:
@@ -24,9 +24,9 @@ servers:
         description: RADview server port number.
       environment:
         enum: 
-          - mng164  # RADview Hub Server 
+          - mng164/inventory  # RADview Hub Server 
           - object  # RADview FE FE Server
-        default: mng164
+        default: mng164/inventory
         
 info:
   description: |
@@ -50,16 +50,16 @@ security:
   - BasicAuth:  []
   - ApiKeyAuth: []
 tags:
-  - name: ne
+  - name: NEs
     description: Everything about your Nes
     externalDocs:
       description: Find out more
       url: 'http://swagger.io'
 paths:
-  /ne:
+  /nes:
     post:
       tags:
-        - ne
+        - NEs
       summary: Add a new ne to the system
       operationId: addNe
       responses:
@@ -69,7 +69,7 @@ paths:
         $ref: '#/components/requestBodies/Ne'
     put:
       tags:
-        - ne
+        - NEs
       summary: Update an existing ne
       operationId: updateNe
       responses:
@@ -83,7 +83,7 @@ paths:
         $ref: '#/components/requestBodies/Ne'
     get:
       tags:
-        - ne
+        - NEs
       summary: Returns NEs inventory
       description: Returns an array of all NEs
       operationId: getNesInventory
@@ -101,10 +101,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Ne'
-  '/ne/{neId}':
+  '/nes/{neId}':
     get:
       tags:
-        - ne
+        - NEs
       summary: Find ne by ID
       description: Returns a single ne
       operationId: getNeById
@@ -132,7 +132,7 @@ paths:
           description: Ne not found
     delete:
       tags:
-        - ne
+        - NEs
       summary: Deletes Ne
       operationId: deleteNe
       parameters:
