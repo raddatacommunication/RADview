@@ -25,7 +25,7 @@ servers:
         enum: 
           - mng164/hub  # RADview Hub Server 
           - object  # RADview FE FE Server
-        default: mng164/hub
+        default: mng164/access
         
 info:
   description: |
