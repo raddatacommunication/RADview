@@ -564,7 +564,7 @@ components:
           type: string
           example: 'Download Auxiliary File - 1.1.1.1'
         taskAction:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/TaskActionsEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/TaskActionsEnum"
         description:
           type: string
           example: Download Auxiliary File from NE - 1.1.1.1
@@ -638,7 +638,7 @@ components:
           format: int64
           example: 1506440772889
         lastReportStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ReportStatusEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ReportStatusEnum"
         executionsNum:
           readOnly: true
           type: integer
@@ -684,7 +684,7 @@ components:
           type: boolean 
           example: false
         fileNameWithinNe:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/FileTypeEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/FileTypeEnum"
         archiveFileId:
           type: integer
           format: int64
@@ -698,7 +698,7 @@ components:
         files:
           type: array
           items:
-            $ref: "https://api.swaggerhub.com/domains/RADview/CommonModels/1.0.0#/definitions/FileInfo"
+            $ref: "https://api.swaggerhub.com/domains/RADview/Common-Models/1.0.0#/definitions/FileInfo"
         reportFormat:
           type: boolean 
           example: false
@@ -832,13 +832,13 @@ components:
         portsIds:
           type: array
           items:
-            $ref: 'https://api.swaggerhub.com/domains/RADview/CommonModels/1.0.0#/definitions/PortIdentifier'
+            $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Models/1.0.0#/definitions/PortIdentifier'
         serviceType:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ServiceTypeEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ServiceTypeEnum"
         discoveryType:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ServiceDiscoveryTypeEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ServiceDiscoveryTypeEnum"
         discoverySourceType:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ServiceDiscoveryTypeEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ServiceDiscoveryTypeEnum"
     LldpParameters:
       description: Model containing lldp parameters.
       type: object
