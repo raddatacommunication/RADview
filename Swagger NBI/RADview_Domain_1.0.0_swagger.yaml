@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
   version: '1.0.0'
-  title: 'RADview Domain Server'
-  description: 'Domain Server.'
+  title: 'RADview Domain Servers'
+  description: 'Domain Servers.'
   
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
@@ -20,10 +20,10 @@ servers:
         default: '8282'
         description: RADview server port number.
       environment:
-        default: mng164
+        default: mng164/servers
         
 paths:
-  /hub/domain:
+  /domain-servers:
     parameters:
     - $ref: "#/components/parameters/auth"
     get:
@@ -31,7 +31,7 @@ paths:
       operationId: getDomain
       description: Get all domains.
       tags:
-        - Domain
+        - Domain Servers
       parameters:
         - $ref: "#/components/parameters/query"
       responses:
@@ -59,7 +59,7 @@ paths:
       operationId: createDomain
       description: creating new Domain server
       tags:
-        - Domain
+        - Domain Servers
       requestBody:
         required: true
         content:
@@ -82,7 +82,7 @@ paths:
       operationId: updateDomain
       description: Update specific domain.
       tags:
-        - Domain
+        - Domain Servers
       requestBody:
         required: true
         content:
@@ -101,7 +101,7 @@ paths:
         500:
           $ref: '#/components/responses/ServerResourceErrorResponse'
 
-  /hub/domain/{id}:
+  /domain-servers:/{id}:
     parameters:
       - $ref: "#/components/parameters/auth"
       - $ref: "#/components/parameters/id"
