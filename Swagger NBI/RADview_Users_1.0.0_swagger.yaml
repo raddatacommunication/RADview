@@ -62,13 +62,13 @@ tags:
 #      description: Find out more about our roles
 #      url: 'http://swagger.io'
 paths:
-  /user:
+  /users:
     #------------------------------------ #
     #          Create a User              #
     #------------------------------------ #
     post:
       tags:
-        - User
+        - Users
       summary: Create a new user to the users colletion
       operationId: createUser
       description: creating new User
@@ -96,7 +96,7 @@ paths:
       operationId: getUsers
       description: Get all users.
       tags:
-        - User
+        - Users
       parameters:
         - $ref: "#/components/parameters/auth"
         - $ref: "#/components/parameters/query"
@@ -121,7 +121,7 @@ paths:
         500:
           $ref: '#/components/responses/ServerResourceErrorResponse'
 
-  '/user/{id}':
+  '/users/{id}':
     parameters:
       - $ref: "#/components/parameters/auth"
       - $ref: "#/components/parameters/id"
@@ -130,7 +130,7 @@ paths:
     #--------------------------------------- #
     patch:
       tags:
-        - User
+        - Users
       summary: Update an existing user
       operationId: updateUser
       description: Update specific user
@@ -156,7 +156,7 @@ paths:
       operationId: getUserById
       description: Get specific user.
       tags:
-        - User
+        - Users
       responses:
         200:
           description: User returned successfully.
@@ -181,7 +181,7 @@ paths:
       operationId: deleteUserById
       description: Delete specific user.
       tags:
-        - User
+        - Users
       responses:
         200:
           description: User deleted successfully.
@@ -207,13 +207,13 @@ paths:
 #-----------------------------------------------------------------------------------#
 #                                 Roles                                             #
 #-----------------------------------------------------------------------------------#
-  /role:
+  /roles:
     #------------------------------------ #
     #          Create a Role              #
     #------------------------------------ #
     post:
       tags:
-        - Role
+        - Roles
       summary: Create a new role to the roles colletion
       operationId: createRole
       description: creating new Role
@@ -241,7 +241,7 @@ paths:
       operationId: getroles
       description: Get all roles.
       tags:
-        - Role
+        - Roles
       parameters:
         - $ref: "#/components/parameters/auth"
         - $ref: "#/components/parameters/query"
@@ -275,7 +275,7 @@ paths:
     #--------------------------------------- #
     patch:
       tags:
-        - Role
+        - Roles
       summary: Update an existing role
       operationId: updateRole
       description: Update specific role
@@ -301,7 +301,7 @@ paths:
       operationId: getRoleById
       description: Get specific role.
       tags:
-        - Role
+        - Roles
       responses:
         200:
           description: Role returned successfully.
@@ -326,7 +326,7 @@ paths:
       operationId: deleteRoleById
       description: Delete specific role.
       tags:
-        - Role
+        - Roles
       responses:
         200:
           description: Role deleted successfully.
