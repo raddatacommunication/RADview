@@ -46,7 +46,7 @@ definitions:
         type: string
         example: portName
       entityType:
-        $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/ObjectTypeEnum"
+        $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ObjectTypeEnum"
       portType:
         type: integer
         format: int32
