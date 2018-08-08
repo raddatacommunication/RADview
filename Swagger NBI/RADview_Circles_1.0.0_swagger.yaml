@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: "1.0"
   title: 'RADview Circles'
-  description: 'Domain Circles '
+  description: 'Domain Circles'
   
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
