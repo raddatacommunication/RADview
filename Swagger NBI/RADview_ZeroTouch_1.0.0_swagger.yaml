@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: 1.0.0
   title: RADview Zero Touch
-  description: RADview Zero Touch 
+  description: RADview Zero Touch
   contact:
     name: RAD Data Communications Ltd.
     url: 'http://www.rad.com/71-2379/support/'
