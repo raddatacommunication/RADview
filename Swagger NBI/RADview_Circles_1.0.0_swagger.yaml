@@ -20,10 +20,10 @@ servers:
         default: '8282'
         description: RADview server port number.
       environment:
-        default: mng164
+        default: mng164/servers
         
 paths:
-  /hub/circle:
+  /circles:
     parameters:
     - $ref: "#/components/parameters/auth"
     get:
@@ -31,7 +31,7 @@ paths:
       operationId: getDomain
       description: Get all domain groups.
       tags:
-        - Circle
+        - Circles
       parameters:
         - $ref: "#/components/parameters/query"
       responses:
@@ -45,7 +45,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/DomainGroup'
+                      $ref: '#/components/schemas/Circle'
         400:
           $ref: '#/components/responses/BadRequestErrorResponse'
         404:
@@ -59,16 +59,16 @@ paths:
       operationId: createDomainGroup
       description: creating new Domain Group
       tags:
-        - Circle
+        - Circles
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DomainGroup'
+              $ref: '#/components/schemas/Circle'
       responses:
         200:
-          $ref: '#/components/responses/DomainResponse'
+          $ref: '#/components/responses/CircleResponse'
         400:
           $ref: '#/components/responses/BadRequestErrorResponse'
         404:
@@ -82,16 +82,16 @@ paths:
       operationId: updateDomainGroup
       description: Update specific Domain Group.
       tags:
-        - Circle
+        - Circles
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DomainGroup'
+              $ref: '#/components/schemas/Circle'
       responses:
         200:
-          $ref: '#/components/responses/DomainResponse'
+          $ref: '#/components/responses/CircleResponse'
         400:
           $ref: '#/components/responses/BadRequestErrorResponse'
         404:
@@ -101,7 +101,7 @@ paths:
         500:
           $ref: '#/components/responses/ServerResourceErrorResponse'
 
-  /hub/circle/{id}:
+  /circles/{id}:
     parameters:
       - $ref: "#/components/parameters/auth"
       - $ref: "#/components/parameters/id"
@@ -110,7 +110,7 @@ paths:
       operationId: getDomainGroupById
       description: Get specific Domain Group.
       tags:
-        - Circle
+        - Circles
       responses:
         200:
           description: Domain returned successfully.
@@ -136,7 +136,7 @@ paths:
       operationId: deleteDomainGroupById
       description: Delete specific Domain Group.
       tags:
-        - Circle
+        - Circles
       responses:
         200:
           description: Domain Group deleted successfully.
@@ -160,7 +160,7 @@ paths:
 
 components:
   schemas:
-    DomainGroup:
+    Circle:
       description: Model containing Domain Group info.
       type: object
       properties:
@@ -223,7 +223,7 @@ components:
       example: ?name=domainGroup1&operStatus=1
   
   responses:
-    DomainResponse:
+    CircleResponse:
       description: Successfully create/update Domain Group. 
       content:
         application/json:    
