@@ -1,0 +1,2257 @@
+openapi: 3.0.0
+#############################################################################
+# In the servers object, you specify the basepath used in your API requests. 
+# The basepath is the part of the URL that appears before the endpoint
+#############################################################################
+servers:
+  - url: '{protocol}://{host}:{port}/{environment}'
+    description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      host:
+        default: localhost
+        description: RADview server IP Address or host name.
+      port:
+        enum: 
+          - '8282'  # RADview Hub Server
+          - '8181'  # RADview FE Server 
+        default: '8282'
+        description: RADview server port number.
+      environment:
+        enum: 
+          - mng164/hub  # RADview Hub Server 
+          - object  # RADview FE FE Server
+        default: mng164/access
+        
+info:
+  description: |
+    This is Users NBI. You can find
+    out more about Swagger at
+    [http://swagger.io](http://swagger.io) or on
+    [irc.freenode.net, #swagger](http://swagger.io/irc/).
+  version: "1.0.0"
+  title: RADview Access Control
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+#############################################################################
+# The security object specifies the security or authorization protocol 
+# used when submitting requests.
+############################################################################# 
+security:
+  - BasicAuth:  []
+  - ApiKeyAuth: []
+tags:
+  - name: Users
+    description: Everything about your Users
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+#  - name: administration
+#    description: Access to Users actions
+  - name: Roles
+    description: Operations about roles
+#    externalDocs:
+#      description: Find out more about our roles
+#      url: 'http://swagger.io'
+paths:
+  /users:
+    #------------------------------------ #
+    #          Create a User              #
+    #------------------------------------ #
+    post:
+      tags:
+        - Users
+      summary: Create a new user to the users colletion
+      operationId: createUser
+      description: creating new User
+      parameters:
+        - $ref: "#/components/parameters/auth"
+      requestBody:
+        $ref: '#/components/requestBodies/User'
+      responses:
+        200:
+          $ref: '#/components/responses/UserResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+          
+    #----------------------------------------- #
+    #         Get all users by filter (query)  #
+    #----------------------------------------- #
+    get:
+      summary: Get all users
+      operationId: getUsers
+      description: Get all users.
+      tags:
+        - Users
+      parameters:
+        - $ref: "#/components/parameters/auth"
+        - $ref: "#/components/parameters/query"
+      responses:
+        200:
+          description: All users returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+
+  '/users/{id}':
+    parameters:
+      - $ref: "#/components/parameters/auth"
+      - $ref: "#/components/parameters/id"
+    #--------------------------------------- #
+    #       Update a specific User (by ID)   #
+    #--------------------------------------- #
+    patch:
+      tags:
+        - Users
+      summary: Update an existing user
+      operationId: updateUser
+      description: Update specific user
+      requestBody:
+        $ref: '#/components/requestBodies/User'
+      responses:
+        200:
+          $ref: '#/components/responses/UserResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+          
+    #------------------------------------ #
+    #       Get a specific User (by ID)   #
+    #------------------------------------ #
+    get:
+      summary: Get user by id
+      operationId: getUserById
+      description: Get specific user.
+      tags:
+        - Users
+      responses:
+        200:
+          description: User returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+
+    #------------------------------------ #
+    #    Delete a specific User (by ID)   #
+    #------------------------------------ #
+    delete:
+      summary: Delete user by id
+      operationId: deleteUserById
+      description: Delete specific user.
+      tags:
+        - Users
+      responses:
+        200:
+          description: User deleted successfully.
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                    example: 1
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+          
+ 
+#-----------------------------------------------------------------------------------#
+#                                 Roles                                             #
+#-----------------------------------------------------------------------------------#
+  /roles:
+    #------------------------------------ #
+    #          Create a Role              #
+    #------------------------------------ #
+    post:
+      tags:
+        - Roles
+      summary: Create a new role to the roles colletion
+      operationId: createRole
+      description: creating new Role
+      parameters:
+        - $ref: "#/components/parameters/auth"
+      requestBody:
+        $ref: '#/components/requestBodies/Role'
+      responses:
+        200:
+          $ref: '#/components/responses/RoleResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+          
+    #----------------------------------------- #
+    #         Get all roles by filter (query)  #
+    #----------------------------------------- #
+    get:
+      summary: Get all roles
+      operationId: getroles
+      description: Get all roles.
+      tags:
+        - Roles
+      parameters:
+        - $ref: "#/components/parameters/auth"
+        - $ref: "#/components/parameters/query"
+      responses:
+        200:
+          description: All roles returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Role'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+
+  '/roles/{id}':
+    parameters:
+      - $ref: "#/components/parameters/auth"
+      - $ref: "#/components/parameters/id"
+    #--------------------------------------- #
+    #       Update a specific Role (by ID)   #
+    #--------------------------------------- #
+    patch:
+      tags:
+        - Roles
+      summary: Update an existing role
+      operationId: updateRole
+      description: Update specific role
+      requestBody:
+        $ref: '#/components/requestBodies/Role'
+      responses:
+        200:
+          $ref: '#/components/responses/RoleResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+          
+    #------------------------------------ #
+    #       Get a specific Role (by ID)   #
+    #------------------------------------ #
+    get:
+      summary: Get role by id
+      operationId: getRoleById
+      description: Get specific role.
+      tags:
+        - Roles
+      responses:
+        200:
+          description: Role returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+
+    #------------------------------------ #
+    #    Delete a specific Role (by ID)   #
+    #------------------------------------ #
+    delete:
+      summary: Delete role by id
+      operationId: deleteRoleById
+      description: Delete specific role.
+      tags:
+        - Roles
+      responses:
+        200:
+          description: Role deleted successfully.
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                    example: 1
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+          
+ 
+
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+#--------------------------------------------------------------------------------------------------------
+components:
+  schemas:
+  #Start Users objects
+    #------------------------------------ #
+    #   Permissions numbers Enum          #
+    #------------------------------------ #
+    RolePermissionsEnum:
+      type: integer
+      enum:
+        - value: 1
+          name: "all"
+          description: "Allow All"
+      
+        - value: 2
+          name: "ne_read"
+          description: "View Network Elements"
+      
+        - value: 3
+          name: "ne_write"
+          description: "Add/Edit Network Elements"
+      
+        - value: 4
+          name: "link_read"
+          description: "View Link"
+        - value: 5
+          name: "link_write"
+          description: "Add/Edit Link"
+      
+        - value: 6
+          name: "vnfimage_read"
+          description: "View VNF Repository"
+        - value: 7
+          name: "vnfimage_write"
+          description: "Add/Edit VNF Repository"
+      
+        - value: 8
+          name: "basenetwork_read"
+          description: "View VNF Networks"
+        - value: 9
+          name: "basenetwork_write"
+          description: "Add/Edit VNF Networks"
+      
+        - value: 10
+          name: "vnfflavor_read"
+          description: "View VNF Flavors"
+        - value: 11
+          name: "vnfflavor_write"
+          description: "Add/Edit VNF Flavors"
+      
+        - value: 12
+          name: "fault_read"
+          description: "View Fault"
+        - value: 13
+          name: "fault_write"
+          description: "Add/Edit Fault"
+      
+        - value: 14
+          name: "history_faults_read"
+          description: "View History Faults"
+        - value: 15
+          name: "history_faults_write"
+          description: "Add/Edit History Faults"
+      
+        - value: 16
+          name: "card_read"
+          description: "View Cards"
+        - value: 17
+          name: "card_write"
+          description: "Add/Edit Cards"
+      
+        - value: 18
+          name: "vnfinstance_read"
+          description: "View VNF Instance"
+        - value: 19
+          name: "vnfinstance_write"
+          description: "Add/Edit VNF Instance"
+      
+        - value: 20
+          name: "cardtype_read"
+          description: "View Card Type"
+        - value: 21
+          name: "cardtype_write"
+          description: "Add/Edit Card Type"
+      
+        - value: 22
+          name: "netype_read"
+          description: "View NE Type"
+        - value: 23
+          name: "netype_write"
+          description: "Add/Edit NE Type"
+      
+        - value: 24
+          name: "role_read"
+          description: "View Role"
+        - value: 25
+          name: "role_write"
+          description: "Add/Edit Role"
+      
+        - value: 26
+          name: "user_read"
+          description: "View Users"
+        - value: 27
+          name: "user_write"
+          description: "Add/Edit Users"
+      
+        - value: 28
+          name: "ring_read"
+          description: "View Ring"
+        - value: 29
+          name: "ring_write"
+          description: "Add/Edit Ring"
+      
+        - value: 32
+          name: "port_read"
+          description: "View Port"
+        - value: 33
+          name: "port_write"
+          description: "Add/Edit Port"
+      
+        - value: 34
+          name: "plan_read"
+          description: "View Plan"
+        - value: 35
+          name: "plan_write"
+          description: "Add/Edit Plan"
+      
+        - value: 40
+          name: "tenant_read"
+          description: "View Tenant"
+        - value: 41
+          name: "tenant_write"
+          description: "Add/Edit Tenant"
+      
+        - value: 42
+          name: "service_read"
+          description: "View Service"
+        - value: 43
+          name: "service_write"
+          description: "Add/Edit Service"
+      
+        - value: 44
+          name: "bwprofile_read"
+          description: "View BW Profile"
+        - value: 45
+          name: "bwprofile_write"
+          description: "Add/Edit BW Profile"
+      
+        - value: 50
+          name: "lag_read"
+          description: "View Lag"
+        - value: 51
+          name: "lag_write"
+          description: "Add/Edit Lag"
+      
+        - value: 62
+          name: "image_read"
+          description: "View Image"
+        - value: 63
+          name: "image_write"
+          description: "Add/Edit Image"
+      
+        - value: 64
+          name: "tdmservice_read"
+          description: "View TDM services"
+        - value: 65
+          name: "tdmservice_write"
+          description: "Add/Edit TDM services"
+      
+        - value: 66
+          name: "y1564testtemplate_read"
+          description: "View Y1564 Test templates"
+        - value: 67
+          name: "y1564testtemplate_write"
+          description: "Add/Edit Y1564 Test templates"
+      
+        - value: 68
+          name: "servicetemplate_read"
+          description: "View Service templates"
+        - value: 69
+          name: "servicetemplate_write"
+          description: "Add/Edit Service templates"
+      
+        - value: 70
+          name: "cloud_read"
+          description: "View Clouds"
+        - value: 71
+          name: "cloud_write"
+          description: "Add/Edit Clouds"
+      
+        - value: 72
+          name: "customer_read"
+          description: "View Customers"
+        - value: 73
+          name: "customer_write"
+          description: "Add/Edit Customers"
+      
+        - value: 82
+          name: "twampsession_read"
+          description: "View Twamp Service"
+        - value: 83
+          name: "twampsession_write"
+          description: "Add/Edit Twamp Service"
+      
+        - value: 84
+          name: "shelfview_read"
+          description: "View Shelf View"
+        - value: 85
+          name: "shelfview_write"
+          description: "Add/Edit Shelf View"
+      
+        - value: 86
+          name: "discoveryservice_read"
+          description: "View Discovered Service"
+        - value: 87
+          name: "discoveryservice_write"
+          description: "Add/Edit Discovered Service"
+      
+        - value: 88
+          name: "enrolldiscoveredservice_read"
+          description: "View Enroll Discovered Service"
+        - value: 89
+          name: "enrolldiscoveredservice_write"
+          description: "Add/Edit Enrolled Discovered Service"
+      
+        - value: 90
+          name: "l3group_read"
+          description: "View L3 Group"
+        - value: 91
+          name: "l3group_write"
+          description: "Add/Edit L3 Group"
+      
+        - value: 92
+          name: "tunnel_read"
+          description: "View Tunnel"
+        - value: 93
+          name: "tunnel_write"
+          description: "Add/Edit Tunnel"
+      
+        - value: 94
+          name: "macsec_read"
+          description: "View Secured Networks"
+        - value: 95
+          name: "macsec_write"
+          description: "Add/Edit Secured Networks"
+      
+        - value: 98
+          name: "userevent_read"
+          description: "View User Events"
+        - value: 99
+          name: "userevent_write"
+          description: "Delete User Events"
+      
+        - value: 98
+          name: "dormantEntry_read"
+          description: "View Provisioning Cleanup"
+        - value: 99
+          name: "dormantEntry_write"
+          description: "Delete/Edit Provisioning Cleanup"
+      
+        - value: 100
+          name: "task_read"
+          description: "View Active Tasks"
+        - value: 101
+          name: "task_write"
+          description: "Add/Edit Active Tasks"
+      
+        - value: 104
+          name: "ztrule_read"
+          description: "View Zero Touch Rules"
+        - value: 105
+          name: "ztrule_write"
+          description: "Add/Edit Zero Touch Rules"
+      
+        - value: 118
+          name: "cos_read"
+          description: "View cos list"
+        - value: 119
+          name: "cos_write"
+          description: "Add/Edit cos list"
+      
+        - value: 130
+          name: "dscp2cosprofile_read"
+          description: "View dscp2cos profile"
+        - value: 131
+          name: "dscp2cosprofile_write"
+          description: "Add/Edit dscp2cos profile"
+      
+        - value: 132
+          name: "pbit2cosprofile_read"
+          description: "View pbit2cos profile"
+        - value: 133
+          name: "pbit2cosprofile_write"
+          description: "Add/Edit pbit2cos profile"
+      
+      
+        - value: 136
+          name: "cospbitprofile_read"
+          description: "View cospbit profile"
+        - value: 137
+          name: "cospbitprofile_write"
+          description: "Add/Edit cospbit profile"
+      
+        - value: 138
+          name: "pmslaprofile_read"
+          description: "View pmsla profile"
+        - value: 139
+          name: "pmslaprofile_write"
+          description: "Add/Edit pmslap rofile"
+      
+        - value: 140
+          name: "twampprofile_read"
+          description: "View twamp profile"
+        - value: 141
+          name: "twampprofile_write"
+          description: "Add/Edit twamp profile"
+      
+        - value: 142
+          name: "subnet_read"
+          description: "View subnet"
+        - value: 143
+          name: "subnet_write"
+          description: "Add/Edit subnet"
+      
+        - value: 150
+          name: "cos2queueprofile_read"
+          description: "View cos2 queue profile"
+        - value: 151
+          name: "cos2queueprofile_write"
+          description: "Add/Edit cos2 queue profile"
+      
+        - value: 152
+          name: "ringtemplate_read"
+          description: "View ring template"
+        - value: 153
+          name: "ringtemplate_write"
+          description: "Add/Edit ring template"
+      
+        - value: 152
+          name: "vnfvservice_read"
+          description: "View Service Chain"
+        - value: 153
+          name: "vnfvservice_write"
+          description: "Add/Edit Service Chain"
+      
+        - value: 153
+          name: "performance_read"
+          description: "View performance"
+        - value: 154
+          name: "performance_write"
+          description: "Add/Edit performance"
+      
+        - value: 155
+          name: "topology_read"
+          description: "View topology"
+        - value: 156
+          name: "topology_write"
+          description: "Add/Edit topology"
+      
+        - value: 157
+          name: "ipmonservice_read"
+          description: "View ipmonitoringservice"
+        - value: 158
+          name: "ipmonservice_write"
+          description: "Add/Edit ipmonitoringservice"
+      
+        - value: 159
+          name: "enterprise_read"
+          description: "View enterprise"
+        - value: 160
+          name: "enterprise_write"
+          description: "Add/Edit enterprise"
+      
+        - value: 161
+          name: "y1564testcontainer_read"
+          description: "View Y1564 Test"
+        - value: 162
+          name: "y1564testcontainer_write"
+          description: "Add/Edit Y1564 Test"
+      
+        - value: 163
+          name: "computenode_read"
+          description: "View computenode"
+        - value: 164
+          name: "computenode_write"
+          description: "Add/Edit computenode"
+      
+        - value: 165
+          name: "controller_read"
+          description: "View controller"
+        - value: 166
+          name: "controller_write"
+          description: "Add/Edit controller"
+      
+        # Permissions Added for RADview version 5.90
+        - value: 167
+          name: "pmprofile_read"
+          description: "View VM Profile"
+        - value: 168
+          name: "pmprofile_write"
+          description: "Add/Edit VM Profile"
+      
+        - value: 169
+          name: "taskreport_read"
+          description: "View taskreport"
+        - value: 170
+          name: "taskreport_write"
+          description: "Add/Edit taskreport"
+      
+        # Permissions Added for RADview version 6.00
+        - value: 171
+          name: "dashboard_read"
+          description: "View dashboard"
+        - value: 172
+          name: "dashboard_write"
+          description: "Add/Edit dashboard - optional use"
+      
+        - value: 173
+          name: "logfile_read"
+          description: "Download log zip file"
+        - value: 174
+          name: "logfile_write"
+          description: "Add/Edit log zip file - optional use"
+      
+        - value: 175
+          name: "servicechaintemplate_read"
+          description: "View service chain template"
+        - value: 176
+          name: "servicechaintemplate_write"
+          description: "Add/Edit service chain template"
+      
+        - value: 177
+          name: "routerinterface_read"
+          description: "View router inteface"
+        - value: 178
+          name: "routerinterface_write"
+          description: "Add/Edit router inteface"
+      
+        - value: 179
+          name: "configurationtemplate_read"
+          description: "View configuration template"
+        - value: 180
+          name: "configurationtemplate_write"
+          description: "Add/Edit configuration template"
+      
+        - value: 181
+          name: "cliscript_read"
+          description: "View cli script"
+        - value: 182
+          name: "cliscript_write"
+          description: "Add/Edit ccli script"
+      
+        - value: 183
+          name: "vnfapplicense_read"
+          description: "View VNF License"
+        - value: 184
+          name: "vnfapplicense_write"
+          description: "Add/Edit VNF License"
+      
+        - value: 185
+          name: "vnfappconfig_read"
+          description: "View VNF Configuration"
+        - value: 186
+          name: "vnfappconfig_write"
+          description: "Add/Edit VNF Configuration"
+      
+        - value: 187
+          name: "settings_read"
+          description: "View settings"
+        - value: 188
+          name: "settings_write"
+          description: "Add/Edit settings"
+      
+        - value: 189
+          name: "t1_read"
+          description: "View Download Configuration"
+        - value: 190
+          name: "t1_write"
+          description: "Add/Edit Download Configuration"
+      
+        - value: 191
+          name: "t2_read"
+          description: "View Download Software"
+        - value: 192
+          name: "t2_write"
+          description: "Add/Edit Download Software"
+      
+        - value: 193
+          name: "t52_read"
+          description: "View Download Auxiliary File"
+        - value: 194
+          name: "t52_write"
+          description: "Add/Edit Download Auxiliary File"
+      
+        - value: 195
+          name: "t33_read"
+          description: "View Download Log"
+        - value: 196
+          name: "t33_write"
+          description: "Add/Edit Download Log"
+      
+        - value: 197
+          name: "t20_read"
+          description: "View Execute CLI Script"
+        - value: 198
+          name: "t20_write"
+          description: "Add/Edit Execute CLI Script"
+      
+        - value: 199
+          name: "t30_read"
+          description: "View install software"
+        - value: 200
+          name: "t30_write"
+          description: "Add/Edit install software"
+      
+        - value: 201
+          name: "t22_read"
+          description: "View reboot"
+        - value: 202
+          name: "t22_write"
+          description: "Add/Edit reboot"
+      
+        - value: 203
+          name: "t34_read"
+          description: "View save configuration"
+        - value: 204
+          name: "t34_write"
+          description: "Add/Edit save configuration"
+      
+        - value: 205
+          name: "t11_read"
+          description: "View Upload Configuration"
+        - value: 206
+          name: "t11_write"
+          description: "Add/Edit Upload Configuration"
+      
+        - value: 207
+          name: "t12_read"
+          description: "View Upload Software"
+        - value: 208
+          name: "t12_write"
+          description: "Add/Edit Upload Software"
+      
+        - value: 209
+          name: "t56_read"
+          description: "View upload auxiliary file"
+        - value: 210
+          name: "t56_write"
+          description: "Add/Edit upload auxiliary file"
+      
+        - value: 211
+          name: "t54_read"
+          description: "View upload license"
+        - value: 212
+          name: "t54_write"
+          description: "Add/Edit upload license"
+      
+        - value: 213
+          name: "t1001_read"
+          description: "View nms backup"
+        - value: 214
+          name: "t1001_write"
+          description: "Add/Edit nms backup"
+      
+        - value: 215
+          name: "t5_read"
+          description: "View Collect Statistics"
+        - value: 216
+          name: "t5_write"
+          description: "Add/Edit Collect Statistics"
+      
+        - value: 217
+          name: "t50_read"
+          description: "View Generate Statistics Report"
+        - value: 218
+          name: "t50_write"
+          description: "Add/Edit Generate Statistics Report"
+      
+        - value: 219
+          name: "t1000_read"
+          description: "View Scan for Network Elements"
+        - value: 220
+          name: "t1000_write"
+          description: "Add/Edit Scan for Network Elements"
+      
+        - value: 221
+          name: "t1004_read"
+          description: "View Scan for Services"
+        - value: 222
+          name: "t1004_write"
+          description: "Add/Edit Scan for Services"
+      
+        - value: 223
+          name: "t60_read"
+          description: "View compute node backup"
+        - value: 224
+          name: "t60_write"
+          description: "Add/Edit compute node backup"
+      
+        - value: 225
+          name: "t61_read"
+          description: "View Compute Node Restore"
+        - value: 226
+          name: "t61_write"
+          description: "Add/Edit Compute Node Restore"
+      
+        - value: 227
+          name: "t1005_read"
+          description: "View vCPEOS-Module Reboot"
+        - value: 228
+          name: "t1005_write"
+          description: "Add/Edit vCPEOS-Module Reboot"
+      
+        - value: 229
+          name: "taskhistory_read"
+          description: "View task history"
+        - value: 230
+          name: "taskhistory_write"
+          description: "Add/Edit task history"
+      
+        - value: 227
+          name: "t70_read"
+          description: "View packet capture"
+        - value: 228
+          name: "t70_write"
+          description: "Add/Edit packet capture"
+      
+        - value: 229
+          name: "license_read"
+          description: "View license"
+        - value: 230
+          name: "license_write"
+          description: "Add/Edit license"
+      
+        - value: 231
+          name: "industrialmeter_read"
+          description: "View industrial meter"
+        - value: 232
+          name: "industrialmeter_write"
+          description: "Add/Edit industrial meter"
+      description: "Permission category"
+      
+    #------------------------------------ #
+    #   Permissions names Enum            #
+    #------------------------------------ #
+    RolePermissionsStrEnum:
+      type: string
+      enum:
+        - value: "all"
+          id: 1
+          description: "Allow All"
+      
+        - value: "ne_read"
+          id: 2
+          description: "View Network Elements"
+     
+        - value: "ne_write"
+          id: 3
+          description: "Add/Edit Network Elements"
+      
+        - value: "link_read"
+          id: 4
+          description: "View Link"
+        - value: "link_write"
+          id: 5
+          description: "Add/Edit Link"
+      
+        - value: "vnfimage_read"
+          id: 6
+          description: "View VNF Repository"
+        - value: "vnfimage_write"
+          id: 7
+          description: "Add/Edit VNF Repository"
+      
+        - value: "basenetwork_read"
+          id: 8
+          description: "View VNF Networks"
+        - value: "basenetwork_write"
+          id: 9
+          description: "Add/Edit VNF Networks"
+      
+        - value: "vnfflavor_read"
+          id: 10
+          description: "View VNF Flavors"
+        - value: "vnfflavor_write"
+          id: 11
+          description: "Add/Edit VNF Flavors"
+      
+        - value: "fault_read"
+          id: 12
+          description: "View Fault"
+        - value: "fault_write"
+          id: 13
+          description: "Add/Edit Fault"
+      
+        - value: "history_faults_read"
+          id: 14
+          description: "View History Faults"
+        - value: "history_faults_write"
+          id: 15
+          description: "Add/Edit History Faults"
+      
+        - value: "card_read"
+          id: 16
+          description: "View Cards"
+        - value: "card_write"
+          id: 17
+          description: "Add/Edit Cards"
+      
+        - value: "vnfinstance_read"
+          id: 18
+          description: "View VNF Instance"
+        - value: "vnfinstance_write"
+          id: 19
+          description: "Add/Edit VNF Instance"
+      
+        - value: "cardtype_read"
+          id: 20
+          description: "View Card Type"
+        - value: "cardtype_write"
+          id: 21
+          description: "Add/Edit Card Type"
+      
+        - value: "netype_read"
+          id: 22
+          description: "View NE Type"
+        - value: "netype_write"
+          id: 23
+          description: "Add/Edit NE Type"
+      
+        - value: "role_read"
+          id: 24
+          description: "View Role"
+        - value: "role_write"
+          id: 25
+          description: "Add/Edit Role"
+      
+        - value: "user_read"
+          id: 26
+          description: "View Users"
+        - value: "user_write"
+          id: 27
+          description: "Add/Edit Users"
+      
+        - value: "ring_read"
+          id: 28
+          description: "View Ring"
+        - value: "ring_write"
+          id: 29
+          description: "Add/Edit Ring"
+      
+        - value: "port_read"
+          id: 32
+          description: "View Port"
+        - value: "port_write"
+          id: 33
+          description: "Add/Edit Port"
+      
+        - value: "plan_read"
+          id: 34
+          description: "View Plan"
+        - value: "plan_write"
+          id: 35
+          description: "Add/Edit Plan"
+      
+        - value: "tenant_read"
+          id: 40
+          description: "View Tenant"
+        - value: "tenant_write"
+          id: 41
+          description: "Add/Edit Tenant"
+      
+        - value: "service_read"
+          id: 42
+          description: "View Service"
+        - value: "service_write"
+          id: 43
+          description: "Add/Edit Service"
+      
+        - value: "bwprofile_read"
+          id: 44
+          description: "View BW Profile"
+        - value: "bwprofile_write"
+          id: 45
+          description: "Add/Edit BW Profile"
+      
+        - value: "lag_read"
+          id: 50
+          description: "View Lag"
+        - value: "lag_write"
+          id: 51
+          description: "Add/Edit Lag"
+      
+        - value: "image_read"
+          id: 62
+          description: "View Image"
+        - value: "image_write"
+          id: 63
+          description: "Add/Edit Image"
+      
+        - value: "tdmservice_read"
+          id: 64
+          description: "View TDM services"
+        - value: "tdmservice_write"
+          id: 65
+          description: "Add/Edit TDM services"
+      
+        - value: "y1564testtemplate_read"
+          id: 66
+          description: "View Y1564 Test templates"
+        - value: "y1564testtemplate_write"
+          id: 67
+          description: "Add/Edit Y1564 Test templates"
+      
+        - value: "servicetemplate_read"
+          id: 68
+          description: "View Service templates"
+        - value: "servicetemplate_write"
+          id: 69
+          description: "Add/Edit Service templates"
+      
+        - value: "cloud_read"
+          id: 70
+          description: "View Clouds"
+        - value: "cloud_write"
+          id: 71
+          description: "Add/Edit Clouds"
+      
+        - value: "customer_read"
+          id: 72
+          description: "View Customers"
+        - value: "customer_write"
+          id: 73
+          description: "Add/Edit Customers"
+      
+        - value: "twampsession_read"
+          id: 82
+          description: "View Twamp Service"
+        - value: "twampsession_write"
+          id: 83
+          description: "Add/Edit Twamp Service"
+      
+        - value: "shelfview_read"
+          id: 84
+          description: "View Shelf View"
+        - value: "shelfview_write"
+          id: 85
+          description: "Add/Edit Shelf View"
+      
+        - value: "discoveryservice_read"
+          id: 86
+          description: "View Discovered Service"
+        - value: "discoveryservice_write"
+          id: 87
+          description: "Add/Edit Discovered Service"
+      
+        - value: "enrolldiscoveredservice_read"
+          id: 88
+          description: "View Enroll Discovered Service"
+        - value: "enrolldiscoveredservice_write"
+          id: 89
+          description: "Add/Edit Enrolled Discovered Service"
+      
+        - value: "l3group_read"
+          id: 90
+          description: "View L3 Group"
+        - value: "l3group_write"
+          id: 91
+          description: "Add/Edit L3 Group"
+      
+        - value: "tunnel_read"
+          id: 92
+          description: "View Tunnel"
+        - value: "tunnel_write"
+          id: 93
+          description: "Add/Edit Tunnel"
+      
+        - value: "macsec_read"
+          id: 94
+          description: "View Secured Networks"
+        - value: "macsec_write"
+          id: 95
+          description: "Add/Edit Secured Networks"
+      
+        - value: "userevent_read"
+          id: 98
+          description: "View User Events"
+        - value: "userevent_write"
+          id: 99
+          description: "Delete User Events"
+      
+        - value: "dormantEntry_read"
+          id: 98
+          description: "View Provisioning Cleanup"
+        - value: "dormantEntry_write"
+          id: 99
+          description: "Delete/Edit Provisioning Cleanup"
+      
+        - value: "task_read"
+          id: 100
+          description: "View Active Tasks"
+        - value: "task_write"
+          id: 101
+          description: "Add/Edit Active Tasks"
+      
+        - value: "ztrule_read"
+          id: 104
+          description: "View Zero Touch Rules"
+        - value: "ztrule_write"
+          id: 105
+          description: "Add/Edit Zero Touch Rules"
+      
+        - value: "cos_read"
+          id: 118
+          description: "View cos list"
+        - value: "cos_write"
+          id: 119
+          description: "Add/Edit cos list"
+      
+        - value: "dscp2cosprofile_read"
+          id: 130
+          description: "View dscp2cos profile"
+        - value: "dscp2cosprofile_write"
+          id: 131
+          description: "Add/Edit dscp2cos profile"
+      
+        - value: "pbit2cosprofile_read"
+          id: 132
+          description: "View pbit2cos profile"
+        - value: "pbit2cosprofile_write"
+          id: 133
+          description: "Add/Edit pbit2cos profile"
+      
+      
+        - value: "cospbitprofile_read"
+          id: 136
+          description: "View cospbit profile"
+        - value: "cospbitprofile_write"
+          id: 137
+          description: "Add/Edit cospbit profile"
+      
+        - value: "pmslaprofile_read"
+          id: 138
+          description: "View pmsla profile"
+        - value: "pmslaprofile_write"
+          id: 139
+          description: "Add/Edit pmslap rofile"
+      
+        - value: "twampprofile_read"
+          id: 140
+          description: "View twamp profile"
+        - value: "twampprofile_write"
+          id: 141
+          description: "Add/Edit twamp profile"
+      
+        - value: "subnet_read"
+          id: 142
+          description: "View subnet"
+        - value: "subnet_write"
+          id: 143
+          description: "Add/Edit subnet"
+      
+        - value: "cos2queueprofile_read"
+          id: 150
+          description: "View cos2 queue profile"
+        - value: "cos2queueprofile_write"
+          id: 151
+          description: "Add/Edit cos2 queue profile"
+      
+        - value: "ringtemplate_read"
+          id: 152
+          description: "View ring template"
+        - value: "ringtemplate_write"
+          id: 153
+          description: "Add/Edit ring template"
+      
+        - value: "vnfvservice_read"
+          id: 152
+          description: "View Service Chain"
+        - value: "vnfvservice_write"
+          id: 153
+          description: "Add/Edit Service Chain"
+      
+        - value: "performance_read"
+          id: 153
+          description: "View performance"
+        - value: "performance_write"
+          id: 154
+          description: "Add/Edit performance"
+      
+        - value: "topology_read"
+          id: 155
+          description: "View topology"
+        - value: "topology_write"
+          id: 156
+          description: "Add/Edit topology"
+      
+        - value: "ipmonservice_read"
+          id: 157
+          description: "View ipmonitoringservice"
+        - value: "ipmonservice_write"
+          id: 158
+          description: "Add/Edit ipmonitoringservice"
+      
+        - value: "enterprise_read"
+          id: 159
+          description: "View enterprise"
+        - value: "enterprise_write"
+          id: 160
+          description: "Add/Edit enterprise"
+      
+        - value: "y1564testcontainer_read"
+          id: 161
+          description: "View Y1564 Test"
+        - value: "y1564testcontainer_write"
+          id: 162
+          description: "Add/Edit Y1564 Test"
+      
+        - value: "computenode_read"
+          id: 163
+          description: "View computenode"
+        - value: "computenode_write"
+          id: 164
+          description: "Add/Edit computenode"
+      
+        - value: "controller_read"
+          id: 165
+          description: "View controller"
+        - value: "controller_write"
+          id: 166
+          description: "Add/Edit controller"
+      
+        # Permissions Added for RADview version 5.90
+        - value: "pmprofile_read"
+          id: 167
+          description: "View VM Profile"
+        - value: "pmprofile_write"
+          id: 168
+          description: "Add/Edit VM Profile"
+      
+        - value: "taskreport_read"
+          id: 169
+          description: "View taskreport"
+        - value: "taskreport_write"
+          id: 170
+          description: "Add/Edit taskreport"
+      
+        # Permissions Added for RADview version 6.00
+        - value: "dashboard_read"
+          id: 171
+          description: "View dashboard"
+        - value: "dashboard_write"
+          id: 172
+          description: "Add/Edit dashboard - optional use"
+      
+        - value: "logfile_read"
+          id: 173
+          description: "Download log zip file"
+        - value: "logfile_write"
+          id: 174
+          description: "Add/Edit log zip file - optional use"
+      
+        - value: "servicechaintemplate_read"
+          id: 175
+          description: "View service chain template"
+        - value: "servicechaintemplate_write"
+          id: 176
+          description: "Add/Edit service chain template"
+      
+        - value: "routerinterface_read"
+          id: 177
+          description: "View router inteface"
+        - value: "routerinterface_write"
+          id: 178
+          description: "Add/Edit router inteface"
+      
+        - value: "configurationtemplate_read"
+          id: 179
+          description: "View configuration template"
+        - value: "configurationtemplate_write"
+          id: 180
+          description: "Add/Edit configuration template"
+      
+        - value: "cliscript_read"
+          id: 181
+          description: "View cli script"
+        - value: "cliscript_write"
+          id: 182
+          description: "Add/Edit ccli script"
+      
+        - value: "vnfapplicense_read"
+          id: 183
+          description: "View VNF License"
+        - value: "vnfapplicense_write"
+          id: 184
+          description: "Add/Edit VNF License"
+      
+        - value: "vnfappconfig_read"
+          id: 185
+          description: "View VNF Configuration"
+        - value: "vnfappconfig_write"
+          id: 186
+          description: "Add/Edit VNF Configuration"
+      
+        - value: "settings_read"
+          id: 187
+          description: "View settings"
+        - value: "settings_write"
+          id: 188
+          description: "Add/Edit settings"
+      
+        - value: "t1_read"
+          id: 189
+          description: "View Download Configuration"
+        - value: "t1_write"
+          id: 190
+          description: "Add/Edit Download Configuration"
+      
+        - value: "t2_read"
+          id: 191
+          description: "View Download Software"
+        - value: "t2_write"
+          id: 192
+          description: "Add/Edit Download Software"
+      
+        - value: "t52_read"
+          id: 193
+          description: "View Download Auxiliary File"
+        - value: "t52_write"
+          id: 194
+          description: "Add/Edit Download Auxiliary File"
+      
+        - value: "t33_read"
+          id: 195
+          description: "View Download Log"
+        - value: "t33_write"
+          id: 196
+          description: "Add/Edit Download Log"
+      
+        - value: "t20_read"
+          id: 197
+          description: "View Execute CLI Script"
+        - value: "t20_write"
+          id: 198
+          description: "Add/Edit Execute CLI Script"
+      
+        - value: "t30_read"
+          id: 199
+          description: "View install software"
+        - value: "t30_write"
+          id: 200
+          description: "Add/Edit install software"
+      
+        - value: "t22_read"
+          id: 201
+          description: "View reboot"
+        - value: "t22_write"
+          id: 202
+          description: "Add/Edit reboot"
+      
+        - value: "t34_read"
+          id: 203
+          description: "View save configuration"
+        - value: "t34_write"
+          id: 204
+          description: "Add/Edit save configuration"
+      
+        - value: "t11_read"
+          id: 205
+          description: "View Upload Configuration"
+        - value: "t11_write"
+          id: 206
+          description: "Add/Edit Upload Configuration"
+      
+        - value: "t12_read"
+          id: 207
+          description: "View Upload Software"
+        - value: "t12_write"
+          id: 208
+          description: "Add/Edit Upload Software"
+      
+        - value: "t56_read"
+          id: 209
+          description: "View upload auxiliary file"
+        - value: "t56_write"
+          id: 210
+          description: "Add/Edit upload auxiliary file"
+      
+        - value: "t54_read"
+          id: 211
+          description: "View upload license"
+        - value: "t54_write"
+          id: 212
+          description: "Add/Edit upload license"
+      
+        - value: "t1001_read"
+          id: 213
+          description: "View nms backup"
+        - value: "t1001_write"
+          id: 214
+          description: "Add/Edit nms backup"
+      
+        - value: "t5_read"
+          id: 215
+          description: "View Collect Statistics"
+        - value: "t5_write"
+          id: 216
+          description: "Add/Edit Collect Statistics"
+      
+        - value: "t50_read"
+          id: 217
+          description: "View Generate Statistics Report"
+        - value: "t50_write"
+          id: 218
+          description: "Add/Edit Generate Statistics Report"
+      
+        - value: "t1000_read"
+          id: 219
+          description: "View Scan for Network Elements"
+        - value: "t1000_write"
+          id: 220
+          description: "Add/Edit Scan for Network Elements"
+      
+        - value: "t1004_read"
+          id: 221
+          description: "View Scan for Services"
+        - value: "t1004_write"
+          id: 222
+          description: "Add/Edit Scan for Services"
+      
+        - value: "t60_read"
+          id: 223
+          description: "View compute node backup"
+        - value: "t60_write"
+          id: 224
+          description: "Add/Edit compute node backup"
+      
+        - value: "t61_read"
+          id: 225
+          description: "View Compute Node Restore"
+        - value: "t61_write"
+          id: 226
+          description: "Add/Edit Compute Node Restore"
+      
+        - value: "t1005_read"
+          id: 227
+          description: "View vCPEOS-Module Reboot"
+        - value: "t1005_write"
+          id: 228
+          description: "Add/Edit vCPEOS-Module Reboot"
+      
+        - value: "taskhistory_read"
+          id: 229
+          description: "View task history"
+        - value: "taskhistory_write"
+          id: 230
+          description: "Add/Edit task history"
+      
+        - value: "t70_read"
+          id: 227
+          description: "View packet capture"
+        - value: "t70_write"
+          id: 228
+          description: "Add/Edit packet capture"
+      
+        - value: "license_read"
+          id: 229
+          description: "View license"
+        - value: "license_write"
+          id: 230
+          description: "Add/Edit license"
+      
+        - value: "industrialmeter_read"
+          id: 231
+          description: "View industrial meter"
+        - value: "industrialmeter_write"
+          id: 232
+          description: "Add/Edit industrial meter"
+      description: "Permission category strings"
+
+    RolePermissionsStrOnlyEnum:
+      type: string
+      enum:
+        - all
+    
+        - ne_read
+        - ne_write
+      
+        - link_read
+        - link_write
+      
+        - vnfimage_read
+        - vnfimage_write
+      
+        - basenetwork_read
+        - basenetwork_write
+      
+        - vnfflavor_read
+        - vnfflavor_write
+      
+        - fault_read
+        - fault_write
+      
+        - history_faults_read
+        - history_faults_write
+      
+        - card_read
+        - card_write
+      
+        - vnfinstance_read
+        - vnfinstance_write
+      
+        - cardtype_read
+        - cardtype_write
+      
+        - netype_read
+        - netype_write
+      
+        - role_read
+        - role_write
+      
+        - user_read
+        - user_write
+      
+        - ring_read
+        - ring_write
+      
+        - port_read
+        - port_write
+      
+        - plan_read
+        - plan_write
+      
+        - tenant_read
+        - tenant_write
+      
+        - service_read
+        - service_write
+      
+        - bwprofile_read
+        - bwprofile_write
+      
+        - lag_read
+        - lag_write
+      
+        - image_read
+        - image_write
+      
+        - tdmservice_read
+        - tdmservice_write
+      
+        - y1564testtemplate_read
+        - y1564testtemplate_write
+      
+        - servicetemplate_read
+        - servicetemplate_write
+      
+        - cloud_read
+        - cloud_write
+      
+        - customer_read
+        - customer_write
+      
+        - twampsession_read
+        - twampsession_write
+      
+        - shelfview_read
+        - shelfview_write
+      
+        - discoveryservice_read
+        - discoveryservice_write
+      
+        - enrolldiscoveredservice_read
+        - enrolldiscoveredservice_write
+      
+        - l3group_read
+        - l3group_write
+      
+        - tunnel_read
+        - tunnel_write
+      
+        - macsec_read
+        - macsec_write
+      
+        - userevent_read
+        - userevent_write
+      
+        - dormantEntry_read
+        - dormantEntry_write
+      
+        - task_read
+        - task_write
+      
+        - ztrule_read
+        - ztrule_write
+      
+        - cos_read
+        - cos_write
+      
+        - dscp2cosprofile_read
+        - dscp2cosprofile_write
+      
+        - pbit2cosprofile_read
+        - pbit2cosprofile_write
+      
+      
+        - cospbitprofile_read
+        - cospbitprofile_write
+      
+        - pmslaprofile_read
+        - pmslaprofile_write
+      
+        - twampprofile_read
+        - twampprofile_write
+      
+        - subnet_read
+        - subnet_write
+      
+        - cos2queueprofile_read
+        - cos2queueprofile_write
+      
+        - ringtemplate_read
+        - ringtemplate_write
+      
+        - vnfvservice_read
+        - vnfvservice_write
+      
+        - performance_read
+        - performance_write
+      
+        - topology_read
+        - topology_write
+      
+        - ipmonservice_read
+        - ipmonservice_write
+      
+        - enterprise_read
+        - enterprise_write
+      
+        - y1564testcontainer_read
+        - y1564testcontainer_write
+      
+        - computenode_read
+        - computenode_write
+      
+        - controller_read
+        - controller_write
+      
+        # Permissions Added for RADview version 5.90
+        - pmprofile_read
+        - pmprofile_write
+      
+        - taskreport_read
+        - taskreport_write
+      
+        # Permissions Added for RADview version 6.00
+        - dashboard_read
+        - dashboard_write
+      
+        - logfile_read
+        - logfile_write
+      
+        - servicechaintemplate_read
+        - servicechaintemplate_write
+      
+        - routerinterface_read
+        - routerinterface_write
+      
+        - configurationtemplate_read
+        - configurationtemplate_write
+      
+        - cliscript_read
+        - cliscript_write
+      
+        - vnfapplicense_read
+        - vnfapplicense_write
+      
+        - vnfappconfig_read
+        - vnfappconfig_write
+      
+        - settings_read
+        - settings_write
+      
+        - t1_read
+        - t1_write
+      
+        - t2_read
+        - t2_write
+      
+        - t52_read
+        - t52_write
+      
+        - t33_read
+        - t33_write
+      
+        - t20_read
+        - t20_write
+      
+        - t30_read
+        - t30_write
+      
+        - t22_read
+        - t22_write
+      
+        - t34_read
+        - t34_write
+      
+        - t11_read
+        - t11_write
+      
+        - t12_read
+        - t12_write
+      
+        - t56_read
+        - t56_write
+      
+        - t54_read
+        - t54_write
+      
+        - t1001_read
+        - t1001_write
+      
+        - t5_read
+        - t5_write
+      
+        - t50_read
+        - t50_write
+      
+        - t1000_read
+        - t1000_write
+      
+        - t1004_read
+        - t1004_write
+      
+        - t60_read
+        - t60_write
+      
+        - t61_read
+        - t61_write
+      
+        - t1005_read
+        - t1005_write
+      
+        - taskhistory_read
+        - taskhistory_write
+      
+        - t70_read
+        - t70_write
+      
+        - license_read
+        - license_write
+      
+        - industrialmeter_read
+        - industrialmeter_write
+
+
+      
+    RolePermissionsList:
+      type: array
+      items:
+        $ref: "#/components/schemas/RolePermissionsStrOnlyEnum"
+    Role:
+      properties:
+        id:
+          type: integer
+          format: int32
+          default: 0
+        description:
+          type: string
+          nullable: true
+        disableForEdit:
+          type: boolean
+          default: false
+        name:
+          type: string
+          description: "Role name"
+          example: "testRole"
+        permissions:
+          $ref: "#/components/schemas/RolePermissionsList"
+    UserImageFile:
+      properties:
+        id:
+          type: string
+          example: "/avatar/users/user3.jpg"
+          description: "ID of the file"
+    UserImageFilesList:
+      nullable: true
+      type: array
+      items:
+        $ref: "#/components/schemas/UserImageFile"
+    User:
+      #readonly:
+      #  - _id
+      #  - active
+      #  - createdAt
+      #  - expirationDate
+      #required:
+      #  - login
+      #  - name
+      #  - password
+      #  - roleIds
+      properties:
+        id:
+          # Most of the time it's RO (for post for instance), but for put it should be given, so user name can be changed
+          type: string
+          readOnly: true
+        active:
+          type: boolean
+          default: true
+        createdAt:
+          type: string
+          # format date-time according to RFC 3339, section 5.6,
+          # date-time = full-date "T" full-time
+          # full-date = date-fullyear (4 digits) "-" date-month (2 digits: 01-12) "-" date-mday (2 digits: 01-31)
+          # full-time = time-hour (2 digits: 00-23)":" time-minute (2 digits: 00-59) ":" time-second (2 digits: 00-59) time-offset ("Z" / time-numoffset)
+          # time-numoffset = ("+" / "-") time-hour ":" time-minute
+          description: Date and time when user was created (e.g. 2017-07-21T17:32:28Z) according to RFC 3339, section 5.6"
+          format: date-time
+          example: "2017-07-21T17:32:28Z"
+          readOnly: true
+        expirationDate:
+          description: Date and time for token exipration for this user (e.g. 2018-06-14T18:34:29Z) according to RFC 3339, section 5.6"
+          type: string
+          format: date-time
+          example: "2018-06-14T18:34:29Z"
+          nullable: true
+        files:
+          # List of image files of the user
+          $ref: "#/components/schemas/UserImageFilesList"
+        login:
+          type: string
+          description: "User login name"
+          example: "Customer-B"
+        name:
+          type: string
+          description: "User displayed name"
+          example: "Customer-B-for-display"
+        password:
+          # Used in POST/PUT/PATCH, not returned by GET
+          type: string
+          writeOnly: true
+          description: "User password"
+          example: "dyq79pl"
+        roleId:
+          description: "User role ID. Role ID (actually UUID) can be taken from roles table. E.g. Id of Administrator"
+          type: string
+          example: "32"
+        mail:
+          description: "User mail address"
+          type: string
+          example: "john@gmail.com"
+
+        # Raz changed tenantId to be transient on 2018-07-08, so I'll remove it from NBI
+        #tenantId:
+        #  type: integer
+        #  format: int32
+        #  default: 0
+        #  readOnly: true
+
+  #---------------------------------------------#
+  # Parameters copied from Domain               #
+  #---------------------------------------------#
+  parameters:
+    auth:
+      name: auth
+      in: header
+      required: true
+      description: authentication 
+      allowEmptyValue: false
+      schema:
+        type: string
+      example: entlf31e7qlsmrhhq14s6h0h43
+    id:
+      name: id
+      in: path
+      required: true
+      description: Numeric ID of the User/Role.
+      schema:
+        type: string
+      example: 1
+    query:
+      name: query
+      in: query
+      required: false
+      description: Enable query on get response 
+      schema:
+        type: string
+      example: ?name=user1&roleId=1
+  
+  #---------------------------------------------#
+  # Rresponses copied from Domain               #
+  #---------------------------------------------#
+  responses:
+    UserResponse:
+      description: Successfully create/update User. 
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: false
+              successful:
+                type: boolean
+                readOnly: true
+                example: true
+              data:
+                type: string
+                readOnly: true
+                example: "{data as json}"
+    RoleResponse:
+      description: Successfully create/update Role. 
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: false
+              successful:
+                type: boolean
+                readOnly: true
+                example: true
+              data:
+                type: string
+                readOnly: true
+                example: "{data as json}"
+                
+    BadRequestErrorResponse:
+      description: Bad Request. There was some error for this request.  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 400
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Missing/invalid field name.
+                
+    UnauthorizedErrorResponse:
+      description: Unauthorized, Token is not valid or missing  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 401
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Unauthorized operation
+                
+    NotFoundErrorResponse:
+      description: Resource not found for operation  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 404
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Resource not found
+                
+    ServerResourceErrorResponse:
+      description: Server Resource operation error  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 500
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Resource operation error                
+                
+  
+    #------------------------------------ #
+    #       Request Bodies                #
+    #------------------------------------ #
+  requestBodies:
+
+    User:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+#        application/xml:
+#          schema:
+#            $ref: '#/components/schemas/User'
+      description: User Object to create/update
+      required: true
+
+    Role:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Role'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Role'
+      description: User Object
+      required: true
+
+    #------------------------------------ #
+    #       Security Schema (copied)      #
+    #------------------------------------ #
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+      description: >-
+          Login with user name and password
+    ApiKeyAuth:
+      # The type of authorization — apiKey, http, oauth2, or openIdConnect.
+      type: apiKey 
+      
+      # Description of your security method
+      description: >-
+        **Authentication key**. *Example: augtt$93eee2ddsad34jjk*. Every request
+        that your application sends to the RADview API, it needs to identify
+        your application. You can use an API key, or you can use an OAuth 2.0
+        client ID. You should use a client ID when you are making calls on
+        behalf of a given user.   
+        
+      #The name of the header value submitted in the request. Used only for apiKey type security
+      name: auth 
+      
+      # Options are query, header or cookie. Used only for apiKey type security.
+      in: header
