@@ -28,7 +28,7 @@ servers:
       environment:
         enum: 
           - mng164/task-management  # RADview Hub Server 
-          - object  # RADview FE FE Server
+          - object  # RADview FE Server
         default: mng164/task-management
 
 paths:
