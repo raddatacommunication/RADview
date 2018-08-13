@@ -55,9 +55,9 @@ paths:
         500:
           $ref: '#/components/responses/ServerResourceErrorResponse'
     post:
-      summary: Create a new Domain Group server
-      operationId: createDomainGroup
-      description: creating new Domain Group
+      summary: Create a new circle
+      operationId: createCircle
+      description: creating circle
       tags:
         - Circles
       requestBody:
