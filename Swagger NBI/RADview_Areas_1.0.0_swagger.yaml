@@ -1,6 +1,6 @@
 openapi: 3.0.0
 #############################################################################
-# In the servers object, you specify the basepath used in your API requests.
+# In the servers object, you specify the basepath used in your API requests. 
 # The basepath is the part of the URL that appears before the endpoint.
 #############################################################################
 servers:
@@ -23,9 +23,9 @@ servers:
         description: RADview server port number.
       environment:
         enum: 
-          - mng164/inventory  # RADview Hub Server 
+          - mng164/hub  # RADview Hub Server 
           - object  # RADview FE FE Server
-        default: mng164/inventory
+        default: mng164/hub
         
 info:
   description: |
@@ -48,22 +48,27 @@ info:
 security:
   - BasicAuth:  []
   - ApiKeyAuth: []
-
 tags:
-  - name: Areas
+  - name: Area
     description: Everything about your Areas
     externalDocs:
       description: Find out more
       url: 'http://swagger.io'
-
+#  - name: administration
+#    description: Access to Users actions
+  - name: role
+    description: Operations about roles
+#    externalDocs:
+#      description: Find out more about our roles
+#      url: 'http://swagger.io'
 paths:
-  /areas:
+  /area:
     #------------------------------------ #
     #          Create an Area             #
     #------------------------------------ #
     post:
       tags:
-        - Areas
+        - Area
       summary: Create a new area
       operationId: createArea
       description: creating new area
@@ -92,7 +97,7 @@ paths:
       operationId: getAreas
       description: Get all areas.
       tags:
-        - Areas
+        - Area
       parameters:
         - $ref: "#/components/parameters/auth"
         - $ref: "#/components/parameters/circle"
@@ -118,7 +123,7 @@ paths:
         500:
           $ref: '#/components/responses/ServerResourceErrorResponse'
 
-  '/areas/{id}':
+  '/area/{id}':
     parameters:
       - $ref: "#/components/parameters/auth"
       - $ref: "#/components/parameters/id"
@@ -127,7 +132,7 @@ paths:
     #--------------------------------------------- #
     patch:
       tags:
-        - Areas
+        - Area
       summary: Update an existing area
       operationId: updateArea
       description: Update specific area
@@ -153,7 +158,7 @@ paths:
       operationId: getAreaById
       description: Get specific area.
       tags:
-        - Areas
+        - Area
       responses:
         200:
           description: Area returned successfully.
@@ -178,7 +183,7 @@ paths:
       operationId: deleteAreaById
       description: Delete specific area.
       tags:
-        - Areas
+        - Area
       responses:
         200:
           description: Area deleted successfully.
@@ -227,6 +232,16 @@ components:
           type: number
           format: float
           default: 0.0
+#    DomainServerData:
+#      properties:
+#        id:
+#          type: string
+#          default: ""
+#          description: "Domain Server ID"
+#        areaId:
+#          type: string
+#          default: ""
+#          description: "The Area ID in the Domain Server"
     Area:
       properties:
         id:
@@ -255,30 +270,22 @@ components:
           example: "East-Area"
           default: ""
         operStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
-          
-         # parentSubnetId is NOT relevant for Area since each domain has its own parent id.
-#        parentSubnetId:
-#          type: string
-#          default: ""
-
-        parentAreaId:
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+        parentId:
+          # Can be null only for area-NOC. Otherwise must be non-null
+          nullable: true
           type: string
           default: ""
           
-#        rvId:
-#          type: integer
-#          format: int64
-#          default: 0
-#          description: "RADview internal id. This is RADview NER id"
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
-        domainIds:
-          nullable: true
-          type: array
-          items:
-            type: integer
-            format: int32
+          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          
+         # For DB only 
+#        domainIds:
+#          nullable: true
+#          type: array
+#          items:
+#            type: String
           
         
   #---------------------------------------------#
