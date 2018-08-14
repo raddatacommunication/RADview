@@ -74,7 +74,7 @@ paths:
       description: creating new area
       parameters:
         - $ref: "#/components/parameters/auth"
-        - $ref: "#/components/parameters/circle"
+        - $ref: "#/components/parameters/circleId"
       requestBody:
         $ref: '#/components/requestBodies/Area'
       responses:
@@ -100,7 +100,7 @@ paths:
         - Area
       parameters:
         - $ref: "#/components/parameters/auth"
-        - $ref: "#/components/parameters/circle"
+        - $ref: "#/components/parameters/circleId"
         - $ref: "#/components/parameters/query"
       responses:
         200:
@@ -317,11 +317,11 @@ components:
       schema:
         type: string
       example: ?name=subD_1&rvId=1
-    circle:
-      name: circle
+    circleId:
+      name: circleId
       in: header
       required: true
-      description: Circle containing the Area 
+      description: Circle Id containing the Area 
       allowEmptyValue: false
       schema:
         type: string
