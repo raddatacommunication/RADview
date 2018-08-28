@@ -34,7 +34,7 @@ servers:
           - object  # RADview FE FE Server
         default: mng164
 paths:
-  /targetedconfiguration:
+  /targeted-configuration:
     post:
       tags:
         - Targeted Configuration
@@ -66,14 +66,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
         '404':
           description: Not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
-        '422':
-          description: Resource Issue
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
@@ -116,19 +128,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
         '404':
           description: Not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
-        '422':
-          description: Resource Issue
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
-  '/targetedconfiguration/{targetParameterTypeId}':
+  '/targeted-configuration/{targetParameterTypeId}':
     get:
       tags:
         - Targeted Configuration
@@ -166,14 +190,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
         '404':
           description: Not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
-        '422':
-          description: Resource Issue
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
@@ -210,25 +246,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
         '404':
           description: Not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
-        '422':
-          description: Resource Issue
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TargetParameterType'
-        description: Targeted Configuration
-        required: true
     delete:
       tags:
         - Targeted Configuration
@@ -254,46 +295,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
-        '404':
-          description: Not found
+        '401':
+          description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
-        '422':
-          description: Resource Issue
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-  /massrule:
-    post:
-      tags:
-        - Mass-provisioning ZT rule
-      operationId: addMassZtRule
-      summary: Create mass-provisioning ZT rule
-      description: Create mass-provisioning ZT rule
-      parameters:
-        - $ref: '#/components/parameters/username'
-        - $ref: '#/components/parameters/password'
-        - $ref: '#/components/parameters/tenant'
-      responses:
-        '200':
-          description: OK - Request was successful
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ZeroTouchMassRule'
-        '202':
-          description: >-
-            Accepted - The request has been accepted for processing, but the
-            processing has not been completed for asynchronous operations.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ZeroTouchMassRule'
-        '400':
-          description: Bad Request
+        '403':
+          description: Forbidden
           content:
             application/json:
               schema:
@@ -304,141 +313,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
-        '422':
-          description: Resource Issue
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ZeroTouchMassRule'
-        description: The mass-provisioning ZT rule to create
-        required: true
-    get:
-      tags:
-        - Mass-provisioning ZT rule
-      operationId: getMassZtRule
-      summary: Get the mass-provisioning ZT rule
-      description: Returns the mass-provisioning ZT rule.
-      parameters:
-        - $ref: '#/components/parameters/username'
-        - $ref: '#/components/parameters/password'
-        - $ref: '#/components/parameters/tenant'
-      responses:
-        '200':
-          description: A mass-provisioning ZT rule with all its parameters
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ZeroTouchMassRule'
-        '202':
-          description: >-
-            Accepted - The request has been accepted for processing, but the
-            processing has not been completed for asynchronous operations.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ZeroTouchMassRule'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '422':
-          description: Resource Issue
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-    put:
-      tags:
-        - Mass-provisioning ZT rule
-      operationId: updateMassZtRule
-      summary: >-
-        Modify an existing mass-provisioning ZT rule attribute(s) identified by
-        {ztRuleId}
-      description: >-
-        Update an existing mass-provisioning ZT rule attribute(s) identified by
-        {ztRuleId}
-      parameters:
-        - $ref: '#/components/parameters/username'
-        - $ref: '#/components/parameters/password'
-        - $ref: '#/components/parameters/tenant'
-        - name: ztRuleId
-          in: path
-          required: true
-          description: The ZT rule ID
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: OK - Request was successful
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ZeroTouchMassRule'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '422':
-          description: Resource Issue
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ZeroTouchMassRule'
-        description: The mass-provisioning ZT rule
-        required: true
-    delete:
-      tags:
-        - Mass-provisioning ZT rule
-      operationId: removeMassZtRule
-      summary: Delete an existing mass-provisioning ZT rule and all its sub rules
-      description: Delete an existing mass-provisioning ZT rule and all its sub rules
-      parameters:
-        - $ref: '#/components/parameters/username'
-        - $ref: '#/components/parameters/password'
-        - $ref: '#/components/parameters/tenant'
-      responses:
-        '200':
-          description: OK - Request was successful
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '422':
-          description: Resource Issue
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
@@ -475,14 +351,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
         '404':
           description: Not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
-        '422':
-          description: Resource Issue
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
@@ -538,14 +426,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
         '404':
           description: Not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
-        '422':
-          description: Resource Issue
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
@@ -588,14 +488,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
         '404':
           description: Not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
-        '422':
-          description: Resource Issue
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
@@ -633,14 +545,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
         '404':
           description: Not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
-        '422':
-          description: Resource Issue
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
@@ -681,14 +605,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error_Response'
         '404':
           description: Not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error_Response'
-        '422':
-          description: Resource Issue
+        '500':
+          description: Internal Server Error
           content:
             application/json:
               schema:
@@ -717,31 +653,58 @@ components:
       schema:
         type: string
   schemas:
-    ZeroTouchMassRule:
+    ZeroTouchNeRule:
       required:
-        - ztRuleName
-        - ztRuleNerAppendHostname
-        - ztRuleNerAppendIp
+        - ztRuleType
       properties:
-        ztRuleId:
+        id:
           type: integer
           description: The ZT rule ID
+        ztRuleType:
+          type: string
+          description: The ZT rule type
+          enum:
+            - Mass
+            - Sub
+            - StandAlone
         ztRuleName:
           type: string
           description: The ZT rule name
+        ztRuleDescr:
+          type: string
+          description: The ZT rule description
         ztRuleEnabled:
           type: boolean
           description: The ZT state
           default: true
-        ztRuleDescr:
+        ztRuleDeviceType:
           type: string
-          description: The ZT rule description
+          description: 'The device type, related to a product family'
+        ztRuleCpeUid:
+          type: string
+          description: A unique identifier of the NE
+          pattern: '^([0-9A-Fa-f]{2}[:-]?){5}([0-9A-Fa-f]{2})$'
         ztRuleSubnetArray:
           type: array
           items:
             $ref: '#/components/schemas/subnet'
+        ztRuleCustomer:
+          type: string
+          description: A pointer to a customer configured in RV database
+        ztRulePhysicalLocation:
+          type: string
+          description: The physical location expected for the particular deployed NE
+        ztRuleBootstrappingMethod:
+          type: string
+          description: >-
+            Determines whether a device-specific artifact shall be generated for
+            bootstrapping over public network
+          enum:
+            - Public
+            - VPN
         ztRuleNerSubdomain:
           type: string
+          description: A pointer to a pre-defined subdomain in RV
         ztRuleNerNodeNamePrefix:
           type: string
         ztRuleNerNodeNameSuffix:
@@ -750,12 +713,28 @@ components:
           type: boolean
         ztRuleNerAppendIpAddress:
           type: boolean
-        ztRuleNetworkScaning:
-          type: boolean
-          default: false
-        ztRuleInterval:
-          type: integer
-          default: 6
+        ztRuleNeSwImageName:
+          type: string
+          description: >-
+            A textual pointer to 'first time SW upload' Network Element SW image
+            stored in RV database
+        ztRuleVcpeosModuleSwImageName:
+          type: string
+          description: >-
+            A textual pointer to a Network Element vCPEOS-Module image stored in
+            RV database
+        ztRuleConfigurationTemplateName:
+          type: string
+          description: >-
+            A textual pointer to a configuration template file stored in RV
+            database
+        ztRuleCliScriptName:
+          type: string
+          description: A textual pointer to a predefined CLI script stored in RV database
+        ztTargetParametersArray:
+          type: array
+          items:
+            $ref: '#/components/schemas/targetparametersvalues'
         ztRuleSnmpPort:
           type: integer
           default: 161
@@ -768,9 +747,6 @@ components:
         ztRuleSshPort:
           type: integer
           default: 22
-        ztScanThirdPartyDevices:
-          type: boolean
-          default: false
         ztSnmpVersion:
           type: integer
           default: 3
@@ -803,98 +779,15 @@ components:
         ztCliSshPassword:
           type: string
           default: 1234
-    ZeroTouchNeRule:
-      required:
-        - ztRuleCustomer
-        - ztRulePhysicalLocation
-        - ztRuleBootstrappingMethod
-      properties:
-        ztRuleId:
-          type: integer
-        ztRuleEnabled:
+        ztRuleNetworkScaning:
           type: boolean
-          description: The ZT state
-          default: true
-        ztRuleCustomer:
-          type: string
-          description: A pointer to a customer configured in RV database
-        ztRulePhysicalLocation:
-          type: string
-          description: The physical location expected for the particular deployed NE
-        ztRuleBootstrappingMethod:
-          type: string
-          description: >-
-            Determines whether a device-specific artifact shall be generated for
-            bootstrapping over public network
-          enum:
-            - Public
-            - VPN
-        ztRuleDeviceType:
-          type: string
-          description: 'The device type, related to a product family'
-        ztRuleCpeUid:
-          type: string
-          description: A unique identifier of the NE
-          pattern: '^([0-9A-Fa-f]{2}[:-]?){5}([0-9A-Fa-f]{2})$'
-        ztRuleNerSubdomain:
-          type: string
-          description: A pointer to a pre-defined subdomain in RV
-        ztRuleNerNodeNamePrefix:
-          type: string
-        ztRuleNerNodeNameSuffix:
-          type: string
-        ztRuleNerAppendHostname:
+          default: false
+        ztRuleInterval:
+          type: integer
+          default: 6
+        ztScanThirdPartyDevices:
           type: boolean
-        ztRuleNerAppendIpAddress:
-          type: boolean
-        ztRuleManagementIpAndPrefixLength:
-          type: string
-        ztRuleManagementDefaultGateway:
-          type: string
-        ztRuleNeSwImageName:
-          type: string
-          description: >-
-            A textual pointer to 'first time SW upload' Network Element SW image
-            stored in RV database
-        ztRuleVcpeosModuleSwImageName:
-          type: string
-          description: >-
-            A textual pointer to a Network Element vCPEOS-Module image stored in
-            RV database
-        ztRuleConfigurationTemplateName:
-          type: string
-          description: >-
-            A textual pointer to a configuration template file stored in RV
-            database
-        ztRuleCliScriptName:
-          type: string
-          description: A textual pointer to a predefined CLI script stored in RV database
-        ztRuleSnmpPort:
-          type: integer
-          default: 161
-        ztRuleHttpPort:
-          type: integer
-          default: 80
-        ztRuleTelnetPort:
-          type: integer
-          default: 23
-        ztRuleSshPort:
-          type: integer
-          default: 22
-        ztRuleComputeIpAddressAndPrefixLength:
-          type: string
-        ztRuleComputeDefaultGateway:
-          type: string
-        ztRuleComputeControllerIpAddress:
-          type: string
-        ztRuleComputeHostname:
-          type: string
-        ztRuleAvailabilityZone:
-          type: string
-        ztTargetParametersArray:
-          type: array
-          items:
-            $ref: '#/components/schemas/targetparametersvalues'
+          default: false
     TargetParameterType:
           required:
             - targetParameterTypeName
