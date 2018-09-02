@@ -270,7 +270,7 @@ components:
           example: "East-Area"
           default: ""
         operStatus:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/OperStateEnum"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/OperStateEnum"
         parentId:
           # Can be null only for area-NOC. Otherwise must be non-null
           nullable: true
@@ -278,7 +278,7 @@ components:
           default: ""
           
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/CommonEnums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
           
          # For DB only 
 #        domainIds:
