@@ -1941,11 +1941,6 @@ components:
           type: string
           example: "/avatar/users/user3.jpg"
           description: "ID of the file"
-    UserImageFilesList:
-      nullable: true
-      type: array
-      items:
-        $ref: "#/components/schemas/UserImageFile"
     User:
       properties:
         id:
@@ -2000,13 +1995,6 @@ components:
           description: "User mail address"
           type: string
           example: "john@gmail.com"
-
-        # Raz changed tenantId to be transient on 2018-07-08, so I'll remove it from NBI
-        #tenantId:
-        #  type: integer
-        #  format: int32
-        #  default: 0
-        #  readOnly: true
 
   #---------------------------------------------#
   # Parameters copied from Domain               #
