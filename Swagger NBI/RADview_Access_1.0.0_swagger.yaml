@@ -125,6 +125,7 @@ paths:
     parameters:
       - $ref: "#/components/parameters/auth"
       - $ref: "#/components/parameters/id"
+      
     #--------------------------------------- #
     #       Update a specific User (by ID)   #
     #--------------------------------------- #
@@ -133,7 +134,7 @@ paths:
         - Users
       summary: Update an existing user
       operationId: updateUser
-      description: Update specific user
+      description: Update a specific user (identified by its ID).
       requestBody:
         $ref: '#/components/requestBodies/User'
       responses:
@@ -154,7 +155,7 @@ paths:
     get:
       summary: Get user by id
       operationId: getUserById
-      description: Get specific user.
+      description: Get a specific user (identified by its ID).
       tags:
         - Users
       responses:
@@ -179,7 +180,7 @@ paths:
     delete:
       summary: Delete user by id
       operationId: deleteUserById
-      description: Delete specific user.
+      description: Delete a specific user (identified by its ID).
       tags:
         - Users
       responses:
@@ -239,7 +240,7 @@ paths:
     get:
       summary: Get all roles
       operationId: getroles
-      description: Get all roles.
+      description: Get all roles by filter (query).
       tags:
         - Roles
       parameters:
@@ -278,7 +279,7 @@ paths:
         - Roles
       summary: Update an existing role
       operationId: updateRole
-      description: Update specific role
+      description: Update a specific role (identified by its ID).
       requestBody:
         $ref: '#/components/requestBodies/Role'
       responses:
@@ -299,7 +300,7 @@ paths:
     get:
       summary: Get role by id
       operationId: getRoleById
-      description: Get specific role.
+      description: Get a specific role. (identified by its ID).
       tags:
         - Roles
       responses:
@@ -324,7 +325,7 @@ paths:
     delete:
       summary: Delete role by id
       operationId: deleteRoleById
-      description: Delete specific role.
+      description: Delete a specific role. (identified by its ID).
       tags:
         - Roles
       responses:
@@ -1631,7 +1632,9 @@ components:
         - value: "industrialmeter_write"
           id: 232
           description: "Add/Edit industrial meter"
-      description: "Permission category strings"
+      description: Permission category strings. 
+                   Add/Edit means you have write permissions, 
+                   View means you have read permissions only."
 
     RolePermissionsStrOnlyEnum:
       type: string
