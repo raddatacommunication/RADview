@@ -80,13 +80,13 @@ paths:
         200:
           $ref: '#/components/responses/UserResponse'
         400:
-          $ref: '#/components/responses/BadRequestErrorResponse'
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         404:
-          $ref: '#/components/responses/NotFoundErrorResponse'
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         401:
-          $ref: '#/components/responses/UnauthorizedErrorResponse'
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
         500:
-          $ref: '#/components/responses/ServerResourceErrorResponse'
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
           
     #----------------------------------------- #
     #         Get all users by filter (query)  #
