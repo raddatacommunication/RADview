@@ -67,11 +67,125 @@ definitions:
         items:
           type: string
         example: ["Missing/invalid field Task Action."]
-                
-      
+  BadRequestErrorResponse:
+    description: Bad Request. There was some error for this request.  
+    type: object
+    properties:
+      error:
+        type: boolean
+        readOnly: true
+        example: true
+      successful:
+        type: boolean
+        readOnly: true
+        example: false
+      errorName:
+        type: string
+        readOnly: true
+        example: java.lang.IllegalArgumentException
+      code:
+        type: integer
+        format: int32
+        readOnly: true
+        example: 400
+      errorMessage:
+        type: string
+        readOnly: true
+        example: Missing/invalid field name.
+  UnauthorizedErrorResponse:
+    description: Unauthorized, Token is not valid or missing  
+    type: object
+    properties:
+      error:
+        type: boolean
+        readOnly: true
+        example: true
+      successful:
+        type: boolean
+        readOnly: true
+        example: false
+      errorName:
+        type: string
+        readOnly: true
+        example: java.lang.IllegalArgumentException
+      code:
+        type: integer
+        format: int32
+        readOnly: true
+        example: 401
+      errorMessage:
+        type: string
+        readOnly: true
+        example: Unauthorized operation
+  NotFoundErrorResponse:
+    description: Resource not found for operation  
+    type: object
+    properties:
+      error:
+        type: boolean
+        readOnly: true
+        example: true
+      successful:
+        type: boolean
+        readOnly: true
+        example: false
+      errorName:
+        type: string
+        readOnly: true
+        example: java.lang.IllegalArgumentException
+      code:
+        type: integer
+        format: int32
+        readOnly: true
+        example: 404
+      errorMessage:
+        type: string
+        readOnly: true
+        example: Resource not found
+  ServerResourceErrorResponse:
+    description: Server Resource operation error  
+    type: object
+    properties:
+      error:
+        type: boolean
+        readOnly: true
+        example: true
+      successful:
+        type: boolean
+        readOnly: true
+        example: false
+      errorName:
+        type: string
+        readOnly: true
+        example: java.lang.IllegalArgumentException
+      code:
+        type: integer
+        format: int32
+        readOnly: true
+        example: 500
+      errorMessage:
+        type: string
+        readOnly: true
+        example: Resource operation error
+
       
 responses:
-  GeneralError:
-    description: General Error search results matching criteria
+  BadRequestErrorResponse:
+    description: Bad Request. There was some error for this request.  
     schema:
-      $ref: '#/definitions/ErrorModel'
+      $ref: '#/definitions/BadRequestErrorResponse'
+  
+  UnauthorizedErrorResponse:
+    description: Unauthorized, Token is not valid or missing   
+    schema:
+      $ref: '#/definitions/UnauthorizedErrorResponse'  
+
+  NotFoundErrorResponse:
+    description: Resource not found for operation  
+    schema:
+      $ref: '#/definitions/NotFoundErrorResponse'     
+    
+  ServerResourceErrorResponse:
+    description: Server Resource operation error  
+    schema:
+      $ref: '#/definitions/ServerResourceErrorResponse'
