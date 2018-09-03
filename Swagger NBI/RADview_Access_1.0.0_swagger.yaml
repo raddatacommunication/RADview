@@ -598,14 +598,14 @@ components:
           # format date-time according to RFC 3339, section 5.6,
           # date-time = full-date "T" full-time
           # full-date = date-fullyear (4 digits) "-" date-month (2 digits: 01-12) "-" date-mday (2 digits: 01-31)
-          # full-time = time-hour (2 digits: 00-23)":" time-minute (2 digits: 00-59) ":" time-second (2 digits: 00-59) "." hundredths of sec(2-digis) time-offset ("Z" / time-numoffset)
+          # full-time = time-hour (2 digits: 00-23)":" time-minute (2 digits: 00-59) ":" time-second (2 digits: 00-59) "." milliseconds (3-digis) time-offset ("Z" / time-numoffset)
           # time-numoffset = ("+" / "-") time-hour ":" time-minute
-          description: Date and time when user was created (e.g. 2017-07-21T17:32:28.56Z) according to RFC 3339, section 5.6"
+          description: Date and time when user was created (e.g. 2017-07-21T17:32:28.561Z) according to RFC 3339, section 5.6"
           format: date-time
           example: "2017-07-21T17:32:28.45Z"
           readOnly: true
         expirationDate:
-          description: Date and time for token exipration for this user (e.g. 2018-06-14T18:34:29Z) according to RFC 3339, section 5.6"
+          description: Date and time for token exipration for this user (e.g. 2018-06-14T18:34:239Z) according to RFC 3339, section 5.6"
           type: string
           format: date-time
           example: "2018-06-14T18:34:29.45Z"
