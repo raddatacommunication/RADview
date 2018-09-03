@@ -1929,7 +1929,7 @@ components:
         name:
           type: string
           description: "Role name"
-          example: "testRole"
+          example: "Admin Role"
         permissions:
           type: array
           items:
