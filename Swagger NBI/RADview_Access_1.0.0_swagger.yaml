@@ -1964,7 +1964,7 @@ components:
           # time-numoffset = ("+" / "-") time-hour ":" time-minute
           description: Date and time when user was created (e.g. 2017-07-21T17:32:28Z) according to RFC 3339, section 5.6"
           format: date-time
-          example: "2017-07-21T17:32:28Z"
+          example: "2017-07-21T17:32:28.67Z"
           readOnly: true
         expirationDate:
           description: Date and time for token exipration for this user (e.g. 2018-06-14T18:34:29Z) according to RFC 3339, section 5.6"
@@ -1974,7 +1974,10 @@ components:
           nullable: true
         files:
           # List of image files of the user
-          $ref: "#/components/schemas/UserImageFilesList"
+          nullable: true
+          type: array
+          items:
+            $ref: "#/components/schemas/UserImageFile"
         login:
           type: string
           description: "User login name"
