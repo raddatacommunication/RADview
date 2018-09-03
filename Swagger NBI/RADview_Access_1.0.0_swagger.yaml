@@ -1916,8 +1916,8 @@ components:
     RolePermissionsList:
       type: array
       items:
-#        $ref: "#/components/schemas/RolePermissionsStrOnlyEnum"
-        $ref: "#/components/schemas/RolePermissionsStrEnum"
+        $ref: "#/components/schemas/RolePermissionsStrOnlyEnum"
+#        $ref: "#/components/schemas/RolePermissionsStrEnum"
     Role:
       properties:
         id:
