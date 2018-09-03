@@ -1918,7 +1918,7 @@ components:
     RolePermissionsList:
       type: array
       items:
-        $ref: "#/components/schemas/RolePermissionsStrOnlyEnum"
+        $ref: "#/components/schemas/PermissionsEnum"
 #        $ref: "#/components/schemas/RolePermissionsStrEnum"
     Role:
       properties:
@@ -1937,7 +1937,9 @@ components:
           description: "Role name"
           example: "testRole"
         permissions:
-          $ref: "#/components/schemas/RolePermissionsList"
+          type: array
+          items:
+          $ref: "#/components/schemas/PermissionsEnum"
     UserImageFile:
       properties:
         id:
