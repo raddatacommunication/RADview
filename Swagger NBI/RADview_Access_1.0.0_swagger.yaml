@@ -1639,7 +1639,9 @@ components:
     RolePermissionsStrOnlyEnum:
       type: string
       enum:
+        
         - all
+          description: "Allow All"
     
         - ne_read
         - ne_write
