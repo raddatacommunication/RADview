@@ -1947,16 +1947,6 @@ components:
       items:
         $ref: "#/components/schemas/UserImageFile"
     User:
-      #readonly:
-      #  - _id
-      #  - active
-      #  - createdAt
-      #  - expirationDate
-      #required:
-      #  - login
-      #  - name
-      #  - password
-      #  - roleIds
       properties:
         id:
           # Most of the time it's RO (for post for instance), but for put it should be given, so user name can be changed
