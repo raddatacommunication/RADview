@@ -1636,7 +1636,7 @@ components:
                    Add/Edit means you have write permissions, 
                    View means you have read permissions only."
 
-    RolePermissionsStrOnlyEnum:
+    PermissionsEnum:
       type: string
       enum:
         
