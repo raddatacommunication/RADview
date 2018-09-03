@@ -1913,13 +1913,6 @@ components:
         - industrialmeter_read
         - industrialmeter_write
 
-
-      
-    RolePermissionsList:
-      type: array
-      items:
-        $ref: "#/components/schemas/PermissionsEnum"
-#        $ref: "#/components/schemas/RolePermissionsStrEnum"
     Role:
       properties:
         id:
@@ -1929,6 +1922,7 @@ components:
         description:
           type: string
           nullable: true
+          description: Description of the role
         disableForEdit:
           type: boolean
           default: false
@@ -1939,7 +1933,7 @@ components:
         permissions:
           type: array
           items:
-          $ref: "#/components/schemas/PermissionsEnum"
+            $ref: "#/components/schemas/PermissionsEnum"
     UserImageFile:
       properties:
         id:
