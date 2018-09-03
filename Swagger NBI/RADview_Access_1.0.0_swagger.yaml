@@ -1929,8 +1929,9 @@ components:
         name:
           type: string
           description: "Role name"
-          example: "Admin Role"
+          example: "AdminRole"
         permissions:
+        description: "List of allowed permissions for this role"
           type: array
           items:
             $ref: "#/components/schemas/PermissionsEnum"
