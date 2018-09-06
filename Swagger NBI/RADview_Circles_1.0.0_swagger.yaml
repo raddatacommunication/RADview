@@ -27,16 +27,16 @@ paths:
     parameters:
     - $ref: "#/components/parameters/auth"
     get:
-      summary: Get all domains groups
-      operationId: getDomain
-      description: Get all domain groups.
+      summary: Get all Circles
+      operationId: getCircles
+      description: Get all Circles.
       tags:
         - Circles
       parameters:
         - $ref: "#/components/parameters/query"
       responses:
         200:
-          description: All domain groups returned successfully.
+          description: All Circles returned successfully.
           content:
             application/json:    
               schema:
