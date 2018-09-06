@@ -180,15 +180,16 @@ components:
         uuid:
           description: Mapping uuid
           type: string
-          visible: true
           example: 12FBN4 
         neId:
           description: Mapping network element id
           type: number
+          readOnly: true
           example: 1000005
         mappingStatus:
           description: Mapping status of this Domain Mapping
           type: integer
+          readOnly: true
           format: int32
           enum:
             - value: 1
