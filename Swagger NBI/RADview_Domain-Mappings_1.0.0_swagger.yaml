@@ -22,4 +22,330 @@ servers:
       environment:
         default: mng164/servers
 
-paths: {}
+paths: 
+  /domain-mappings:
+    parameters:
+    - $ref: "#/components/parameters/auth"
+    get:
+      summary: Get all Domain Mappings
+      operationId: getDomainMappings
+      description: Get all Domain Mappings.
+      tags:
+        - Domain Mappings
+      parameters:
+        - $ref: "#/components/parameters/query"
+      responses:
+        200:
+          description: All Domain Mappings returned successfully.
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DomainMappings'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+    post:
+      summary: Create a new Domain Mapping
+      operationId: createDomainMapping
+      description: creating Domain Mapping
+      tags:
+        - Domain Mappings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomainMappings'
+      responses:
+        200:
+          $ref: '#/components/responses/DomainMappingResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+    put:
+      summary: Update Domain Mapping
+      operationId: updateDomainMapping
+      description: Update specific Domain Mapping.
+      tags:
+        - Domain Mappings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomainMapping'
+      responses:
+        200:
+          $ref: '#/components/responses/DomainMappingResponse'
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+
+  /domain-mappings/{id}:
+    parameters:
+      - $ref: "#/components/parameters/auth"
+      - $ref: "#/components/parameters/id"
+    get:
+      summary: Get Domain Mapping by id
+      operationId: getDomainMappingById
+      description: Get specific Domain Mapping.
+      tags:
+        - Domain Mappings
+      responses:
+        200:
+          description: Domain Mapping returned successfully.
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                    example: 1
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+    delete:
+      summary: Delete Domain Mapping by id
+      operationId: deleteDomainMappingById
+      description: Delete specific Domain Mapping.
+      tags:
+        - Domain Mappings
+      responses:
+        200:
+          description: Domain Mapping deleted successfully.
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                    example: 1
+        400:
+          $ref: '#/components/responses/BadRequestErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
+        401:
+          $ref: '#/components/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: '#/components/responses/ServerResourceErrorResponse'
+
+components:
+  schemas:
+    DomainMapping:
+      description: Model containing Domain Mapping info.
+      type: object
+      properties:
+        id:
+          description: Id of this Domain Mapping
+          type: string
+          readOnly: true
+          example: b7e1862d-34bb-4aee-bd99-15310e3d0723
+        circleId:
+          description: Id of Circle
+          type: string
+          example: 1
+        domainServerId:
+          description: Id of Domain Server
+          type: string
+          example: 2
+        uuid:
+          description: Mapping uuid
+          type: string
+          example: 12FBN4 
+        neId:
+          description: Mapping network element id
+          type: number
+          example: 1000005
+        mappingStatus:
+          description: Description of this Circle
+          type: string
+          example: RADview Server Circle (TLV)
+        
+  parameters:
+    auth:
+      name: auth
+      in: header
+      required: true
+      description: authentication 
+      allowEmptyValue: false
+      schema:
+        type: string
+      example: entlf31e7qlsmrhhq14s6h0h43
+    id:
+      name: id
+      in: path
+      required: true
+      description: ID of the Domain Mapping.
+      schema:
+        type: string
+      example: 1
+    query:
+      name: query
+      in: query
+      required: false
+      description: Enable query on get response 
+      schema:
+        type: string
+      example: ?name=circle1&operStatus=1
+  
+  responses:
+    DomainMappingResponse:
+      description: Successfully create/update Domain Mapping. 
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: false
+              successful:
+                type: boolean
+                readOnly: true
+                example: true
+              data:
+                type: string
+                readOnly: true
+                example: "{data as json}"
+    BadRequestErrorResponse:
+      description: Bad Request. There was some error for this request.  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 400
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Missing/invalid field name.
+    UnauthorizedErrorResponse:
+      description: Unauthorized, Token is not valid or missing  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 401
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Unauthorized operation
+    NotFoundErrorResponse:
+      description: Resource not found for operation  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 404
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Resource not found
+    ServerResourceErrorResponse:
+      description: Server Resource operation error  
+      content:
+        application/json:    
+          schema:
+            type: object
+            properties:
+              error:
+                type: boolean
+                readOnly: true
+                example: true
+              successful:
+                type: boolean
+                readOnly: true
+                example: false
+              errorName:
+                type: string
+                readOnly: true
+                example: java.lang.IllegalArgumentException
+              code:
+                type: integer
+                format: int32
+                readOnly: true
+                example: 500
+              errorMessage:
+                type: string
+                readOnly: true
+                example: Resource operation error
