@@ -78,9 +78,9 @@ paths:
         500:
           $ref: '#/components/responses/ServerResourceErrorResponse'
     put:
-      summary: Update Domain Group
-      operationId: updateDomainGroup
-      description: Update specific Domain Group.
+      summary: Update Circle
+      operationId: updateCircle
+      description: Update specific Circle.
       tags:
         - Circles
       requestBody:
@@ -106,14 +106,14 @@ paths:
       - $ref: "#/components/parameters/auth"
       - $ref: "#/components/parameters/id"
     get:
-      summary: Get Domain Group by id
-      operationId: getDomainGroupById
-      description: Get specific Domain Group.
+      summary: Get Circle by id
+      operationId: getCircleById
+      description: Get specific Circle.
       tags:
         - Circles
       responses:
         200:
-          description: Domain returned successfully.
+          description: Circle returned successfully.
           content:
             application/json:    
               schema:
@@ -132,9 +132,9 @@ paths:
         500:
           $ref: '#/components/responses/ServerResourceErrorResponse'
     delete:
-      summary: Delete Domain Group by id
-      operationId: deleteDomainGroupById
-      description: Delete specific Domain Group.
+      summary: Delete Circle by id
+      operationId: deleteCircleById
+      description: Delete specific Circle.
       tags:
         - Circles
       responses:
@@ -161,41 +161,26 @@ paths:
 components:
   schemas:
     Circle:
-      description: Model containing Domain Group info.
+      description: Model containing Circle info.
       type: object
       properties:
         id:
-          description: Id of this Domain Group
+          description: Id of this Circle
           type: string
           readOnly: true
           example: 1
         name:
-          description: Name of this Domain Group
+          description: Name of this Circle
           type: string
-          example: DomainA 
+          example: CircleA 
         description:
-          description: Description of this Domain Group
+          description: Description of this Circle
           type: string
-          example: RADview Server domain (TLV)
-        parentGroupId:
-          description:  Domain Group Server parent Group Id
+          example: RADview Server Circle (TLV)
+        parentCircleId:
+          description:  Circle parent Id
           type: string
           example: 1
-        operSatus:
-          description: Operational status of this Domain Group
-          type: integer
-          format: int32
-          readOnly: true
-          example: 1
-          enum:
-            - value: 1
-              name: UP
-              description: Domain Group is UP
-            - value: 2
-              name: DOWN
-              description: Domain Group is DOWN
-            - value: 255
-              name: UNKNOWN
   parameters:
     auth:
       name: auth
@@ -210,7 +195,7 @@ components:
       name: id
       in: path
       required: true
-      description: Numeric ID of the Domain.
+      description: ID of the Circle.
       schema:
         type: string
       example: 1
