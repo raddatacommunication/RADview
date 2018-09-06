@@ -5,7 +5,7 @@ openapi: 3.0.0
 #############################################################################
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
-    description: "RADview NBI Server. For example: https://localhost:8181/mng164"
+    description: "RADview NBI Server. For example: https://localhost:8282/mng164"
     variables:
       protocol:
         enum:
@@ -16,17 +16,15 @@ servers:
         default: localhost
         description: RADview server IP Address or host name.
       port:
-        default: '8181'
+        default: '8282'
         description: RADview server port number.
       environment:
         enum: 
           - mng164  # RADview Production Server 
-          - object  # RADview Internal FE Server
         default: mng164/auth
 info:
   description: |
-    This is Tokess NBI. You can find
-    out more about Swagger at
+    This is Tokens NBI. You can find out more about Swagger at
     [http://swagger.io](http://swagger.io) or on
     [irc.freenode.net, #swagger](http://swagger.io/irc/).
   version: "1.0.0"
@@ -37,6 +35,7 @@ info:
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    
 #############################################################################
 # The security object specifies the security or authorization protocol 
 # used when submitting requests.
@@ -44,12 +43,11 @@ info:
 security:
   - BasicAuth:  []
   - ApiKeyAuth: []
+
 tags:
   - name: Tokens
     description: Everything about your Tokenss
-    externalDocs:
-      description: Find out more
-      url: 'http://swagger.io'
+
 paths:
   /tokens:
     post:
@@ -99,38 +97,10 @@ paths:
           description: User not found
 
   '/tokens/{id}':
-    get:
-      tags:
-        - Tokens
-      summary: Find Tokens by ID
-      description: Returns a single Tokens
-      operationId: getTokensById
-      parameters:
-        - name: id
-          in: path
-          description: ID of Tokens to be returned
-          required: true
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TokensToken'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/TokensToken'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: User not found
     delete:
       tags:
         - Tokens
-      summary: Deletes a Tokens
+      summary: Delete a Token
       operationId: deleteTokens
       parameters:
         - name: id
@@ -165,10 +135,8 @@ paths:
           description: Invalid Token supplied
         '404':
           description: Token not found
-externalDocs:
-  description: Find out more about Swagger
-  url: 'http://swagger.io'
-#--------------------------------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------------
 components:
   schemas:
   #Start Tokenss objects
@@ -243,10 +211,8 @@ components:
           type: string
           format: byte
           description: "The returned token"
-          
          
   requestBodies:
-
     TokensReq:
       content:
         application/json:
