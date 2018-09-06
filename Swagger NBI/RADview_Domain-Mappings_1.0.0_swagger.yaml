@@ -45,7 +45,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/DomainMappings'
+                      $ref: '#/components/schemas/DomainMapping'
         400:
           $ref: '#/components/responses/BadRequestErrorResponse'
         404:
@@ -65,7 +65,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DomainMappings'
+              $ref: '#/components/schemas/DomainMapping'
       responses:
         200:
           $ref: '#/components/responses/DomainMappingResponse'
