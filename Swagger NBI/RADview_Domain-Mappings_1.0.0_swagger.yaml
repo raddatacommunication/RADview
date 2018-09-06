@@ -3,4 +3,23 @@ info:
   version: '1.0.0'
   title: 'Domain-Mappings'
   description: 'Domain-Mappings'
+
+servers:
+  - url: '{protocol}://{host}:{port}/{environment}'
+    description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      host:
+        default: localhost
+        description: RADview server IP Address or host name.
+      port:
+        default: '8282'
+        description: RADview server port number.
+      environment:
+        default: mng164/servers
+
 paths: {}
