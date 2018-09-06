@@ -27,16 +27,16 @@ paths:
     parameters:
     - $ref: "#/components/parameters/auth"
     get:
-      summary: Get all domains
-      operationId: getDomain
-      description: Get all domains.
+      summary: Get all Domain-Servers
+      operationId: getDomainServers
+      description: Get all Domain-Servers.
       tags:
         - Domain Servers
       parameters:
         - $ref: "#/components/parameters/query"
       responses:
         200:
-          description: All domains returned successfully.
+          description: All Domain-Servers returned successfully.
           content:
             application/json:    
               schema:
@@ -45,7 +45,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Domain'
+                      $ref: '#/components/schemas/DomainServer'
         400:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         404:
@@ -65,7 +65,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Domain'
+              $ref: '#/components/schemas/DomainServer'
       responses:
         200:
           $ref: '#/components/responses/DomainResponse'
@@ -88,7 +88,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Domain'
+              $ref: '#/components/schemas/DomainServer'
       responses:
         200:
           $ref: '#/components/responses/DomainResponse'
@@ -117,7 +117,7 @@ paths:
           content:
             application/json:    
               schema:
-                $ref: '#/components/schemas/Domain'
+                $ref: '#/components/schemas/DomainServer'
         400:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         404:
@@ -127,14 +127,14 @@ paths:
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
     delete:
-      summary: Delete domain by id
-      operationId: deleteDomainById
-      description: Delete specific domain.
+      summary: Delete Domain Server by id
+      operationId: deleteDomainServerById
+      description: Delete specific Domain Server.
       tags:
         - Domain Servers
       responses:
         200:
-          description: Domain deleted successfully.
+          description: Domain Server deleted successfully.
           content:
             application/json:    
               schema:
@@ -155,7 +155,7 @@ paths:
 
 components:
   schemas:
-    Domain:
+    DomainServer:
       description: Model containing domain info.
       type: object
       properties:
@@ -172,19 +172,13 @@ components:
           description: Description of this domain
           type: string
           example: RADview Server domain (TLV)
-        hostName:
-          description:  Domain Server host name
-          type: string
-          example: DNA-D-HPG2-W10
-        ipAddress:
-          description:  Domain Server IP Address
-          type: string
-          example: 10.10.10.10
-        port:
-          description:  Domain Server http/s port
-          type: string
-          example: 8181
-        parentGroupId:
+        primaryNetData:
+          description: Primary Net info of this Domain Server
+          type: object
+        secondaryNetData:
+          description: Primary Net info of this Domain Server
+          type: object
+        parentCircleId:
           description:  Domain Server parent Group Id
           type: string
           example: 1
@@ -230,7 +224,7 @@ components:
   
   responses:
     DomainResponse:
-      description: Successfully create/update Domain. 
+      description: Successfully create/update Domain Server. 
       content:
         application/json:    
           schema:
