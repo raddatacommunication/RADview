@@ -180,6 +180,7 @@ components:
         uuid:
           description: Mapping uuid
           type: string
+          visible: true
           example: 12FBN4 
         neId:
           description: Mapping network element id
