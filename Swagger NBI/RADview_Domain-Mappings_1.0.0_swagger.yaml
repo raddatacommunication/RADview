@@ -186,9 +186,21 @@ components:
           type: number
           example: 1000005
         mappingStatus:
-          description: Description of this Circle
-          type: string
-          example: RADview Server Circle (TLV)
+          description: Mapping status of this Domain Mapping
+          type: integer
+          format: int32
+          enum:
+            - value: 1
+              name: MAPPED
+              description: Default status for Domain Mapping (not deployed)
+            - value: 2
+              name: BOOT_STRAP_READY
+              description: ZT rule exist but network element still not deployed
+            - value: 3
+              name: MANAGED
+              description: Network element deployed for this mapping
+            - value: 255
+              name: UNKNOWN
         
   parameters:
     auth:
