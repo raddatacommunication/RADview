@@ -78,7 +78,7 @@ paths:
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
     patch:
-      summary: Update Domain 
+      summary: Update Domain Server
       operationId: updateDomain
       description: Update specific domain.
       tags:
@@ -106,7 +106,7 @@ paths:
       - $ref: "#/components/parameters/auth"
       - $ref: "#/components/parameters/id"
     get:
-      summary: Get domain by id
+      summary: Get domain Server by id
       operationId: getDomainById
       description: Get specific domain.
       tags:
