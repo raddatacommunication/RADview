@@ -173,11 +173,9 @@ components:
           type: string
           example: RADview Server domain (TLV)
         primaryNetData:
-          description: Primary Net info of this Domain Server
-          type: object
+          $ref: '#/components/schemas/NetData'
         secondaryNetData:
-          description: Primary Net info of this Domain Server
-          type: object
+           $ref: '#/components/schemas/NetData'
         parentCircleId:
           description:  Domain Server parent Group Id
           type: string
@@ -195,6 +193,23 @@ components:
               description: Domain is DOWN
             - value: 255
               name: UNKNOWN
+    NetData:
+      description: Model containing domain Network info.
+      type: object
+      properties:
+          hostName:
+            description:  Domain Server host name
+            type: string
+            example: DNA-D-HPG2-W10
+          ipAddress:
+            description:  Domain Server IP Address
+            type: string
+            example: 10.10.10.10
+          port:
+            description:  Domain Server http/s port
+            type: string
+            example: 8181
+          
   parameters:
     auth:
       name: auth
