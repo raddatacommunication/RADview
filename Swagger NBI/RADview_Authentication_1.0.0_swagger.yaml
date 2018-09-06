@@ -46,7 +46,7 @@ security:
 
 tags:
   - name: Tokens
-    description: Everything about your Tokenss
+    description: Everything about your Tokens
 
 paths:
   /tokens:
