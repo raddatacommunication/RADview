@@ -69,32 +69,6 @@ paths:
           description: Invalid input
       requestBody:
         $ref: '#/components/requestBodies/TokensReq'
-    get:
-      tags:
-        - Tokens
-      summary: Get Tokens by user name
-      operationId: getTokensByUserName
-      parameters:
-        - name: username
-          in: query
-          description: The name of the user that created that Tokens
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TokensToken'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/TokensToken'
-        '400':
-          description: Invalid username supplied
-        '404':
-          description: User not found
 
   '/tokens/{id}':
     delete:
