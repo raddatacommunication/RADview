@@ -193,6 +193,8 @@ components:
               description: Domain is DOWN
             - value: 255
               name: UNKNOWN
+        additionalInfo:
+           $ref: '#/components/schemas/AdditionalInfo'
     NetData:
       description: Model containing domain Network info.
       type: object
@@ -209,6 +211,26 @@ components:
             description:  Domain Server http/s port
             type: string
             example: 8181
+    AdditionalInfo:
+      description: Model containing domain Counters info.
+      type: object
+      properties:
+          nesTotalCount:
+            description:  Domain Server network elements mapping count
+            type: number
+            example: 100
+          nesMappedCount:
+            description:  Domain Server network elements mapped count
+            type: number
+            example: 10
+          nesBsReadyCount:
+            description:  Domain Server network elements Boot Strap ready count
+            type: number
+            example: 50
+          nesManagedCount:
+            description:  Domain Server network elements managed count
+            type: number
+            example: 100
           
   parameters:
     auth:
