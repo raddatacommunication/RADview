@@ -218,18 +218,22 @@ components:
           nesTotalCount:
             description:  Domain Server network elements mapping count
             type: number
+            readOnly: true
             example: 100
           nesMappedCount:
             description:  Domain Server network elements mapped count
             type: number
+            readOnly: true
             example: 10
           nesBsReadyCount:
             description:  Domain Server network elements Boot Strap ready count
             type: number
+            readOnly: true
             example: 50
           nesManagedCount:
             description:  Domain Server network elements managed count
             type: number
+            readOnly: true
             example: 100
           
   parameters:
