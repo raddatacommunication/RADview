@@ -206,11 +206,11 @@ components:
       description: Enable query on get response 
       schema:
         type: string
-      example: ?name=domainGroup1&operStatus=1
+      example: ?name=circle1&operStatus=1
   
   responses:
     CircleResponse:
-      description: Successfully create/update Domain Group. 
+      description: Successfully create/update Circle. 
       content:
         application/json:    
           schema:
