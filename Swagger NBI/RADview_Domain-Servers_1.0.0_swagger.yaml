@@ -214,6 +214,7 @@ components:
     AdditionalInfo:
       description: Model containing domain Counters info.
       type: object
+      readOnly: true
       properties:
           nesTotalCount:
             description:  Domain Server network elements mapping count
