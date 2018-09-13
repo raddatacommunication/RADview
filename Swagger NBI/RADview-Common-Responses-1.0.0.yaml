@@ -214,3 +214,8 @@ responses:
     description: Server Resource operation error  
     schema:
       $ref: '#/definitions/ServerResourceErrorResponse'
+      
+  ForbiddenErrorResponse:
+    description: Forbidden access. Permission not found  
+    schema:
+      $ref: '#/definitions/ForbiddenErrorResponse'
