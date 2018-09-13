@@ -83,11 +83,15 @@ paths:
         200:
           $ref: '#/components/responses/IdResponse'
         400:
-          $ref: '#/components/responses/ErrorResponse'
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
-          description: "authentication is required and has failed or has not yet been provided"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
         403:
-          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
     patch:
       summary: Update Task
       operationId: updateTask
@@ -104,11 +108,15 @@ paths:
         200:
           $ref: '#/components/responses/IdResponse'
         400:
-          $ref: '#/components/responses/ErrorResponse'
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
-          description: "authentication is required and has failed or has not yet been provided"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
         403:
-          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
                     
                     
   /tasks/{Id}:
@@ -131,13 +139,16 @@ paths:
                 properties:
                   data:
                     $ref: '#/components/schemas/Task'
-
         400:
-          $ref: '#/components/responses/ErrorResponse'
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
-          description: "authentication is required and has failed or has not yet been provided"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
         403:
-          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
           
     delete:
       summary: Delete task by id
@@ -149,11 +160,15 @@ paths:
         200:
           description: task deleted successfully.
         400:
-          $ref: '#/components/responses/ErrorResponse'
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
-          description: "authentication is required and has failed or has not yet been provided"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
         403:
-          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"            
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"         
                     
   /actions:
     parameters:
@@ -170,11 +185,15 @@ paths:
         200:
           description: task action created successfully.
         400:
-          $ref: '#/components/responses/ErrorResponse'
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
-          description: "authentication is required and has failed or has not yet been provided"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
         403:
-          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
           
           
 #######  TASK REPORTS   #########
@@ -201,11 +220,15 @@ paths:
                     items:
                       $ref: '#/components/schemas/TaskReport'
         400:
-          $ref: '#/components/responses/ErrorResponse'
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
-          description: "authentication is required and has failed or has not yet been provided"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
         403:
-          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
     
   /reports/{Id}:
     parameters:
@@ -227,13 +250,16 @@ paths:
                 properties:
                   data:
                     $ref: '#/components/schemas/TaskReport'
-
         400:
-          $ref: '#/components/responses/ErrorResponse'
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
-          description: "authentication is required and has failed or has not yet been provided"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
         403:
-          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
     
     delete:
       summary: Delete task report by id
@@ -245,11 +271,15 @@ paths:
         200:
           description: task report deleted successfully.
         400:
-          $ref: '#/components/responses/ErrorResponse'
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
-          description: "authentication is required and has failed or has not yet been provided"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
         403:
-          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"  
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
     
     
 components:
