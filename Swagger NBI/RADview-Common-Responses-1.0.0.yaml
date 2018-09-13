@@ -117,6 +117,31 @@ definitions:
         type: string
         readOnly: true
         example: Unauthorized operation
+  ForbiddenErrorResponse:
+    description: The user might not have the necessary permissions for a resource.
+    type: object
+    properties:
+      error:
+        type: boolean
+        readOnly: true
+        example: true
+      successful:
+        type: boolean
+        readOnly: true
+        example: false
+      errorName:
+        type: string
+        readOnly: true
+        example: java.lang.IllegalAccessException
+      code:
+        type: integer
+        format: int32
+        readOnly: true
+        example: 403
+      errorMessage:
+        type: string
+        readOnly: true
+        example: Forbidden accsses
   NotFoundErrorResponse:
     description: Resource not found for operation  
     type: object
