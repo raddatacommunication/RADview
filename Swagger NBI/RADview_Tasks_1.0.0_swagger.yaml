@@ -159,7 +159,7 @@ paths:
       operationId: taskAction
       description: Do an action on tasks. For example resume/stop/delete task by list of ids.
       tags:
-        - Tasks Actions
+        - Task Actions
       requestBody:
         $ref: '#/components/requestBodies/OperationRequest'
       responses:
