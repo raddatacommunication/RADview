@@ -57,11 +57,13 @@ paths:
                     items:
                       $ref: '#/components/schemas/Task'
         400:
-          $ref: '#/components/responses/ErrorResponse'
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        404:
+          $ref: 'https://app.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         401:
-          description: "authentication is required and has failed or has not yet been provided"
-        403:
-          description: "The user might not have the necessary permissions for a resource, or may need an account of some sort"
+          $ref: 'https://app.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: "https://app.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
   
     post:
       summary: Create a new Task
