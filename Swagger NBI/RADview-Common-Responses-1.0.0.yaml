@@ -141,7 +141,7 @@ definitions:
       errorMessage:
         type: string
         readOnly: true
-        example: Forbidden accsses
+        example: Forbidden access
   NotFoundErrorResponse:
     description: Resource not found for operation  
     type: object
