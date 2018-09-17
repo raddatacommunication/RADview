@@ -573,6 +573,28 @@ components:
           type: string
           description: "Role name"
           example: "testRole"
+        createdAt:
+          type: string
+          # format date-time according to RFC 3339, section 5.6,
+          # date-time = full-date "T" full-time
+          # full-date = date-fullyear (4 digits) "-" date-month (2 digits: 01-12) "-" date-mday (2 digits: 01-31)
+          # full-time = time-hour (2 digits: 00-23)":" time-minute (2 digits: 00-59) ":" time-second (2 digits: 00-59) "." milliseconds (3-digis) time-offset ("Z" / time-numoffset)
+          # time-numoffset = ("+" / "-") time-hour ":" time-minute
+          description: Date and time when role was created (e.g. 2017-07-21T17:32:28.561Z) according to RFC 3339, section 5.6"
+          format: date-time
+          example: "2017-07-21T17:32:28.45Z"
+          readOnly: true
+        modifiedAt:
+          type: string
+          # format date-time according to RFC 3339, section 5.6,
+          # date-time = full-date "T" full-time
+          # full-date = date-fullyear (4 digits) "-" date-month (2 digits: 01-12) "-" date-mday (2 digits: 01-31)
+          # full-time = time-hour (2 digits: 00-23)":" time-minute (2 digits: 00-59) ":" time-second (2 digits: 00-59) "." milliseconds (3-digis) time-offset ("Z" / time-numoffset)
+          # time-numoffset = ("+" / "-") time-hour ":" time-minute
+          description: Date and time when role was modified (e.g. 2017-07-21T17:32:28.561Z) according to RFC 3339, section 5.6"
+          format: date-time
+          example: "2017-07-21T17:32:28.45Z"
+          readOnly: true
         permissions:
           description: "List of permissions for this role"
           type: array
@@ -601,6 +623,17 @@ components:
           # full-time = time-hour (2 digits: 00-23)":" time-minute (2 digits: 00-59) ":" time-second (2 digits: 00-59) "." milliseconds (3-digis) time-offset ("Z" / time-numoffset)
           # time-numoffset = ("+" / "-") time-hour ":" time-minute
           description: Date and time when user was created (e.g. 2017-07-21T17:32:28.561Z) according to RFC 3339, section 5.6"
+          format: date-time
+          example: "2017-07-21T17:32:28.45Z"
+          readOnly: true
+        modifiedAt:
+          type: string
+          # format date-time according to RFC 3339, section 5.6,
+          # date-time = full-date "T" full-time
+          # full-date = date-fullyear (4 digits) "-" date-month (2 digits: 01-12) "-" date-mday (2 digits: 01-31)
+          # full-time = time-hour (2 digits: 00-23)":" time-minute (2 digits: 00-59) ":" time-second (2 digits: 00-59) "." milliseconds (3-digis) time-offset ("Z" / time-numoffset)
+          # time-numoffset = ("+" / "-") time-hour ":" time-minute
+          description: Date and time when user was modified (e.g. 2017-07-21T17:32:28.561Z) according to RFC 3339, section 5.6"
           format: date-time
           example: "2017-07-21T17:32:28.45Z"
           readOnly: true
