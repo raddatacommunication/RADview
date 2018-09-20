@@ -32,20 +32,21 @@ info:
     
     Token allow users to enter their username and password in order to obtain a token which allows them to fetch a specific resource - without using their username and password. Instead of having to authenticate with username and password for each protected resource, the user authenticates that way once (within a session of limited duration), obtains a time-limited token in return, and uses that token for further authentication during the session. 
     
+    <b>RFC 7519</b><BR>
+    RADview token is based on JSON Web Token (JWT) which is an open standard (RFC 7519). For more infomation see <a hfef="https://jwt.io/introduction/">Introduction to JSON Web Tokens</a>
+    
   contact:
     email: raz_o@rad.com
 
-#############################################################################
-# The security object specifies the security or authorization protocol 
-# used when submitting requests.
-############################################################################# 
+########################################################################################################
+# The security object specifies the security or authorization protocol to use when submitting requests.
+########################################################################################################
 security:
-  - BasicAuth:  []
   - ApiKeyAuth: []
 
 tags:
   - name: Tokens
-    description: Everything about your Tokens
+    description: This API generates an access token in exchange for user credentials that can be used by clients when working with the RADview API. The token can be validate and delete. 
 
 paths:
   /tokens:
@@ -199,11 +200,6 @@ components:
       required: true
 
   securitySchemes:
-    BasicAuth:
-      type: http
-      scheme: basic
-      description: >-
-          Login with user name and password
     ApiKeyAuth:
       # The type of authorization — apiKey, http, oauth2, or openIdConnect.
       type: apiKey 
