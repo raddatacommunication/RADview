@@ -33,10 +33,7 @@ info:
     Token allow users to enter their username and password in order to obtain a token which allows them to fetch a specific resource - without using their username and password. Instead of having to authenticate with username and password for each protected resource, the user authenticates that way once (within a session of limited duration), obtains a time-limited token in return, and uses that token for further authentication during the session. 
     
     <b>RFC 7519</b><BR>
-    RADview token is based on JSON Web Token (JWT) which is an open standard (RFC 7519). For more infomation see <a hfef="https://jwt.io/introduction/">Introduction to JSON Web Tokens</a>
-    
-  contact:
-    email: raz_o@rad.com
+    RADview token is based on JSON Web Token (JWT) which is an open standard (RFC 7519). For more infomation see <a href="https://jwt.io/introduction/">Introduction to JSON Web Tokens</a>
 
 ########################################################################################################
 # The security object specifies the security or authorization protocol to use when submitting requests.
