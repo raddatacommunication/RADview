@@ -60,7 +60,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TokenData'
+                $ref: '#/components/schemas/TokenResponse'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         403:
@@ -105,13 +105,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/TokensReq'
+            $ref: '#/components/schemas/TokenRequest'
       description: User Object
       required: true
 
   schemas:
 
-    TokensReq:
+    TokenRequest:
       properties:
         username: 
           type: string
@@ -124,7 +124,7 @@ components:
           example: "1234"
           description: "Password for first login, when token not used"
 
-    TokenData:
+    TokenResponse:
       properties:
         client_id:
           type: integer
