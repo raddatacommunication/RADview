@@ -1,11 +1,8 @@
 openapi: 3.0.0
-#############################################################################
-# In the servers object, you specify the basepath used in your API requests.
-# The basepath is the part of the URL that appears before the endpoint.
-#############################################################################
+
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
-    description: "RADview NBI Server. For example: https://localhost:8282/mng164"
+    description: "Web address for the RADview Northbound Interface (NBI). For example: https://127.0.0.1:8282/mng164/"
     variables:
       protocol:
         enum:
@@ -20,8 +17,9 @@ servers:
         description: RADview server port number.
       environment:
         enum: 
-          - mng164  # RADview Production Server 
+          - mng164/auth  # RADview Production Server 
         default: mng164/auth
+
 info:
   description: |
     This is Tokens NBI. You can find out more about Swagger at
