@@ -18,7 +18,6 @@ servers:
       environment:
         enum: 
           - mng164/auth  # RADview Production Server 
-        default: mng164/auth
 
 info:
   description: |
