@@ -25,6 +25,8 @@ info:
   title: RADview Authentication
 
   description: |
+    The API for RADview Authentication
+
     <b>Get Auth Token</b><BR>
     All requests to the RADview API must be authorized by an authenticated user. User is authenticated after it obtains a valid access token. An access token contains the security credentials for a login session and identifies the user and its privileges. 
     
