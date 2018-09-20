@@ -43,7 +43,7 @@ security:
 
 tags:
   - name: Tokens
-    description: This API generates an access token in exchange for user credentials that can be used by clients when working with the RADview API. The token can be validate and delete. 
+    description: This API generates an access token in exchange for user credentials that can be used by clients when working with the RADview API.  
 
 paths:
   /tokens:
@@ -51,17 +51,14 @@ paths:
       tags:
         - Tokens
       summary: Create a new Tokens, which is actually login
-      operationId: createTokens
+      operationId: createToken
       responses:
         '200':
-          description: successful operation
+          description: A valid token was successfully created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TokensToken'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/TokensToken'
+                $ref: '#/components/schemas/TokenData'
         '405':
           description: Invalid input
       requestBody:
@@ -125,7 +122,7 @@ components:
           example: "mano"
           description: "Password for first login, when token not used"
 
-    TokensToken:
+    TokenData:
       properties:
         client_id:
           type: integer
