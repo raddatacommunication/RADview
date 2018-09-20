@@ -43,7 +43,7 @@ security:
 
 tags:
   - name: Tokens
-    description: This API generates an access token in exchange for user credentials that can be used by clients when working with the RADview API.  
+    description: This API generates an access token in exchange for user credentials that can be used by clients when working with the RADview API.
 
 paths:
   /tokens:
@@ -52,37 +52,24 @@ paths:
         - Tokens
       summary: Create a new Tokens, which is actually login
       operationId: createToken
+      requestBody:
+        $ref: '#/components/requestBodies/TokensReq'
       responses:
-        '200':
+        200:
           description: A valid token was successfully created
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenData'
-        '405':
-          description: Invalid input
-      requestBody:
-        $ref: '#/components/requestBodies/TokensReq'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
 
-  '/tokens/{id}':
-    delete:
-      tags:
-        - Tokens
-      summary: Delete a Token
-      operationId: deleteTokens
-      parameters:
-        - name: id
-          in: path
-          description: Tokens id to delete
-          required: true
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Tokens not found
   /validate:
     post:
       tags:
@@ -98,28 +85,43 @@ paths:
                 format: byte # base64-encoded file contents
                 example: eyJhbGciOiJIUzI1NiIsInR5cGUiOiJKV1QifQ==.eyJyb2xlaWQiOiIxIiwiZXhwIjoiMTUzNjMyNjM4NiIsImlhdCI6IjE1MzYyMzk5ODYiLCJ0ZW5hbnQiOiIwIiwidXNlcm5hbWUiOiJhZG1pbiJ9.edHE8Fko4cS5EP0KgWf63GQo7J8xjnxh5tyLqJoEW8I
       responses:
-        '200':
+        200:
           description: successful operation
-        '400':
-          description: Invalid Token supplied
-        '404':
-          description: Token not found
-
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+          
 #------------------------------------------------------------------------------------
 components:
+  requestBodies:
+    TokensReq:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TokensReq'
+      description: User Object
+      required: true
+
   schemas:
-  #Start Tokenss objects
+
     TokensReq:
       properties:
         username: 
           type: string
           default: ""
-          example: "jio"
+          example: "admin"
           description: "User name for first login, when token not used"
         password:
           type: string
           default: ""
-          example: "mano"
+          example: "1234"
           description: "Password for first login, when token not used"
 
     TokenData:
@@ -134,8 +136,8 @@ components:
         username: 
           type: string
           default: ""
-          example: "jio"
           description: "User name for first login, when token not used"
+          example: "admin"
         customer_updated_at:
           type: string
           format: date-time
@@ -180,31 +182,15 @@ components:
           type: string
           format: byte
           description: "The returned token"
-         
-  requestBodies:
-    TokensReq:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/TokensReq'
-        application/xml:
-          schema:
-            $ref: '#/components/schemas/TokensReq'
-      description: User Object
-      required: true
+          example: eyJhbGciOiJIUzI1NiIsInR5cGUiOiJKV1QifQ==.eyJyb2xlaWQiOiIxIiwiZXhwIjoiMTUzNjMyNjM4NiIsImlhdCI6IjE1MzYyMzk5ODYiLCJ0ZW5hbnQiOiIwIiwidXNlcm5hbWUiOiJhZG1pbiJ9.edHE8Fko4cS5EP0KgWf63GQo7J8xjnxh5tyLqJoEW8I?          
 
   securitySchemes:
     ApiKeyAuth:
-      # The type of authorization — apiKey, http, oauth2, or openIdConnect.
       type: apiKey 
       
-      # Description of your security method
       description: >-
         **Authentication key**. *Example: augtt$93eee2ddsad34jjk*. Every request
-        that your application sends to the RADview API, it needs to identify
-        your application. You can use an API key, or you can use an OAuth 2.0
-        client ID. You should use a client ID when you are making calls on
-        behalf of a given user.   
+        that your application sends to the RADview API, it needs to identify your application.   
         
       #The name of the header value submitted in the request. Used only for apiKey type security
       name: auth 
