@@ -218,7 +218,7 @@ paths:
                   message:
                     type: array
                     items:
-                      $ref: '#/components/schemas/TaskReport'
+                      $ref: '#/components/schemas/HubTaskReport'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -249,7 +249,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/TaskReport'
+                    $ref: '#/components/schemas/HubTaskReport'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -300,9 +300,6 @@ components:
           description: List of all sub tasks in the domains.
           type: array
           items:
-            allof:
-              - $ref: "https://api.swaggerhub.com/domains/RADview/Common-Models/1.0.0#/definitions/DomainResource"
-          
             type: object
             properties:
               domainId:
@@ -330,6 +327,173 @@ components:
                   readOnly: true
                   example: 20000001
                   
+    HubTaskReport:
+      allOf:
+        - $ref: "https://api.swaggerhub.com/domains/RADview/Common-Models/1.0.0#/definitions/HubResource"
+      description: Model containing hub task report info.
+      type: object
+      properties:
+        domainTaskReportsList:
+          description: List of all sub tasks reports in the domains.
+          type: array
+          items:
+            $ref: "https://api.swaggerhub.com/domains/RADview/Common-Models/1.0.0#/definitions/DomainResource"
+        taskId:
+          description: The id of the task that this report related to.
+          type: string
+          readOnly: true
+          example: 20000231
+        taskName:
+          description: The name of the task that this report related to.
+          type: string
+          readOnly: true
+          example: "download file task"
+        status:
+          $ref: "#/components/schemas/ReportStatusEnum"
+        startTime:
+          type: integer
+          format: int64
+          example: 1506349188575
+        endTime:
+          type: integer
+          format: int64
+          example: 1506349188575
+        totalNumberOfNes:
+          type: integer
+          format: int32
+          example: 12
+        succeedNesNum:
+          type: integer
+          format: int32
+          example: 10
+        failedNesNum:
+          type: integer
+          format: int32
+          example: 2
+        taskDuration:
+          description: The duration of the task that this report related to.
+          type: string
+          readOnly: true
+          example: "00:01:01"
+        message:
+          type: string
+          readOnly: true
+        reportNeDetailsList:
+          type: array
+          items:
+            $ref: "#/components/schemas/HubReportNeDetails"
+        reportFileDetailsList:
+          type: array
+          items:
+            $ref: "#/components/schemas/HubReportFileDetails"
+       
+       
+       
+    HubReportNeDetails:
+      type: object
+      properties:
+        neId:
+          description: The NE id.
+          type: integer
+          format: int32
+          readOnly: true
+          example: 20000231
+        cardId:
+          description: The card id.
+          type: integer
+          format: int32
+          readOnly: true
+          example: 20000451
+        neName:
+          type: string
+          readOnly: true
+          example: "172.172.172.172"
+        neIp:
+          type: string
+          readOnly: true
+          example: "172.172.172.172"
+        neExecutionStart:
+          type: integer
+          format: int64
+          example: 1506349188575
+        neExecutionEnd:
+          type: integer
+          format: int64
+          example: 1506349188575
+        neStatus:
+          description: "When task is running it using ReportNeStatusEnum, when not running ReportStatusEnum"
+          $ref: "#/components/schemas/ReportNeStatusEnum"
+        neError:
+          type: string
+          readOnly: true
+        neErrorDetails:
+          type: string
+          readOnly: true
+        neFileId:
+          type: integer
+          format: int64
+          example: 1506349188575
+        logFileId:
+          type: integer
+          format: int64
+          example: 1506349188575
+        advancement:
+          description: "Used when task is on running"
+          type: string
+          readOnly: true
+        packetCaptureDetails:
+          $ref: "#/components/schemas/HubReportNeDetailsPacketCapture"
+          
+          
+    HubReportNeDetailsPacketCapture:
+      type: object
+      properties:
+        transmittedPackets:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 20000231
+        writtenPackets:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 20000451
+          
+    HubReportFileDetails:
+      type: object
+      properties:
+        reportStatus:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 4
+        reportName:
+          type: string
+          readOnly: true
+          example: "Report name"
+        fileName:
+          type: string
+          readOnly: true
+          example: "File name"
+        fileType:
+          type: integer
+          format: int32
+          readOnly: true
+          example: 5
+        fileId:
+          type: integer
+          format: int64
+          readOnly: true
+          example: 54746786
+        logFileId:
+          type: integer
+          format: int64
+          readOnly: true
+          example: 54746786
+        log:
+          type: string
+          readOnly: true
+          
           
     Task:
       description: Model containing task info.
