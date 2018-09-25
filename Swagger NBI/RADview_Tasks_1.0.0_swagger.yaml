@@ -284,6 +284,66 @@ paths:
     
 components:
   schemas:
+    HubTask:
+      description: Model containing hub task info.
+      type: object
+      properties:
+        id:
+          description: The id of this hub task.
+          type: integer
+          format: int32
+          readOnly: true
+          example: 1
+        createdAt:
+          description: The date time that this hub task created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: "yyyy-MM-ddTHH:mm:ss.sssZ"
+        modifiedAt:
+          description: The date time that this hub task updated.
+          type: string
+          format: date-time
+          readOnly: true
+          example: "yyyy-MM-ddTHH:mm:ss.sssZ"
+        taskJson:
+          description: The json object with all task data. in json format.
+          type: string
+          format: json
+          readOnly: true
+          example: You can take a look on Task schema example.
+        domainTasksList:
+          description: List of all sub tasks in the domains.
+          type: array
+          items:
+            type: object
+            properties:
+              domainId:
+                description: The id of the domain that this sub task created.
+                type: string
+                readOnly: true
+                example: 1
+              resourceId:
+                description: The id of this sub task.
+                type: string
+                readOnly: true
+                example: 20011842
+              status:
+                $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ExecutorServiceWorkerStatusEnum"
+              errorHRef:
+                description: error reference.
+                type: string
+                readOnly: true
+              neIds:
+                description: List of all the ne's in the task.
+                type: array
+                items:
+                  type: string
+                  description: the NE id.
+                  readOnly: true
+                  example: 20000001
+                  
+          
     Task:
       description: Model containing task info.
       type: object
