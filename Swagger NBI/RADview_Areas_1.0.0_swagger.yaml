@@ -232,6 +232,30 @@ components:
           type: number
           format: float
           default: 0.0
+    AdditionalInfo:
+      nullable: true
+      properties:
+        domainsCount:
+          nullable: true
+          type: integer
+          format: int32
+          default: 0
+          example: 2
+          description: "Number of Domain Servers that have subnet holding part/all of the NEs in this area"
+        downDomainsCount:
+          nullable: true
+          type: integer
+          format: int32
+          default: 0
+          example: 2
+          description: "Number of Domain Servers that have subnet holding part/all of the NEs in this area that are currently down"
+        nesCount:
+          nullable: true
+          type: integer
+          format: int32
+          default: 0
+          example: 2
+          description: "Number of NEs under this area (direct NEs)"
 #    DomainServerData:
 #      properties:
 #        id:
@@ -247,23 +271,25 @@ components:
         id:
           type: string
           default: ""
-        countNe:
-          type: integer
-          format: int32
-          default: 0
-          description: "No. of NEs under this Area, in this Doamin Server"
+#        countNe:
+#          type: integer
+#          format: int32
+#          default: 0
+#          description: "No. of NEs under this Area"
         countVnfInstance:
           type: integer
           format: int32
           default: 0
-          description: "No. of VNF instances under this Area, in this Doamin Server"
+          description: "No. of VNF instances under this Area"
         countVnfService:
           type: integer
           format: int32
           default: 0
-          description: "No. of VNF services under this Area, in this Doamin Server"
+          description: "No. of VNF services under this Area"
         location:
           $ref: "#/components/schemas/Location"
+        additionalInfo:
+          $ref: "#/components/schemas/AdditionalInfo"
         name:
           type: string
           description: "A unique name to the Area"
@@ -311,7 +337,7 @@ components:
           
         
   #---------------------------------------------#
-  # Parameters copied from Domain               #
+  # Parameters                                  #
   #---------------------------------------------#
   parameters:
     auth:
@@ -350,7 +376,7 @@ components:
       example: NorthState
   
   #---------------------------------------------#
-  # Rresponses copied from Domain               #
+  # Rresponses                                  #
   #---------------------------------------------#
   responses:
     AreaResponse:
