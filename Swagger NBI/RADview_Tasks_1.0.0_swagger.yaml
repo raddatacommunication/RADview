@@ -300,6 +300,9 @@ components:
           description: List of all sub tasks in the domains.
           type: array
           items:
+            allof:
+              - $ref: "https://api.swaggerhub.com/domains/RADview/Common-Models/1.0.0#/definitions/DomainResource"
+          
             type: object
             properties:
               domainId:
