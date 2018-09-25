@@ -55,7 +55,7 @@ paths:
                   message:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Task'
+                      $ref: '#/components/schemas/HubTask'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -81,7 +81,7 @@ paths:
               $ref: '#/components/schemas/Task'
       responses:
         200:
-          $ref: '#/components/responses/IdResponse'
+          $ref: '#/components/schemas/HubTask'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -106,7 +106,7 @@ paths:
               $ref: '#/components/schemas/Task'
       responses:
         200:
-          $ref: '#/components/responses/IdResponse'
+          $ref: '#/components/schemas/HubTask'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -138,7 +138,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Task'
+                    $ref: '#/components/schemas/HubTask'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -285,27 +285,11 @@ paths:
 components:
   schemas:
     HubTask:
+      allOf:
+        - $ref: "https://api.swaggerhub.com/domains/RADview/Common-Models/1.0.0#/definitions/HubResource"
       description: Model containing hub task info.
       type: object
       properties:
-        id:
-          description: The id of this hub task.
-          type: integer
-          format: int32
-          readOnly: true
-          example: 1
-        createdAt:
-          description: The date time that this hub task created.
-          type: string
-          format: date-time
-          readOnly: true
-          example: "yyyy-MM-ddTHH:mm:ss.sssZ"
-        modifiedAt:
-          description: The date time that this hub task updated.
-          type: string
-          format: date-time
-          readOnly: true
-          example: "yyyy-MM-ddTHH:mm:ss.sssZ"
         taskJson:
           description: The json object with all task data. in json format.
           type: string
