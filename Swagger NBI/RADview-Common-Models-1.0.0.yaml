@@ -18,6 +18,30 @@ definitions:
       srvName:
         type: string
         example: name
+        
+  HubResource:
+    description: Model containing resource info.
+    type: object
+    properties:
+      id:
+        description: The id of this hub resource.
+        type: integer
+        format: int32
+        readOnly: true
+        example: 1
+      createdAt:
+        description: The date time that this resource created.
+        type: string
+        format: date-time
+        readOnly: true
+        example: "yyyy-MM-ddTHH:mm:ss.sssZ"
+      modifiedAt:
+        description: The date time that this resource updated.
+        type: string
+        format: date-time
+        readOnly: true
+        example: "yyyy-MM-ddTHH:mm:ss.sssZ"
+        
   PortIdentifier:
     description: Model containing port identifier.
     type: object
