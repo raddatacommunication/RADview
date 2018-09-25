@@ -106,6 +106,22 @@ definitions:
       - value: 255
         name: UNKNOWN
     example: 1
+  ExecutorServiceWorkerStatusEnum:
+    description: Enum containing all the workers status.
+    type: integer
+    format: int32
+    enum:
+      - value: 1
+        name: PENDING
+      - value: 2
+        name: WORKING
+      - value: 3
+        name: FINISHED
+      - value: 10
+        name: ERROR
+      - value: 255
+        name: UNKNOWN
+    example: 1
   ServiceTypeEnum:
     description: Enum containing all the service types.
     type: integer
