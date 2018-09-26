@@ -493,6 +493,7 @@ components:
           example: 54746786
         log:
           type: string
+          example: 'going to execute command: cmd /c "C:\RV32\FE\backup\BackupRunner.bat'
           readOnly: true
           
           
@@ -1242,167 +1243,6 @@ components:
           example: [1,2]
           
           
-    TaskReport:
-      description: Model containing task report info.
-      type: object
-      readOnly: true
-      properties:
-        id:
-          description: The id of this report.
-          type: integer
-          format: int32
-          example: 1
-        taskId:
-          description: The task id for this report.
-          type: integer
-          format: int32
-          example: 1
-        reportRvId:
-          type: integer
-          format: int64
-          example: 1
-        taskName:
-          description: The name of the task
-          type: string
-          example: "GenerateStatisticsReport"
-        status:
-          $ref: "#/components/schemas/ReportStatusEnum"
-        startTime:
-          type: integer
-          format: int64
-          example: 1506349188575
-        endTime:
-          type: integer
-          format: int64
-          example: 1506349188575
-        totalNumberOfNes:
-          type: integer
-          format: int32
-          example: 5
-        succeedNesNum:
-          type: integer
-          format: int32
-          example: 5
-        failedNesNum:
-          type: integer
-          format: int32
-          example: 5
-        taskDuration:
-          description: The name of the task
-          type: string
-          example: " 00:00:05"
-        message:
-          description: The name of the task
-          type: string
-          example: "Tue Sep 19 16:58:14 IDT 2017: LLDP scan finished"
-        reportNeDetailsList:
-          type: array
-          items:
-            $ref: "#/components/schemas/ReportNeDetails"
-        reportFileDetailsList:
-          type: array
-          items:
-            $ref: "#/components/schemas/ReportFileDetails"
-          
-          
-    ReportNeDetails:
-      type: object
-      readOnly: true
-      properties:
-        neId:
-          type: integer
-          format: int32
-          example: 5
-        cardId:
-          type: integer
-          format: int32
-          example: 2
-        neName:
-          description: The name of the network element
-          type: string
-          example: "172.17.233.45"
-        neIp:
-          type: string
-          example: "172.17.233.45"
-        neExecutionStart:
-          type: integer
-          format: int64
-          example: 1506349188575
-        neExecutionEnd:
-          type: integer
-          format: int64
-          example: 1506349188575
-        neStatus:
-          description: "When task is running it using ReportNeStatusEnum, when not running ReportStatusEnum"
-          oneOf:
-            - $ref: "#/components/schemas/ReportStatusEnum"
-            - $ref: "#/components/schemas/ReportNeStatusEnum"
-        neError:
-          type: string
-          example: "Failed"
-        neErrorDetails:
-          type: string
-          example: "Failed"
-        neFileId:  
-          type: integer
-          format: int64
-          example: 0
-        logFileId:  
-          type: integer
-          format: int64
-          example: 0
-        advancement:
-          description: "Used when task is on running"
-          type: string
-          example: "advancement"
-        packetCaptureDetails:
-          $ref: "#/components/schemas/ReportNeDetailsPacketCapture"
-          
-          
-    ReportNeDetailsPacketCapture: 
-      type: object
-      readOnly: true
-      properties:
-        transmittedPackets:
-          type: integer
-          format: int32
-          example: 7
-        writtenPackets:
-          type: integer
-          format: int32
-          example: 5
-          
-    ReportFileDetails:
-      type: object
-      readOnly: true
-      properties:
-        reportStatus:
-          type: integer
-          format: int32
-          example: 1
-        reportName:
-          type: string
-          example: "Advancement log"
-        fileName:
-          type: string
-          example: "Advancement log"
-        fileType:
-          type: integer
-          format: int32
-          example: 0
-        fileId:
-          type: integer
-          format: int64
-          example: -1
-        logFileId:
-          type: integer
-          format: int64
-          example: 1
-        log:
-          type: string
-          example: 'going to execute command: cmd /c "C:\RV32\FE\backup\BackupRunner.bat'
-          
-          
           
   ###########  ENUMS  ####################################
   
@@ -1805,7 +1645,7 @@ components:
                 items:
                   type: string
                   readOnly: true
-                example: [d7325a4c-e5dc-4567-8b57-d32934df7c30,]
+                example: [d7325a4c-e5dc-4567-8b57-d32934df7c30,d7325a4c-e5dc-4567-8b57-d32934df7c32]
                 
                 
   ###########  RESPONSES  ####################################
