@@ -547,7 +547,7 @@ components:
               description: The Targeted Configuration name
             targetParameterType:
               type: string
-              description: The Targeted Configuration
+              description: The Targeted Configuration type
     subnet:
       type: object
       properties:
