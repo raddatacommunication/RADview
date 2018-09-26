@@ -1805,7 +1805,7 @@ components:
                 items:
                   type: string
                   readOnly: true
-                example: [d7325a4c-e5dc-4567-8b57-d32934df7c30,2,3]
+                example: [d7325a4c-e5dc-4567-8b57-d32934df7c30,]
                 
                 
   ###########  RESPONSES  ####################################
