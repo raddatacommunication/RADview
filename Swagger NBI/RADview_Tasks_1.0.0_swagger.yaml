@@ -171,7 +171,7 @@ paths:
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"         
                     
-  /actions:
+  /tasks/operation:
     parameters:
       - $ref: "#/components/parameters/auth"
     post:
