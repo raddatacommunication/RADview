@@ -35,24 +35,22 @@ servers:
         default: mng164
 paths:
   /targeted-configuration:
+    parameters:
+    - $ref: "#/components/parameters/auth"
     post:
       tags:
         - Targeted Configuration
       operationId: addTargetParameterType
       summary: Create Targeted Configuration
       description: Create Targeted Configuration
-      parameters:
-        - $ref: '#/components/parameters/username'
-        - $ref: '#/components/parameters/password'
-        - $ref: '#/components/parameters/tenant'
       responses:
-        '200':
+        200:
           description: OK - Request was successful
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TargetParameterType'
-        '202':
+        202:
           description: >-
             Accepted - The request has been accepted for processing, but the
             processing has not been completed for asynchronous operations.
@@ -60,36 +58,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TargetParameterType'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
       requestBody:
         content:
           application/json:
@@ -103,18 +81,14 @@ paths:
       operationId: getAllTargetParametersTypes
       summary: Get all Target Parameters Types
       description: Get all Target Parameters Types
-      parameters:
-        - $ref: '#/components/parameters/username'
-        - $ref: '#/components/parameters/password'
-        - $ref: '#/components/parameters/tenant'
       responses:
-        '200':
+        200:
           description: All Target Parameters Types
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TargetParameterType'
-        '202':
+        202:
           description: >-
             Accepted - The request has been accepted for processing, but the
             processing has not been completed for asynchronous operations.
@@ -122,37 +96,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TargetParameterType'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
   '/targeted-configuration/{targetParameterTypeId}':
+    parameters:
+    - $ref: "#/components/parameters/auth"
     get:
       tags:
         - Targeted Configuration
@@ -160,9 +116,6 @@ paths:
       summary: 'Get a Targeted Configuration identified by {targetParameterTypeId}'
       description: 'Returns a Targeted Configuration identified by {targetParameterTypeId}'
       parameters:
-        - $ref: '#/components/parameters/username'
-        - $ref: '#/components/parameters/password'
-        - $ref: '#/components/parameters/tenant'
         - name: targetParameterTypeId
           in: path
           required: true
@@ -170,13 +123,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        200:
           description: A Targeted Configuration with all its parameters
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TargetParameterType'
-        '202':
+        202:
           description: >-
             Accepted - The request has been accepted for processing, but the
             processing has not been completed for asynchronous operations.
@@ -184,36 +137,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TargetParameterType'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
     put:
       tags:
         - Targeted Configuration
@@ -224,9 +157,6 @@ paths:
       description: >-
         Update an existing TargetParameterType identified by {targetParameterTypeId}
       parameters:
-        - $ref: '#/components/parameters/username'
-        - $ref: '#/components/parameters/password'
-        - $ref: '#/components/parameters/tenant'
         - name: targetParameterTypeId
           in: path
           required: true
@@ -234,42 +164,22 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        200:
           description: OK - Request was successful
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TargetParameterType'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
     delete:
       tags:
         - Targeted Configuration
@@ -277,9 +187,6 @@ paths:
       summary: removeTargetParameterType
       description: removeTargetParameterType
       parameters:
-        - $ref: '#/components/parameters/username'
-        - $ref: '#/components/parameters/password'
-        - $ref: '#/components/parameters/tenant'
         - name: targetParameterTypeId
           in: path
           required: true
@@ -287,57 +194,35 @@ paths:
           schema:
             type: integer        
       responses:
-        '200':
+        200:
           description: OK - Request was successful
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
   /nerule:
+    parameters:
+    - $ref: "#/components/parameters/auth"
     post:
       tags:
         - NE-specific provisioning rule
       operationId: addNeZtRule
       summary: Create NE-specific ZT provisioning rule
       description: Create NE-specific ZT provisioning rule
-      parameters:
-        - $ref: '#/components/parameters/username'
-        - $ref: '#/components/parameters/password'
-        - $ref: '#/components/parameters/tenant'
       responses:
-        '200':
+        200:
           description: OK - Request was successful
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ZeroTouchNeRule'
-        '202':
+        202:
           description: >-
             Accepted - The request has been accepted for processing, but the
             processing has not been completed for asynchronous operations.
@@ -345,36 +230,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ZeroTouchNeRule'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
       requestBody:
         content:
           application/json:
@@ -387,24 +252,8 @@ paths:
       operationId: getAllNeZtRules
       summary: Get all NE-specific ZT provisioning rules
       description: Get all NE-specific ZT provisioning rules
-      parameters:
-        - $ref: '#/components/parameters/username'
-        - $ref: '#/components/parameters/password'
-        - $ref: '#/components/parameters/tenant'
-        - name: pageNumber
-          required: true
-          in: query
-          description: Page number
-          schema:
-            type: integer
-        - name: pageSize
-          required: true
-          in: query
-          description: Page size
-          schema:
-            type: integer
       responses:
-        '200':
+        200:
           description: OK - Request was successful
           content:
             application/json:
@@ -412,7 +261,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ZeroTouchNeRule'
-        '202':
+        202:
           description: >-
             Accepted - The request has been accepted for processing, but the
             processing has not been completed for asynchronous operations.
@@ -420,37 +269,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ZeroTouchNeRule'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
   '/nerule/{ztRuleId}':
+    parameters:
+    - $ref: "#/components/parameters/auth"
     get:
       tags:
         - NE-specific provisioning rule
@@ -458,9 +289,6 @@ paths:
       summary: 'Get a NE-specific ZT provisioning rule identified by {ztRuleId}'
       description: 'Returns a NE-specific ZT provisioning rule identified by {ztRuleId}'
       parameters:
-        - $ref: '#/components/parameters/username'
-        - $ref: '#/components/parameters/password'
-        - $ref: '#/components/parameters/tenant'
         - name: ztRuleId
           in: path
           required: true
@@ -468,13 +296,13 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        200:
           description: A NE-specific ZT provisioning rule with all its parameters
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ZeroTouchNeRule'
-        '202':
+        202:
           description: >-
             Accepted - The request has been accepted for processing, but the
             processing has not been completed for asynchronous operations.
@@ -482,36 +310,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ZeroTouchNeRule'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
     put:
       tags:
         - NE-specific provisioning rule
@@ -523,9 +331,6 @@ paths:
         Update an existing NE-specific ZT provisioning rule attribute(s)
         identified by {ztRuleId}
       parameters:
-        - $ref: '#/components/parameters/username'
-        - $ref: '#/components/parameters/password'
-        - $ref: '#/components/parameters/tenant'
         - name: ztRuleId
           in: path
           required: true
@@ -533,42 +338,22 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        200:
           description: OK - Request was successful
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ZeroTouchNeRule'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
       requestBody:
         content:
           application/json:
@@ -587,9 +372,6 @@ paths:
         Delete an existing NE-specific ZT provisioning rule identified by
         {ztRuleId}
       parameters:
-        - $ref: '#/components/parameters/username'
-        - $ref: '#/components/parameters/password'
-        - $ref: '#/components/parameters/tenant'
         - name: ztRuleId
           in: path
           required: true
@@ -597,61 +379,29 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        200:
           description: OK - Request was successful
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '404':
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error_Response'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
 components:
   parameters:
-    username:
-      name: username
+    auth:
+      name: auth
       in: header
       required: true
-      description: Authentication user name
+      description: authentication 
+      allowEmptyValue: false
       schema:
         type: string
-    password:
-      name: password
-      in: header
-      required: true
-      description: Authentication password
-      schema:
-        type: string
-    tenant:
-      name: tenant
-      in: header
-      required: true
-      description: Authentication tenant
-      schema:
-        type: string
+      example: 'entlf31e7qlsmrhhq14s6h0h43'
   schemas:
     ZeroTouchNeRule:
       required:
@@ -817,14 +567,4 @@ components:
           description: Target Parameter Value
       required:
         - id
-        - value    
-    Error_Response:
-      description: Error addition information
-      type: object
-      properties:
-        code:
-          type: integer
-        message:
-          type: string
-        description:
-          type: string
+        - value
