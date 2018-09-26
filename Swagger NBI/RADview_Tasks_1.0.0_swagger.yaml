@@ -92,31 +92,6 @@ paths:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
-    patch:
-      summary: Update Task
-      operationId: updateTask
-      description: Update specific task.
-      tags:
-        - Tasks
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Task'
-      responses:
-        200:
-          $ref: '#/components/schemas/HubTask'
-        400:
-          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
-        401:
-          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
-        403:
-          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
-        404:
-          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
-        500:
-          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
                     
                     
   /tasks/{Id}:
@@ -139,6 +114,32 @@ paths:
                 properties:
                   data:
                     $ref: '#/components/schemas/HubTask'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+          
+    patch:
+      summary: Update Task
+      operationId: updateTask
+      description: Update specific task.
+      tags:
+        - Tasks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        200:
+          $ref: '#/components/schemas/HubTask'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
