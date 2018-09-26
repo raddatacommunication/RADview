@@ -1786,7 +1786,7 @@ components:
       description: Numeric ID of the task.
       schema:
         type: string
-      example: '1'
+      example: 'd7325a4c-e5dc-4567-8b57-d32934df7c30'
 
 
   ###########  REQUEST BODIES  ####################################
@@ -1803,10 +1803,9 @@ components:
               ids:
                 type: array
                 items:
-                  type: integer
-                  format: int32
+                  type: string
                   readOnly: true
-                example: [1,2,3]
+                example: [d7325a4c-e5dc-4567-8b57-d32934df7c30,2,3]
                 
                 
   ###########  RESPONSES  ####################################
