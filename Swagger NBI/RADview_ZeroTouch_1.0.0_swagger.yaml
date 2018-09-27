@@ -9,8 +9,6 @@ info:
     email: support@rad.com
     
 servers:
-  - url: 'http://localhost:8181/mng164/zt'
-  - url: 'http://localhost:8282/mng164/zt'
   - url: '{protocol}://{host}:{port}/{environment}'
     description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
     variables:
@@ -30,9 +28,10 @@ servers:
         description: RADview server port number.
       environment:
         enum: 
-          - mng164  # RADview Hub Server 
+          - mng164/ne-rules  # RADview Hub Server 
           - object  # RADview FE FE Server
-        default: mng164
+        default: mng164/ne-rules
+
 paths:
   /targeted-configuration:
     parameters:
