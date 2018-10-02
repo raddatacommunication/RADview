@@ -141,10 +141,10 @@ paths:
           $ref: '#/components/responses/AreaResponse'
         400:
           $ref: '#/components/responses/BadRequestErrorResponse'
-        404:
-          $ref: '#/components/responses/NotFoundErrorResponse'
         401:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
         500:
           $ref: '#/components/responses/ServerResourceErrorResponse'
           
@@ -166,10 +166,10 @@ paths:
                 $ref: '#/components/schemas/Area'
         400:
           $ref: '#/components/responses/BadRequestErrorResponse'
-        404:
-          $ref: '#/components/responses/NotFoundErrorResponse'
         401:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
         500:
           $ref: '#/components/responses/ServerResourceErrorResponse'
 
@@ -196,10 +196,10 @@ paths:
                     example: 1
         400:
           $ref: '#/components/responses/BadRequestErrorResponse'
-        404:
-          $ref: '#/components/responses/NotFoundErrorResponse'
         401:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
         500:
           $ref: '#/components/responses/ServerResourceErrorResponse'
           
@@ -316,7 +316,7 @@ components:
       description: Enable query on get response 
       schema:
         type: string
-      example: ?name=subD_1&rvId=1
+      example: ?name=subD_1&parentId=1
   
   #---------------------------------------------#
   # Rresponses                                  #
