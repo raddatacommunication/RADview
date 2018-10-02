@@ -89,7 +89,7 @@ paths:
           $ref: '#/components/responses/ServerResourceErrorResponse'
           
     #----------------------------------------------- #
-    #         Get all Areas by filter (query)  #
+    #         Get all Areas by filter (query)        #
     #----------------------------------------------- #
     get:
       summary: Get all areas
