@@ -231,6 +231,9 @@ components:
           format: float
           default: 0.0
     Area:
+      required:  # List the required properties here
+        - name
+        - circleId
       properties:
         id:
           type: string
