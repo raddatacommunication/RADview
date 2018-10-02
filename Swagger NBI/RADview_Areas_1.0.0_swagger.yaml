@@ -81,10 +81,10 @@ paths:
           $ref: '#/components/responses/AreaResponse'
         400:
           $ref: '#/components/responses/BadRequestErrorResponse'
-        404:
-          $ref: '#/components/responses/NotFoundErrorResponse'
         401:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
         500:
           $ref: '#/components/responses/ServerResourceErrorResponse'
           
@@ -114,10 +114,10 @@ paths:
                       $ref: '#/components/schemas/Area'
         400:
           $ref: '#/components/responses/BadRequestErrorResponse'
-        404:
-          $ref: '#/components/responses/NotFoundErrorResponse'
         401:
           $ref: '#/components/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: '#/components/responses/NotFoundErrorResponse'
         500:
           $ref: '#/components/responses/ServerResourceErrorResponse'
 
@@ -231,9 +231,6 @@ components:
           format: float
           default: 0.0
     Area:
-      required:  # List the required properties here
-        - name
-        - circleId
       properties:
         id:
           type: string
