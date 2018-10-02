@@ -28,8 +28,8 @@ servers:
         description: RADview server port number.
       environment:
         enum: 
-          - mng164/ne-rules  # RADview Hub Server 
-          - mng164/targeted-configuration # RADview Hub Server 
+          - mng164/zt/ne-rules  # RADview Hub Server 
+          - mng164/zt/targeted-configuration # RADview Hub Server 
           - object  # RADview FE FE Server
         default: mng164/ne-rules
 
