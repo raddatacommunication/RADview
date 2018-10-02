@@ -74,7 +74,6 @@ paths:
       description: creating new area
       parameters:
         - $ref: "#/components/parameters/auth"
-        - $ref: "#/components/parameters/circleId"
       requestBody:
         $ref: '#/components/requestBodies/Area'
       responses:
@@ -100,7 +99,6 @@ paths:
         - Area
       parameters:
         - $ref: "#/components/parameters/auth"
-        - $ref: "#/components/parameters/circleId"
         - $ref: "#/components/parameters/query"
       responses:
         200:
@@ -251,6 +249,11 @@ components:
           nullable: true
           type: string
           default: ""
+        circleId:
+          nullable: false
+          description: "Circle Id containing the Area" 
+          type: string
+          example: NorthState
           
         severity:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
@@ -314,15 +317,6 @@ components:
       schema:
         type: string
       example: ?name=subD_1&rvId=1
-    circleId:
-      name: circleId
-      in: header
-      required: true
-      description: Circle Id containing the Area 
-      allowEmptyValue: false
-      schema:
-        type: string
-      example: NorthState
   
   #---------------------------------------------#
   # Rresponses                                  #
