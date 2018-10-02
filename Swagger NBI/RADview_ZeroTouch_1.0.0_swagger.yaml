@@ -383,7 +383,6 @@ components:
           enum:
             - Mass
             - Sub
-            - StandAlone
         ztRuleName:
           type: string
           description: The ZT rule name
