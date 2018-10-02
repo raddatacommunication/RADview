@@ -237,16 +237,6 @@ components:
         id:
           type: string
           default: ""
-        countVnfInstance:
-          type: integer
-          format: int32
-          default: 0
-          description: "No. of VNF instances under this Area"
-        countVnfService:
-          type: integer
-          format: int32
-          default: 0
-          description: "No. of VNF services under this Area"
         location:
           $ref: "#/components/schemas/Location"
         name:
