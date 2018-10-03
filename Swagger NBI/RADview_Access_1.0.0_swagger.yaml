@@ -52,10 +52,7 @@ security:
 tags:
   - name: Users
     description: Everything about your Users. All CRUD actions for Users are supported here.
-    externalDocs:
-      description: Find out more
-      url: 'http://swagger.io'
-      
+
   - name: Roles
     description: Everything about your Roles. All CRUD actions for Roles are supported here.
     
