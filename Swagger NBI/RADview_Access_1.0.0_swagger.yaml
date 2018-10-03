@@ -25,22 +25,8 @@ info:
   title: RADview Access Control
 
   description: |
-    This is Users NBI. Users and Roles are used for access control.
-    <b>Roles</b>
-    The Role is used to control the access to features. The default Roles are:
-    <li>Monitor</il>
-    <li>Administrator</il>
-    For each Operation the access level can be:
-    <li>No access</il>
-    <li>Read only</il>
-    <li>Full access</il>
-    
-		<BR>
-		<b>Users</b>
-		User is the person who is logging into and using the RADview application. 
-		Every user has one Role assigned to him which defines his permissions and rights. 
-		User may be, for example, the system administrator of the enterprise, operator, technician or monitor. 
-					
+    This is Users NBI. Users and Roles are used for access control. Roles | The Role is used to control the access to features. The default Roles are: Monitor, Administrator. |  For each Operation the access level can be:  |  No access | Read only | Full access | Users |	User is the person who is logging into and using the RADview application. | Every user has one Role assigned to him which defines his permissions and rights. |	User may be, for example, the system administrator of the enterprise, operator, technician or monitor.
+		
 #############################################################################
 # The security object specifies the security or authorization protocol 
 # used when submitting requests.
