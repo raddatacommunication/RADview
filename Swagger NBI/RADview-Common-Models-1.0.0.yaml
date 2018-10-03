@@ -57,7 +57,7 @@ definitions:
         readOnly: true
         example: 20011842
       status:
-        $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ExecutorServiceWorkerStatusEnum"
+        $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/StatusEnum"
       errorHRef:
         description: error reference.
         type: string
