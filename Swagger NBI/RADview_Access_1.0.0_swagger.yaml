@@ -773,22 +773,12 @@ components:
     #       Security Schema               #
     #------------------------------------ #
   securitySchemes:
-    BasicAuth:
-      type: http
-      scheme: basic
-      description: >-
-          Login with user name and password
     ApiKeyAuth:
-      # The type of authorization — apiKey, http, oauth2, or openIdConnect.
       type: apiKey 
       
-      # Description of your security method
       description: >-
         **Authentication key**. *Example: augtt$93eee2ddsad34jjk*. Every request
-        that your application sends to the RADview API, it needs to identify
-        your application. You can use an API key, or you can use an OAuth 2.0
-        client ID. You should use a client ID when you are making calls on
-        behalf of a given user.   
+        that your application sends to the RADview API, it needs to identify your application.   
         
       #The name of the header value submitted in the request. Used only for apiKey type security
       name: auth 
