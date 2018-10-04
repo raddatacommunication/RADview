@@ -62,6 +62,7 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+
     get:
       summary: Get all Domain-Servers
       operationId: getDomainServers
@@ -95,6 +96,7 @@ paths:
     parameters:
       - $ref: "#/components/parameters/auth"
       - $ref: "#/components/parameters/id"
+
     get:
       summary: Get domain Server by id
       operationId: getDomainById
@@ -208,8 +210,6 @@ components:
               description: Domain is DOWN
             - value: 255
               name: UNKNOWN
-        additionalInfo:
-           $ref: '#/components/schemas/AdditionalInfo'
     NetData:
       description: Model containing domain Network info.
       type: object
@@ -225,33 +225,8 @@ components:
           port:
             description:  Domain Server http/s port
             type: string
-            example: 8181
-    AdditionalInfo:
-      description: Model containing domain Counters info.
-      type: object
-      readOnly: true
-      properties:
-          nesTotalCount:
-            description:  Domain Server network elements mapping count
-            type: number
-            readOnly: true
-            example: 100
-          nesMappedCount:
-            description:  Domain Server network elements mapped count
-            type: number
-            readOnly: true
-            example: 10
-          nesBsReadyCount:
-            description:  Domain Server network elements Boot Strap ready count
-            type: number
-            readOnly: true
-            example: 50
-          nesManagedCount:
-            description:  Domain Server network elements managed count
-            type: number
-            readOnly: true
-            example: 100
-          
+            example: 3002
+
   parameters:
     auth:
       name: auth
