@@ -42,6 +42,31 @@ paths:
   /domain-mappings:
     parameters:
     - $ref: "#/components/parameters/auth"
+
+    post:
+      summary: Create a new Domain Mapping
+      operationId: createDomainMapping
+      description: creating Domain Mapping
+      tags:
+        - Domain Mappings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomainMapping'
+      responses:
+        200:
+          $ref: '#/components/responses/DomainMappingResponse'
+        400:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
+        401:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+
     get:
       summary: Get all Domain Mappings
       operationId: getDomainMappings
@@ -63,64 +88,20 @@ paths:
                     items:
                       $ref: '#/components/schemas/DomainMapping'
         400:
-          $ref: '#/components/responses/BadRequestErrorResponse'
-        404:
-          $ref: '#/components/responses/NotFoundErrorResponse'
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         401:
-          $ref: '#/components/responses/UnauthorizedErrorResponse'
-        500:
-          $ref: '#/components/responses/ServerResourceErrorResponse'
-    post:
-      summary: Create a new Domain Mapping
-      operationId: createDomainMapping
-      description: creating Domain Mapping
-      tags:
-        - Domain Mappings
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DomainMapping'
-      responses:
-        200:
-          $ref: '#/components/responses/DomainMappingResponse'
-        400:
-          $ref: '#/components/responses/BadRequestErrorResponse'
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
         404:
-          $ref: '#/components/responses/NotFoundErrorResponse'
-        401:
-          $ref: '#/components/responses/UnauthorizedErrorResponse'
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
-          $ref: '#/components/responses/ServerResourceErrorResponse'
-    put:
-      summary: Update Domain Mapping
-      operationId: updateDomainMapping
-      description: Update specific Domain Mapping.
-      tags:
-        - Domain Mappings
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DomainMapping'
-      responses:
-        200:
-          $ref: '#/components/responses/DomainMappingResponse'
-        400:
-          $ref: '#/components/responses/BadRequestErrorResponse'
-        404:
-          $ref: '#/components/responses/NotFoundErrorResponse'
-        401:
-          $ref: '#/components/responses/UnauthorizedErrorResponse'
-        500:
-          $ref: '#/components/responses/ServerResourceErrorResponse'
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+
 
   /domain-mappings/{id}:
     parameters:
       - $ref: "#/components/parameters/auth"
       - $ref: "#/components/parameters/id"
+
     get:
       summary: Get Domain Mapping by id
       operationId: getDomainMappingById
@@ -140,13 +121,38 @@ paths:
                     readOnly: true
                     example: 1
         400:
-          $ref: '#/components/responses/BadRequestErrorResponse'
-        404:
-          $ref: '#/components/responses/NotFoundErrorResponse'
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         401:
-          $ref: '#/components/responses/UnauthorizedErrorResponse'
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
-          $ref: '#/components/responses/ServerResourceErrorResponse'
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+
+    patch:
+      summary: Update Domain Mapping
+      operationId: updateDomainMapping
+      description: Update specific Domain Mapping.
+      tags:
+        - Domain Mappings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomainMapping'
+      responses:
+        200:
+          $ref: '#/components/responses/DomainMappingResponse'
+        400:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
+        401:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+
     delete:
       summary: Delete Domain Mapping by id
       operationId: deleteDomainMappingById
@@ -166,13 +172,13 @@ paths:
                     readOnly: true
                     example: 1
         400:
-          $ref: '#/components/responses/BadRequestErrorResponse'
-        404:
-          $ref: '#/components/responses/NotFoundErrorResponse'
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         401:
-          $ref: '#/components/responses/UnauthorizedErrorResponse'
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
-          $ref: '#/components/responses/ServerResourceErrorResponse'
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
 
 components:
   schemas:
@@ -267,115 +273,20 @@ components:
                 type: string
                 readOnly: true
                 example: "{data as json}"
-    BadRequestErrorResponse:
-      description: Bad Request. There was some error for this request.  
-      content:
-        application/json:    
-          schema:
-            type: object
-            properties:
-              error:
-                type: boolean
-                readOnly: true
-                example: true
-              successful:
-                type: boolean
-                readOnly: true
-                example: false
-              errorName:
-                type: string
-                readOnly: true
-                example: java.lang.IllegalArgumentException
-              code:
-                type: integer
-                format: int32
-                readOnly: true
-                example: 400
-              errorMessage:
-                type: string
-                readOnly: true
-                example: Missing/invalid field name.
-    UnauthorizedErrorResponse:
-      description: Unauthorized, Token is not valid or missing  
-      content:
-        application/json:    
-          schema:
-            type: object
-            properties:
-              error:
-                type: boolean
-                readOnly: true
-                example: true
-              successful:
-                type: boolean
-                readOnly: true
-                example: false
-              errorName:
-                type: string
-                readOnly: true
-                example: java.lang.IllegalArgumentException
-              code:
-                type: integer
-                format: int32
-                readOnly: true
-                example: 401
-              errorMessage:
-                type: string
-                readOnly: true
-                example: Unauthorized operation
-    NotFoundErrorResponse:
-      description: Resource not found for operation  
-      content:
-        application/json:    
-          schema:
-            type: object
-            properties:
-              error:
-                type: boolean
-                readOnly: true
-                example: true
-              successful:
-                type: boolean
-                readOnly: true
-                example: false
-              errorName:
-                type: string
-                readOnly: true
-                example: java.lang.IllegalArgumentException
-              code:
-                type: integer
-                format: int32
-                readOnly: true
-                example: 404
-              errorMessage:
-                type: string
-                readOnly: true
-                example: Resource not found
-    ServerResourceErrorResponse:
-      description: Server Resource operation error  
-      content:
-        application/json:    
-          schema:
-            type: object
-            properties:
-              error:
-                type: boolean
-                readOnly: true
-                example: true
-              successful:
-                type: boolean
-                readOnly: true
-                example: false
-              errorName:
-                type: string
-                readOnly: true
-                example: java.lang.IllegalArgumentException
-              code:
-                type: integer
-                format: int32
-                readOnly: true
-                example: 500
-              errorMessage:
-                type: string
-                readOnly: true
-                example: Resource operation error
+                
+    #------------------------------------ #
+    #       Security Schema               #
+    #------------------------------------ #
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey 
+      
+      description: >-
+        **Authentication key**. *Example: augtt$93eee2ddsad34jjk*. Every request
+        that your application sends to the RADview API, it needs to identify your application.   
+        
+      #The name of the header value submitted in the request. Used only for apiKey type security
+      name: auth 
+      
+      # Options are query, header or cookie. Used only for apiKey type security.
+      in: header
