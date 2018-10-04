@@ -1,12 +1,8 @@
 openapi: 3.0.0
-info:
-  version: '1.0.0'
-  title: 'Domain-Mappings'
-  description: 'Domain-Mappings'
 
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
-    description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
+    description: "Web address for the RADview Northbound Interface (NBI). For example: https://127.0.0.1:3002/mng164/"
     variables:
       protocol:
         enum:
@@ -17,10 +13,30 @@ servers:
         default: localhost
         description: RADview server IP Address or host name.
       port:
-        default: '8282'
+        default: '3002'
         description: RADview server port number.
       environment:
+        enum: 
+          - mng164/auth  # RADview Production Server 
         default: mng164/servers
+        
+info:
+  version: "1.0.0"
+  title: RADview Domain-Mappings
+
+  description: |
+    This is Domain-Mappings NBI. 
+
+#############################################################################
+# The security object specifies the security or authorization protocol 
+# used when submitting requests.
+############################################################################# 
+security:
+  - ApiKeyAuth: []
+  
+tags:
+  - name: Domain Mappings
+    description: All CRUD actions for Domain Mappings are supported here.
 
 paths: 
   /domain-mappings:
