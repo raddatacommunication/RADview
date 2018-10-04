@@ -198,16 +198,21 @@ components:
           type: number
           format: float
           default: 0.0
+          example: 38.898648N
         longitude:
           nullable: true
           type: number
           format: float
           default: 0.0
+          example: 77.037692W
+
     Area:
       properties:
         id:
           type: string
           default: ""
+          example: 8062853f-7a0e-47bc-83a0-c9839174a140
+          readOnly: true
         location:
           $ref: "#/components/schemas/Location"
         name:
