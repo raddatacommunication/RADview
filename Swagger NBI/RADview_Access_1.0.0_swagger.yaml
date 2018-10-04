@@ -769,9 +769,9 @@ components:
       description: User Object
       required: true
 
-    #------------------------------------ #
-    #       Security Schema               #
-    #------------------------------------ #
+  #------------------------------------ #
+  #       Security Schema               #
+  #------------------------------------ #
   securitySchemes:
     ApiKeyAuth:
       type: apiKey 
