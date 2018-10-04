@@ -1,11 +1,8 @@
 openapi: 3.0.0
-#############################################################################
-# In the servers object, you specify the basepath used in your API requests. 
-# The basepath is the part of the URL that appears before the endpoint.
-#############################################################################
+
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
-    description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
+    description: "Web address for the RADview Northbound Interface (NBI). For example: https://127.0.0.1:3002/mng164/"
     variables:
       protocol:
         enum:
@@ -16,51 +13,32 @@ servers:
         default: localhost
         description: RADview server IP Address or host name.
       port:
-        enum: 
-          - '8282'  # RADview Hub Server
-          - '8181'  # RADview FE Server 
-        default: '8282'
+        default: '3002'
         description: RADview server port number.
       environment:
         enum: 
-          - mng164/hub  # RADview Hub Server 
-          - object  # RADview FE FE Server
+          - mng164/auth  # RADview Production Server 
         default: mng164/hub
         
 info:
-  description: |
-    This is Areas NBI. You can find
-    out more about Swagger at
-    [http://swagger.io](http://swagger.io) or on
-    [irc.freenode.net, #swagger](http://swagger.io/irc/).
   version: "1.0.0"
   title: RADview Areas
-  termsOfService: 'http://swagger.io/terms/'
-  contact:
-    email: apiteam@swagger.io
-  license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+  description: |
+    This is Areas NBI. 
+
+
 #############################################################################
 # The security object specifies the security or authorization protocol 
 # used when submitting requests.
 ############################################################################# 
 security:
-  - BasicAuth:  []
   - ApiKeyAuth: []
+  
 tags:
   - name: Area
-    description: Everything about your Areas
-    externalDocs:
-      description: Find out more
-      url: 'http://swagger.io'
-#  - name: administration
-#    description: Access to Users actions
-  - name: role
-    description: Operations about roles
-#    externalDocs:
-#      description: Find out more about our roles
-#      url: 'http://swagger.io'
+    description: Everything about your Areas. All CRUD actions for Users are supported here.
+
 paths:
   /area:
     #------------------------------------ #
