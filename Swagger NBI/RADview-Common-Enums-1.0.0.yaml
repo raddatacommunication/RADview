@@ -588,6 +588,7 @@ definitions:
     example: 1
   SeverityEnumWithNormalDefault:
     type: integer
+    readOnly: true
     enum:
       - value: 1 # NORMAL(1)
         name: NORMAL
