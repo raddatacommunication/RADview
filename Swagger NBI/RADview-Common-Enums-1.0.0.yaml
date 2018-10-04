@@ -487,6 +487,7 @@ definitions:
     example: 151
   OperStateEnum:
     type: integer
+    readOnly: true
     enum:
       - value: 1 # UP(1)
         name: UP
