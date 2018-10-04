@@ -291,12 +291,19 @@ components:
       description: Model containing hub task info.
       type: object
       properties:
-        taskJson:
-          description: The json object with all task data. in json format.
-          type: string
-          format: json
-          readOnly: true
-          example: You can take a look on Task schema example.
+        taskAttr:
+          $ref: "#/components/schemas/TaskAttributes"
+        taskObjects:
+          $ref: "#/components/schemas/TaskObjects"
+        taskParams:
+          $ref: '#/components/schemas/TaskParameters'
+        schedule:
+          $ref: "#/components/schemas/TaskSchedule"
+        totalProgression:
+          description: The total progression of this task from all domains.
+          type: integer
+          format: int32
+          example: 300
         domainTasksList:
           description: List of all sub tasks in the domains.
           type: array
