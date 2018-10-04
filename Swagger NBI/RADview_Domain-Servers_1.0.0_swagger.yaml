@@ -45,8 +45,6 @@ paths:
       description: creating new Domain server
       tags:
         - Domain Servers
-      parameters:
-        - $ref: "#/components/parameters/auth"        
       requestBody:
         required: true
         content:
@@ -71,7 +69,6 @@ paths:
       tags:
         - Domain Servers
       parameters:
-        - $ref: "#/components/parameters/auth"
         - $ref: "#/components/parameters/query"
       responses:
         200:
