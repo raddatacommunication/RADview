@@ -18,7 +18,7 @@ servers:
       environment:
         enum: 
           - mng164/auth  # RADview Production Server 
-        default: mng164/hub
+        default: mng164/inventory
         
 info:
   version: "1.0.0"
