@@ -227,11 +227,12 @@ components:
           nullable: true
           type: string
           default: ""
+          example: 8062853f-7a0e-47bc-92Af-c9839174a47c
         circleId:
           nullable: false
           description: "Circle Id containing the Area" 
           type: string
-          example: NorthState
+          example: 10899
           
         severity:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
