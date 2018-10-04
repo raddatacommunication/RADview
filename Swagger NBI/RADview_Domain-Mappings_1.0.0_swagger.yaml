@@ -194,15 +194,16 @@ components:
         circleId:
           description: Id of Circle
           type: string
-          example: 1
+          example: 172
         domainServerId:
           description: Id of Domain Server
           type: string
-          example: 2
+          readOnly: true
+          example: 207
         uuid:
           description: Mapping uuid
           type: string
-          example: 12FBN4 
+          example: AA-00-04-00-FF-4B 
         neId:
           description: Mapping network element id
           type: number
@@ -213,6 +214,7 @@ components:
           type: integer
           readOnly: true
           format: int32
+          example: 3
           enum:
             - value: 1
               name: MAPPED
@@ -251,7 +253,7 @@ components:
       description: Enable query on get response 
       schema:
         type: string
-      example: ?name=circle1&operStatus=1
+      example: ?circleId=188&uuid=AA-00-04-00-FF-4B
   
   responses:
     DomainMappingResponse:
@@ -274,9 +276,9 @@ components:
                 readOnly: true
                 example: "{data as json}"
                 
-    #------------------------------------ #
-    #       Security Schema               #
-    #------------------------------------ #
+  #------------------------------------ #
+  #       Security Schema               #
+  #------------------------------------ #
   securitySchemes:
     ApiKeyAuth:
       type: apiKey 
