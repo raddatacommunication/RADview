@@ -102,29 +102,7 @@ paths:
     parameters:
       - $ref: "#/components/parameters/auth"
       - $ref: "#/components/parameters/id"
-    #--------------------------------------------- #
-    #       Update a specific Area (by ID)         #
-    #--------------------------------------------- #
-    patch:
-      tags:
-        - Area
-      summary: Update an existing area
-      operationId: updateArea
-      description: Update specific area
-      requestBody:
-        $ref: '#/components/requestBodies/Area'
-      responses:
-        200:
-          $ref: '#/components/responses/AreaResponse'
-        400:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
-        401:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
-        404:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
-        500:
-          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
-          
+    
     #----------------------------------------- #
     #       Get a specific Area (by ID)   #
     #----------------------------------------- #
@@ -141,6 +119,29 @@ paths:
             application/json:    
               schema:
                 $ref: '#/components/schemas/Area'
+        400:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
+        401:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+
+    #--------------------------------------------- #
+    #       Update a specific Area (by ID)         #
+    #--------------------------------------------- #
+    patch:
+      tags:
+        - Area
+      summary: Update an existing area
+      operationId: updateArea
+      description: Update specific area
+      requestBody:
+        $ref: '#/components/requestBodies/Area'
+      responses:
+        200:
+          $ref: '#/components/responses/AreaResponse'
         400:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         401:
