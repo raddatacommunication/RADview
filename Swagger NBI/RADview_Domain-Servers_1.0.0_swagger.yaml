@@ -1,12 +1,8 @@
 openapi: 3.0.0
-info:
-  version: '1.0.0'
-  title: 'RADview Domain Servers'
-  description: 'Domain Servers '
-  
+
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
-    description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
+    description: "Web address for the RADview Northbound Interface (NBI). For example: https://127.0.0.1:3002/mng164/"
     variables:
       protocol:
         enum:
@@ -17,15 +13,57 @@ servers:
         default: localhost
         description: RADview server IP Address or host name.
       port:
-        default: '8282'
+        default: '3002'
         description: RADview server port number.
       environment:
+        enum: 
+          - mng164/auth  # RADview Production Server 
         default: mng164/servers
+
+info:
+  version: '1.0.0'
+  title: 'RADview Domain Servers'
+  description: 'Domain Servers '
+  
+########################################################################################################
+# The security object specifies the security or authorization protocol to use when submitting requests.
+########################################################################################################
+security:
+  - ApiKeyAuth: []
+
+tags:
+  - name: Domain Servers
+    description: API for managing domain servers.
         
 paths:
   /domain-servers:
     parameters:
     - $ref: "#/components/parameters/auth"
+    post:
+      summary: Create new Domain server
+      operationId: createDomain
+      description: creating new Domain server
+      tags:
+        - Domain Servers
+      parameters:
+        - $ref: "#/components/parameters/auth"        
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomainServer'
+      responses:
+        200:
+          $ref: '#/components/responses/DomainResponse'
+        400:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
+        401:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
     get:
       summary: Get all Domain-Servers
       operationId: getDomainServers
@@ -33,6 +71,7 @@ paths:
       tags:
         - Domain Servers
       parameters:
+        - $ref: "#/components/parameters/auth"
         - $ref: "#/components/parameters/query"
       responses:
         200:
@@ -46,52 +85,6 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/DomainServer'
-        400:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
-        404:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
-        401:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
-        500:
-          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
-    post:
-      summary: Create new Domain server
-      operationId: createDomain
-      description: creating new Domain server
-      tags:
-        - Domain Servers
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DomainServer'
-      responses:
-        200:
-          $ref: '#/components/responses/DomainResponse'
-        400:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
-        404:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
-        401:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
-        500:
-          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
-    patch:
-      summary: Update Domain Server
-      operationId: updateDomain
-      description: Update specific domain.
-      tags:
-        - Domain Servers
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DomainServer'
-      responses:
-        200:
-          $ref: '#/components/responses/DomainResponse'
         400:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         404:
@@ -126,6 +119,31 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+
+    patch:
+      summary: Update Domain Server
+      operationId: updateDomain
+      description: Update specific domain.
+      tags:
+        - Domain Servers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomainServer'
+      responses:
+        200:
+          $ref: '#/components/responses/DomainResponse'
+        400:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
+        401:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+
     delete:
       summary: Delete Domain Server by id
       operationId: deleteDomainServerById
@@ -284,3 +302,17 @@ components:
                 type: string
                 readOnly: true
                 example: "{data as json}"
+                
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey 
+      
+      description: >-
+        **Authentication key**. *Example: augtt$93eee2ddsad34jjk*. Every request
+        that your application sends to the RADview API, it needs to identify your application.   
+        
+      #The name of the header value submitted in the request. Used only for apiKey type security
+      name: auth 
+      
+      # Options are query, header or cookie. Used only for apiKey type security.
+      in: header
