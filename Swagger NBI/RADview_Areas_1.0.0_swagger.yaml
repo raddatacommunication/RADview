@@ -17,7 +17,7 @@ servers:
         description: RADview server port number.
       environment:
         enum: 
-          - mng164/auth  # RADview Production Server 
+          - mng164/inventory  # RADview Production Server 
         default: mng164/inventory
         
 info:
