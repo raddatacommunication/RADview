@@ -1,6 +1,84 @@
 openapi: 3.0.0
+
+servers:
+  - url: '{protocol}://{host}:{port}/{environment}'
+    description: "Web address for the RADview Northbound Interface (NBI). For example: https://127.0.0.1:3002/mng164/"
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      host:
+        default: localhost
+        description: RADview server IP Address or host name.
+      port:
+        default: '3002'
+        description: RADview server port number.
+      environment:
+        enum: 
+          - mng164/zt/ne-rules
+          - mng164/zt/targeted-configuration 
+        default: mng164/zt/ne-rules
+
 info:
-  version: '1.0.0'
-  title: 'Repository'
-  description: 'Repository '
+  version: 1.0.0
+  title: RADview Repository
+  description: RADview Repository
+
+#############################################################################
+# The security object specifies the security or authorization protocol 
+# used when submitting requests.
+############################################################################# 
+security:
+  - ApiKeyAuth: []
+  
+tags:
+  - name: Targeted Configuration
+    description: Everything about Targeted Configuration. All CRUD actions for Targeted Configuration are supported here.
+  - name: NE-specific provisioning rule
+    description: Everything about NE-specific provisioning rule. All CRUD actions for ZT rules are supported here.
+    
 paths: {}
+
+components:
+  parameters:
+    auth:
+      name: auth
+      in: header
+      required: true
+      description: authentication 
+      allowEmptyValue: false
+      schema:
+        type: string
+      example: 'entlf31e7qlsmrhhq14s6h0h43'
+    query:
+      name: query
+      in: query
+      required: false
+      description: Enable query on get response 
+      schema:
+        type: string
+      example: ?ztRuleName=rule_1&ztRuleCpeUid=aabbccddeeff      
+
+  schemas:
+    ZeroTouchNeRule:
+      required:
+        - ztRuleType
+
+  #------------------------------------ #
+  #       Security Schema (copied)      #
+  #------------------------------------ #
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey 
+      
+      description: >-
+        **Authentication key**. *Example: augtt$93eee2ddsad34jjk*. Every request
+        that your application sends to the RADview API, it needs to identify your application.   
+        
+      #The name of the header value submitted in the request. Used only for apiKey type security
+      name: auth 
+      
+      # Options are query, header or cookie. Used only for apiKey type security.
+      in: header
