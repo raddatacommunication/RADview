@@ -1,12 +1,8 @@
 openapi: 3.0.0
-#############################################################################
-# In the servers object, you specify the basepath used in your API requests.
-# The basepath is the part of the URL that appears before the endpoin
-# Raz Git hub test
-#############################################################################
+
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
-    description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
+    description: "Web address for the RADview Northbound Interface (NBI). For example: https://127.0.0.1:3002/mng164/"
     variables:
       protocol:
         enum:
@@ -17,44 +13,28 @@ servers:
         default: localhost
         description: RADview server IP Address or host name.
       port:
-        enum: 
-          - '8282'  # RADview Hub Server
-          - '8181'  # RADview FE Server 
-        default: '8282'
+        default: '3002'
         description: RADview server port number.
       environment:
         enum: 
-          - mng164/inventory  # RADview Hub Server 
-          - object  # RADview FE FE Server
+          - mng164/inventory
         default: mng164/inventory
-        
 info:
-  description: |
-    This is MEs NBI. You can find
-    out more about Swagger at
-    [http://swagger.io](http://swagger.io) or on
-    [irc.freenode.net, #swagger](http://swagger.io/irc/).
   version: "1.0.0"
   title: RADview NEs
-  termsOfService: 'http://swagger.io/terms/'
-  contact:
-    email: apiteam@swagger.io
-  license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  description: This is MEs NBI.
+
 #############################################################################
 # The security object specifies the security or authorization protocol 
 # used when submitting requests.
 ############################################################################# 
 security:
-  - BasicAuth:  []
   - ApiKeyAuth: []
+  
 tags:
   - name: NEs
-    description: Everything about your Nes
-    externalDocs:
-      description: Find out more
-      url: 'http://swagger.io'
+    description: Everything about your NEs
+
 paths:
   /nes:
     post:
@@ -62,46 +42,51 @@ paths:
         - NEs
       summary: Add a new ne to the system
       operationId: addNe
-      responses:
-        '405':
-          description: Invalid input
+      parameters:
+        - $ref: "#/components/parameters/auth"      
       requestBody:
-        $ref: '#/components/requestBodies/Ne'
-    put:
-      tags:
-        - NEs
-      summary: Update an existing ne
-      operationId: updateNe
+        $ref: '#/components/requestBodies/Ne'      
       responses:
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Ne not found
-        '405':
-          description: Validation exception
-      requestBody:
-        $ref: '#/components/requestBodies/Ne'
+        200:
+          $ref: '#/components/requestBodies/Ne'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+
     get:
-      tags:
-        - NEs
       summary: Returns NEs inventory
       description: Returns an array of all NEs
       operationId: getNesInventory
+      tags:
+        - NEs
+      parameters:
+        - $ref: "#/components/parameters/auth"
+        - $ref: "#/components/parameters/query"  
       responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Ne'
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Ne'
-  '/nes/{neId}':
+        200:
+          $ref: '#/components/requestBodies/Ne'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+          
+  '/nes/{id}':
+    parameters:
+      - $ref: "#/components/parameters/auth"
+      - $ref: "#/components/parameters/id"
     get:
       tags:
         - NEs
@@ -117,43 +102,61 @@ paths:
             type: integer
             format: int64
       responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Ne'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Ne'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Ne not found
+        200:
+          $ref: '#/components/requestBodies/Ne'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+
+    patch:
+      tags:
+        - NEs
+      summary: Update an existing NE
+      operationId: updateNe
+      requestBody:
+        $ref: '#/components/requestBodies/Ne'
+      responses:
+        200:
+          $ref: '#/components/requestBodies/Ne'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+          
     delete:
       tags:
         - NEs
       summary: Deletes Ne
       operationId: deleteNe
-      parameters:
-        - name: neId
-          in: path
-          description: Ne id to delete
-          required: true
-          schema:
-            type: integer
-            format: int64
       responses:
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Ne not found
-externalDocs:
-  description: Find out more about Swagger
-  url: 'http://swagger.io'
+        200:
+          $ref: '#/components/requestBodies/Ne'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+
 components:
   schemas:
-#start my components
     PortIdentifier:
       required:
         - cardNum
@@ -1215,6 +1218,37 @@ components:
             $ref: '#/components/schemas/Ne'
       description: Ne Object
       required: true
+
+  #---------------------------------------------#
+  # Parameters                                  #
+  #---------------------------------------------#
+  parameters:
+    auth:
+      name: auth
+      in: header
+      required: true
+      description: authentication 
+      allowEmptyValue: false
+      schema:
+        type: string
+      example: entlf31e7qlsmrhhq14s6h0h43
+    id:
+      name: id
+      in: path
+      required: true
+      description: Numeric ID of the Area.
+      schema:
+        type: string
+      example: 1      
+    query:
+      name: query
+      in: query
+      required: false
+      description: Enable query on get response 
+      schema:
+        type: string
+      example: ?name=subD_1&parentId=1      
+      
   securitySchemes:
     BasicAuth:
       type: http
