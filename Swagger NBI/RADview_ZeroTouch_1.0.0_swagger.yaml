@@ -1,16 +1,8 @@
 openapi: 3.0.0
-info:
-  version: 1.0.0
-  title: RADview Zero Touch
-  description: RADview Zero Touch
-  contact:
-    name: RAD Data Communications Ltd.
-    url: 'http://www.rad.com/71-2379/support/'
-    email: support@rad.com
-    
+
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
-    description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
+    description: "Web address for the RADview Northbound Interface (NBI). For example: https://127.0.0.1:3002/mng164/"
     variables:
       protocol:
         enum:
@@ -21,18 +13,32 @@ servers:
         default: localhost
         description: RADview server IP Address or host name.
       port:
-        enum: 
-          - '8282'  # RADview Hub Server
-          - '8181'  # RADview FE Server 
-        default: '8282'
+        default: '3002'
         description: RADview server port number.
       environment:
         enum: 
-          - mng164/zt/ne-rules  # RADview Hub Server 
-          - mng164/zt/targeted-configuration # RADview Hub Server 
-          - object  # RADview FE FE Server
+          - mng164/zt/ne-rules
+          - mng164/zt/targeted-configuration 
         default: mng164/zt/ne-rules
 
+info:
+  version: 1.0.0
+  title: RADview Zero Touch
+  description: RADview Zero Touch
+
+#############################################################################
+# The security object specifies the security or authorization protocol 
+# used when submitting requests.
+############################################################################# 
+security:
+  - ApiKeyAuth: []
+  
+tags:
+  - name: Targeted Configuration
+    description: Everything about Targeted Configuration. All CRUD actions for Targeted Configuration are supported here.
+  - name: NE-specific provisioning rule
+    description: Everything about NE-specific provisioning rule. All CRUD actions for ZT rules are supported here.
+    
 paths:
   /targeted-configuration:
     parameters:
@@ -81,6 +87,8 @@ paths:
       operationId: getAllTargetParametersTypes
       summary: Get all Target Parameters Types
       description: Get all Target Parameters Types
+      parameters:
+        - $ref: "#/components/parameters/query"      
       responses:
         200:
           description: All Target Parameters Types
@@ -173,6 +181,7 @@ paths:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+
   /nerule:
     parameters:
     - $ref: "#/components/parameters/auth"
@@ -219,6 +228,8 @@ paths:
       operationId: getAllNeZtRules
       summary: Get all NE-specific ZT provisioning rules
       description: Get all NE-specific ZT provisioning rules
+      parameters:
+        - $ref: "#/components/parameters/query"      
       responses:
         200:
           description: OK - Request was successful
@@ -369,6 +380,15 @@ components:
       schema:
         type: string
       example: 'entlf31e7qlsmrhhq14s6h0h43'
+    query:
+      name: query
+      in: query
+      required: false
+      description: Enable query on get response 
+      schema:
+        type: string
+      example: ?ztRuleName=rule_1&ztRuleCpeUid=aabbccddeeff      
+
   schemas:
     ZeroTouchNeRule:
       required:
@@ -540,3 +560,20 @@ components:
       required:
         - id
         - value
+        
+  #------------------------------------ #
+  #       Security Schema (copied)      #
+  #------------------------------------ #
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey 
+      
+      description: >-
+        **Authentication key**. *Example: augtt$93eee2ddsad34jjk*. Every request
+        that your application sends to the RADview API, it needs to identify your application.   
+        
+      #The name of the header value submitted in the request. Used only for apiKey type security
+      name: auth 
+      
+      # Options are query, header or cookie. Used only for apiKey type security.
+      in: header
