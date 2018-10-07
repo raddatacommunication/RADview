@@ -321,7 +321,7 @@ components:
       description: the file ID
 
   #------------------------------------ #
-  #       Security Schema (copied)      #
+  #       Security Schema               #
   #------------------------------------ #
   securitySchemes:
     ApiKeyAuth:
