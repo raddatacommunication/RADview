@@ -19,6 +19,7 @@ servers:
         enum: 
           - mng164/repository/download
           - mng164/repository/upload
+          - mng164/repository/files
         default: mng164/repository/download
 
 info:
@@ -88,8 +89,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/fileDescriptor'
-        299:
-          $ref: '#/components/schemas/fileDescriptor'
         499:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         401:
@@ -329,7 +328,7 @@ components:
       
       description: >-
         **Authentication key**. *Example: augtt$93eee2ddsad34jjk*. Every request
-        that your application sends to the RADview API, it needs to identify your application.   
+        that your application sends to the RADview API, it needs to identify your application.  
         
       #The name of the header value submitted in the request. Used only for apiKey type security
       name: auth 
