@@ -34,15 +34,21 @@ security:
   - ApiKeyAuth: []
   
 tags:
-  - name: Repository
+  - name: Upload and Download Files 
+    description: Upload and download files. 
+  - name: Files Repository
     description: Everything about files. All CRUD actions for files are supported here.
 
 paths:
   /repository/upload:
     post:
-      summary: upload file
+      tags:
+        - Upload and Download Files 
+      summary: Upload a file
       operationId: uploadFile
-      description: this API is for file upload
+      description: API for file upload
+      parameters:
+        - $ref: "#/components/parameters/auth"      
       requestBody:
         description: The request body is in multipart HTTP format. The request payload comprises of two parts. The first part describes the file to upload, and second part contains original file name and file data. The content type of this part should be set in accordance with the file type.
         content: 
@@ -71,12 +77,7 @@ paths:
                 contentType: type/subtype
       responses:
         202:
-          description: Operation accepted.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/fileDescriptor'
-              
+          $ref: '#/components/schemas/fileDescriptor'
         400:
           description: Operation failed. The content is optional. It is returned 
                        in the case that file with the same name and type was found in 
@@ -87,16 +88,26 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/fileDescriptor'
-                  
+        299:
+          $ref: '#/components/schemas/fileDescriptor'
+        499:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
+        401:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
-          description: Internal server error
-            
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+
   /repository/download/{fileId}:
     get:
-      summary: download file with given ID
+      tags:
+        - Upload and Download Files 
+      summary: Download file with given ID
       operationId: downloadFile
       description: this API is for file download
       parameters:
+        - $ref: "#/components/parameters/auth"
         - $ref: '#/components/parameters/fileId'
       responses:
         200:
@@ -116,20 +127,25 @@ paths:
             text/html:
               schema:
                 type: string
-                
         400:
-          description: Operation failed
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
+        401:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
         404:
-          description: Not found
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
-          description: Internal server error
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
           
   /repository/files:
     get:
-      summary: returns list of file descriptors
+      tags:
+        - Files Repository
+      summary: Returns list of file descriptors
       operationId: getFileInfo
       description: this API is to list files
-      
+      parameters:
+        - $ref: '#/components/parameters/auth'
+        - $ref: '#/components/parameters/query'
       responses:
         200:
           description: OK
@@ -139,37 +155,25 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/fileDescriptor'
-                  
+        400:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
+        401:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
-          description: Internal server error 
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
     
           
   /repository/files/{fileId}:
-    delete:
-      summary: delete file with given file ID
-      operationId: deleteFile
-      description: this API is for file deletion
-      parameters:
-        - $ref: '#/components/parameters/fileId'
-      responses:
-        202:
-          description: Operation accepted.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/fileDescriptor'
-        400:
-          description: Operation failed
-        404:
-          description: Not found
-        500:
-          description: Internal server error
-          
-    put:
+    patch:
+      tags:
+        - Files Repository
       summary: upload file
       operationId: uploadFile
       description: this API is for file upload
       parameters:
+        - $ref: "#/components/parameters/auth"
         - $ref: '#/components/parameters/fileId'
       requestBody:
         description: The request body is in multipart HTTP format. The request payload comprises of two parts. The first part describes the file to upload, and second part contains original file name and file data. The content type of this part should be set in accordance with the file type.
@@ -214,10 +218,39 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/fileDescriptor'
-                  
+        499:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
+        401:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
-          description: Internal server error 
- 
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+
+    delete:
+      tags:
+        - Files Repository
+      summary: delete file with given file ID
+      operationId: deleteFile
+      description: this API is for file deletion
+      parameters:
+        - $ref: "#/components/parameters/auth"
+        - $ref: '#/components/parameters/fileId'
+      responses:
+        202:
+          description: Operation accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fileDescriptor'
+        400:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
+        401:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
       
 components:
   
@@ -269,13 +302,11 @@ components:
         - 2
         - 3
       
-      
     neTypeIdsList:
       description: the list of IDs of associated NE types
       type: array
       items: 
         $ref: '#/components/schemas/neTypesIdsEnum'
-        
 
     fileDescriptor:
       type: object
@@ -326,7 +357,7 @@ components:
       description: Enable query on get response 
       schema:
         type: string
-      example: ?ztRuleName=rule_1&ztRuleCpeUid=aabbccddeeff      
+      example: ?fileSize>2048&fileType=5      
     fileId:
       in: path 
       name: fileId
