@@ -24,8 +24,8 @@ servers:
 info:
   version: 1.0.0
   title: RADview Repository
-  description: RADview Repository
-
+  description: "The file system repository allows you to upoad a file to the server repository and also receive information about files in repository like name, size, content. Note that file content is Base64 encoded. The file system repository allows access to files which have been uploaded into the server."
+  
 #############################################################################
 # The security object specifies the security or authorization protocol 
 # used when submitting requests.
@@ -61,7 +61,7 @@ paths:
                   type: object
                   properties:
                     fileType:
-                      $ref: '#/components/schemas/fileTypesEnum'
+                      $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/FileTypeEnum"
                     fileDescription:
                       description: The description of the file
                       type: string
@@ -186,7 +186,7 @@ paths:
                   description: The descriptor of the file to be uploaded
                   properties:
                     fileType:
-                      $ref: '#/components/schemas/fileTypesEnum'
+                      $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/FileTypeEnum"
                     fileDescription:
                       description: The description of the file
                       type: string
@@ -255,58 +255,12 @@ paths:
 components:
   
   schemas:
-  
-    fileTypesEnum:
-      description: the list of supported file types
-      type: integer
-      format: int32
-      enum:
-        - 0     # unknown
-        - 1     # software (depricated)
-        - 2     # configuration
-        - 3     # startup configuration
-        - 4     # running configuration
-        - 5     # software
-        - 6     # software backup
-        - 7     # user
-        - 8     # script
-        - 9     # log file
-        - 10    # HTML
-        - 11    # stat 
-        - 12    # user default
-        - 13    # rollback configuration
-        - 14    # factory default
-        - 15    # monitoring log file
-        - 16    # alarm event log file
-        - 17    # MAC table
-        - 18    # DB schema
-        - 19    # DB configuration
-        - 20    # license
-        - 21    # SNMP script
-        - 22    # banner text
-        - 23    # PM
-        - 24    # firewall configuration
-        - 25    # SOFTWARE_VCPE 
-        - 26    # CONF_VCPE 
-        - 27    # configuration template
-        - 28    # packet capture
-        - 101   # CSV file
-        - 102   # PDF file
-        - 103   # ZIP file
-        
-    neTypesIdsEnum:
-      description: the list of legal values for NE type ID
-      type: integer
-      enum: 
-        - 1
-        - 2
-        - 3
-      
     neTypeIdsList:
       description: the list of IDs of associated NE types
       type: array
-      items: 
-        $ref: '#/components/schemas/neTypesIdsEnum'
+      items:
+        type: integer
+        format: int32
 
     fileDescriptor:
       type: object
@@ -321,7 +275,7 @@ components:
           description: the description of the file
           type: string
         fileType:
-          $ref: '#/components/schemas/fileTypesEnum'
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/FileTypeEnum"
         fileSize:
           description : the file size in bytes
           type: integer
