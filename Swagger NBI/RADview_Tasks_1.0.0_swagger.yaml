@@ -1,15 +1,8 @@
 openapi: 3.0.0
-info:
-  version: '1.0.0'
-  title: 'Tasks'
-  description: 'This API is for manage tasks in RADView for example adding new task, stop task or update and Etc'
-#############################################################################
-# In the servers object, you specify the basepath used in your API requests.
-# The basepath is the part of the URL that appears before the endpoint.
-#############################################################################
+
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
-    description: "RADview NBI Hub Server. For example: https://localhost:8282/mng164"
+    description: "Web address for the RADview Northbound Interface (NBI). For example: https://127.0.0.1:3002/mng164/"
     variables:
       protocol:
         enum:
@@ -20,16 +13,32 @@ servers:
         default: localhost
         description: RADview server IP Address or host name.
       port:
-        enum: 
-          - '8282'  # RADview Hub Server
-          - '8181'  # RADview FE Server 
-        default: '8282'
+        default: '3002'
         description: RADview server port number.
       environment:
         enum: 
-          - mng164/task-management  # RADview Hub Server 
-          - object  # RADview FE Server
+          - mng164/task-management
         default: mng164/task-management
+
+info:
+  version: '1.0.0'
+  title: 'Tasks'
+  description: 'This API is for manage tasks in RADView for example adding new task, stop task or update and Etc.'
+
+#############################################################################
+# The security object specifies the security or authorization protocol 
+# used when submitting requests.
+############################################################################# 
+security:
+  - ApiKeyAuth: []
+  
+tags:
+  - name: Tasks
+    description: Everything about Task. All CRUD actions for Task are supported here.
+  - name: Task Actions
+    description: Everything about Task Actions. 
+  - name: Task Reports
+    description: Everything about Task Reports. All CRUD actions for Task Reports are supported here.
 
 paths:
 
@@ -429,7 +438,7 @@ components:
           format: int64
           example: 1506349188575
         neStatus:
-          description: "When task is running it using ReportNeStatusEnum, when not running ReportStatusEnum"
+          #When task is running it using ReportNeStatusEnum, when not running ReportStatusEnum
           $ref: "#/components/schemas/ReportNeStatusEnum"
         neError:
           type: string
@@ -1654,45 +1663,19 @@ components:
                   readOnly: true
                 example: [d7325a4c-e5dc-4567-8b57-d32934df7c30,d7325a4c-e5dc-4567-8b57-d32934df7c32]
                 
-                
-  ###########  RESPONSES  ####################################
-                
-  responses:
-    IdResponse:
-      description: Successfully create/update task. 
-      content:
-        application/json:    
-          schema:
-            type: object
-            properties:
-              data:
-                type: integer
-                format: int32
-                readOnly: true
-                example: 8057
-    ErrorResponse:
-      description: Bad Request. There was some error for this request.  
-      content:
-        application/json:    
-          schema:
-            type: object
-            properties:
-              error:
-                type: integer
-                format: int32
-                readOnly: true
-                example: 1
-              errorName:
-                type: string
-                readOnly: true
-                example: 'java.lang.IllegalArgumentException'
-              errorMessage:
-                type: string
-                readOnly: true
-                example: 'Missing/invalid field Task Action.'
-              errorMessages:
-                type: array
-                readOnly: true
-                items:
-                  type: string
-                example: ["Missing/invalid field Task Action."]
+  #------------------------------------ #
+  #       Security Schema               #
+  #------------------------------------ #
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey 
+      
+      description: >-
+        **Authentication key**. *Example: augtt$93eee2ddsad34jjk*. Every request
+        that your application sends to the RADview API, it needs to identify your application.  
+        
+      #The name of the header value submitted in the request. Used only for apiKey type security
+      name: auth 
+      
+      # Options are query, header or cookie. Used only for apiKey type security.
+      in: header
