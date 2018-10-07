@@ -39,9 +39,278 @@ tags:
   - name: NE-specific provisioning rule
     description: Everything about NE-specific provisioning rule. All CRUD actions for ZT rules are supported here.
     
-paths: {}
-
+paths:
+  /repository/upload:
+    post:
+      summary: upload file
+      operationId: uploadFile
+      description: this API is for file upload
+      requestBody:
+        description: The request body is in multipart HTTP format. The request payload comprises of two parts. The first part describes the file to upload, and second part contains original file name and file data. The content type of this part should be set in accordance with the file type.
+        content: 
+          multipart/form-data: # the expected content is multipart/form-data HTTP request
+            schema: # request payload
+              type: object
+              properties: # request parts
+                descriptor: # the file desciption part
+                  description: The descriptor of the file to be uploaded
+                  type: object
+                  properties:
+                    fileType:
+                      $ref: '#/components/schemas/fileTypesEnum'
+                    fileDescription:
+                      description: The description of the file
+                      type: string
+                    neTypeIds:
+                      $ref: '#/components/schemas/neTypeIdsList'
+                upload: # The file data part
+                    type: string
+                    format: binary
+            encoding:
+              descriptor:
+                contentType: application/json
+              upload:
+                contentType: type/subtype
+      responses:
+        202:
+          description: Operation accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fileDescriptor'
+              
+        400:
+          description: Operation failed. The content is optional. It is returned 
+                       in the case that file with the same name and type was found in 
+                       database
+          content:
+            appliaction/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/fileDescriptor'
+                  
+        500:
+          description: Internal server error
+            
+  /repository/download/{fileId}:
+    get:
+      summary: download file with given ID
+      operationId: downloadFile
+      description: this API is for file download
+      parameters:
+        - $ref: '#/components/parameters/fileId'
+      responses:
+        200:
+          description: Operation performed successfully.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+            text/plain:
+              schema:
+                type: string
+            text/html:
+              schema:
+                type: string
+                
+        400:
+          description: Operation failed
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+          
+  /repository/files:
+    get:
+      summary: returns list of file descriptors
+      operationId: getFileInfo
+      description: this API is to list files
+      
+      responses:
+        200:
+          description: OK
+          content:
+            appliaction/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/fileDescriptor'
+                  
+        500:
+          description: Internal server error 
+    
+          
+  /repository/files/{fileId}:
+    delete:
+      summary: delete file with given file ID
+      operationId: deleteFile
+      description: this API is for file deletion
+      parameters:
+        - $ref: '#/components/parameters/fileId'
+      responses:
+        202:
+          description: Operation accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fileDescriptor'
+        400:
+          description: Operation failed
+        404:
+          description: Not found
+        500:
+          description: Internal server error
+          
+    put:
+      summary: upload file
+      operationId: uploadFile
+      description: this API is for file upload
+      parameters:
+        - $ref: '#/components/parameters/fileId'
+      requestBody:
+        description: The request body is in multipart HTTP format. The request payload comprises of two parts. The first part describes the file to upload, and second part contains original file name and file data. The content type of this part should be set in accordance with the file type.
+        content: 
+          multipart/form-data: # the expected content is multipart/form-data HTTP request
+            schema: # request payload
+              type: object
+              properties: # request parts
+                descriptor: # the file desciption part
+                  description: The descriptor of the file to be uploaded
+                  properties:
+                    fileType:
+                      $ref: '#/components/schemas/fileTypesEnum'
+                    fileDescription:
+                      description: The description of the file
+                      type: string
+                    neTypeIds:
+                      $ref: '#/components/schemas/neTypeIdsList'
+                upload: # The file data part
+                    type: string
+                    format: binary
+            encoding:
+              descriptor:
+                contentType: application/json
+              upload:
+                contentType: type/subtype
+      responses:
+        202:
+          description: Operation accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/fileDescriptor'
+              
+        400:
+          description: Operation failed. The content is optional. It is returned 
+                       in case that file with the same name and type was found in 
+                       database
+          content:
+            appliaction/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/fileDescriptor'
+                  
+        500:
+          description: Internal server error 
+ 
+      
 components:
+  
+  schemas:
+  
+    fileTypesEnum:
+      description: the list of supported file types
+      type: integer
+      format: int32
+      enum:
+        - 0     # unknown
+        - 1     # software (depricated)
+        - 2     # configuration
+        - 3     # startup configuration
+        - 4     # running configuration
+        - 5     # software
+        - 6     # software backup
+        - 7     # user
+        - 8     # script
+        - 9     # log file
+        - 10    # HTML
+        - 11    # stat 
+        - 12    # user default
+        - 13    # rollback configuration
+        - 14    # factory default
+        - 15    # monitoring log file
+        - 16    # alarm event log file
+        - 17    # MAC table
+        - 18    # DB schema
+        - 19    # DB configuration
+        - 20    # license
+        - 21    # SNMP script
+        - 22    # banner text
+        - 23    # PM
+        - 24    # firewall configuration
+        - 25    # SOFTWARE_VCPE 
+        - 26    # CONF_VCPE 
+        - 27    # configuration template
+        - 28    # packet capture
+        - 101   # CSV file
+        - 102   # PDF file
+        - 103   # ZIP file
+        
+    neTypesIdsEnum:
+      description: the list of legal values for NE type ID
+      type: integer
+      enum: 
+        - 1
+        - 2
+        - 3
+      
+      
+    neTypeIdsList:
+      description: the list of IDs of associated NE types
+      type: array
+      items: 
+        $ref: '#/components/schemas/neTypesIdsEnum'
+        
+
+    fileDescriptor:
+      type: object
+      properties:
+        id:
+          description: the UID of the file
+          type: string
+        fileName:
+          description: the original name of the file
+          type: string
+        fileDescription:
+          description: the description of the file
+          type: string
+        fileType:
+          $ref: '#/components/schemas/fileTypesEnum'
+        fileSize:
+          description : the file size in bytes
+          type: integer
+          format: int64
+        createdAt:
+          description: date and time of the file creation (uploading)
+          type: string
+          format: date-time
+        modifiedAt:
+          description: date and time of the last file modification
+          type: string
+          format: date-time
+        filePath:
+          description: the fully quilified path on server
+          type: string
+        neTypeIds:
+          $ref: '#/components/schemas/neTypeIdsList'
+          
   parameters:
     auth:
       name: auth
@@ -60,11 +329,13 @@ components:
       schema:
         type: string
       example: ?ztRuleName=rule_1&ztRuleCpeUid=aabbccddeeff      
-
-  schemas:
-    ZeroTouchNeRule:
-      required:
-        - ztRuleType
+    fileId:
+      in: path 
+      name: fileId
+      schema:
+        type: string
+      required: true
+      description: the file ID
 
   #------------------------------------ #
   #       Security Schema (copied)      #
