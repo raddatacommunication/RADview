@@ -34,11 +34,9 @@ security:
   - ApiKeyAuth: []
   
 tags:
-  - name: Targeted Configuration
-    description: Everything about Targeted Configuration. All CRUD actions for Targeted Configuration are supported here.
-  - name: NE-specific provisioning rule
-    description: Everything about NE-specific provisioning rule. All CRUD actions for ZT rules are supported here.
-    
+  - name: Repository
+    description: Everything about files. All CRUD actions for files are supported here.
+
 paths:
   /repository/upload:
     post:
