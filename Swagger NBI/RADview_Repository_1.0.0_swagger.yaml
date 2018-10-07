@@ -49,7 +49,7 @@ paths:
       operationId: uploadFile
       description: API for file upload
       parameters:
-        - $ref: "#/components/parameters/auth"      
+        - $ref: "#/components/parameters/auth"
       requestBody:
         description: The request body is in multipart HTTP format. The request payload comprises of two parts. The first part describes the file to upload, and second part contains original file name and file data. The content type of this part should be set in accordance with the file type.
         content: 
@@ -80,16 +80,6 @@ paths:
         202:
           $ref: '#/components/schemas/fileDescriptor'
         400:
-          description: Operation failed. The content is optional. It is returned 
-                       in the case that file with the same name and type was found in 
-                       database
-          content:
-            appliaction/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/fileDescriptor'
-        499:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         401:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
@@ -168,9 +158,9 @@ paths:
     patch:
       tags:
         - Files Repository
-      summary: upload file
-      operationId: uploadFile
-      description: this API is for file upload
+      summary: update file
+      operationId: updateFile
+      description: this API is for file update
       parameters:
         - $ref: "#/components/parameters/auth"
         - $ref: '#/components/parameters/fileId'
@@ -206,18 +196,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/fileDescriptor'
-              
         400:
-          description: Operation failed. The content is optional. It is returned 
-                       in case that file with the same name and type was found in 
-                       database
-          content:
-            appliaction/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/fileDescriptor'
-        499:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         401:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
