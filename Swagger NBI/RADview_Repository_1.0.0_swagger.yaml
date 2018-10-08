@@ -17,10 +17,8 @@ servers:
         description: RADview server port number.
       environment:
         enum: 
-          - mng164/repository/download
-          - mng164/repository/upload
-          - mng164/repository/files
-        default: mng164/repository/download
+          - mng164/repository
+        default: mng164/repository
 
 info:
   version: 1.0.0
@@ -41,7 +39,7 @@ tags:
     description: Everything about files. All CRUD actions for files are supported here.
 
 paths:
-  /repository/upload:
+  /upload:
     post:
       tags:
         - Upload and Download Files 
@@ -88,7 +86,7 @@ paths:
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
 
-  /repository/download/{fileId}:
+  /download/{fileId}:
     get:
       tags:
         - Upload and Download Files 
@@ -125,7 +123,7 @@ paths:
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
           
-  /repository/files:
+  /files:
     get:
       tags:
         - Files Repository
@@ -154,7 +152,7 @@ paths:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
     
           
-  /repository/files/{fileId}:
+  /files/{fileId}:
     patch:
       tags:
         - Files Repository
