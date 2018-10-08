@@ -49,6 +49,13 @@ paths:
       operationId: addTargetParameterType
       summary: Create Targeted Configuration
       description: Create Targeted Configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ZtTargetParamType'
+        description: The Targeted Configuration to create
+        required: true      
       responses:
         200:
           description: OK - Request was successful
@@ -74,13 +81,7 @@ paths:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ZtTargetParamType'
-        description: The Targeted Configuration to create
-        required: true
+
     get:
       tags:
         - Targeted Configuration
