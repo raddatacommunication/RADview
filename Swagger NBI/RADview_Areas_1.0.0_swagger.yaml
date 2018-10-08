@@ -184,32 +184,11 @@ paths:
 components:
   schemas:
   #Start Areas objects
-    Location:
-      nullable: true
-      properties:
-        address:
-          type: string
-          default: ""
-          example: "2000 Headwater Lane, Austin, Texas"
-          description: "Address string"
-          nullable: true
-        latitude:
-          nullable: true
-          type: number
-          format: float
-          default: 0.0
-        longitude:
-          nullable: true
-          type: number
-          format: float
-          default: 0.0
-    Area:
+     Area:
       properties:
         id:
           type: string
           default: ""
-        location:
-          $ref: "#/components/schemas/Location"
         name:
           type: string
           description: "A unique name to the Area"
