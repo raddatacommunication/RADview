@@ -531,6 +531,7 @@ components:
             name:
               type: string
               description: The Targeted Parameter name
+              example: DHCP server IP
             type:
               type: string
               description: The Targeted Parameter type
@@ -540,6 +541,7 @@ components:
               - IP Address
               - IP Address and Mask
               default: String
+              example: IP Address
     subnet:
       type: object
       properties:
