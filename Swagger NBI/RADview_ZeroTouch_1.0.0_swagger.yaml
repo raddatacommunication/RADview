@@ -18,7 +18,7 @@ servers:
       environment:
         enum: 
           - mng164/zt/ne-rules
-          - mng164/zt/targeted-configuration 
+          - mng164/zt/targeted-configurations 
         default: mng164/zt/ne-rules
 
 info:
@@ -40,7 +40,7 @@ tags:
     description: Everything about NE-specific provisioning rule. All CRUD actions for ZT rules are supported here.
     
 paths:
-  /targeted-configuration:
+  /targeted-configurations:
     parameters:
     - $ref: "#/components/parameters/auth"
     post:
@@ -114,7 +114,7 @@ paths:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
-  '/targeted-configuration/{targetParameterTypeId}':
+  '/targeted-configurations/{targetParameterTypeId}':
     parameters:
     - $ref: "#/components/parameters/auth"
     get:
@@ -182,7 +182,7 @@ paths:
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
 
-  /nerule:
+  /ne-rules:
     parameters:
     - $ref: "#/components/parameters/auth"
     post:
@@ -257,7 +257,7 @@ paths:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
-  '/nerule/{ztRuleId}':
+  '/ne-rules/{ztRuleId}':
     parameters:
     - $ref: "#/components/parameters/auth"
     get:
