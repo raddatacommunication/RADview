@@ -24,7 +24,11 @@ servers:
 info:
   version: 1.0.0
   title: RADview Zero Touch
-  description: <h2><b>Targeted Configuration</b></h2> <p>Targeted Configuration parameter can't be updated. You should delete and create new if needed. Targeted Configuration parameter value is edited in the ZT patch.</p><ol><li>item one</li><li>item two<ul><l>sublist</li><li>sublist</li></ul></li></ol><h2><b>Zero Touch</b></h2> <p>You can try CommonMark here.</p><ol><li>item one</li><li>item two<ul><l>sublist</li><li>sublist</li></ul></li></ol>
+  description: RADview Zero Touch
+  contact:
+    name: RAD Data Communications Ltd.
+    url: 'http://www.rad.com/71-2379/support/'
+    email: support@rad.com
 
 #############################################################################
 # The security object specifies the security or authorization protocol 
@@ -37,8 +41,7 @@ tags:
   - name: Targeted Configuration
     description: Everything about Targeted Configuration. All CRUD actions for Targeted Configuration are supported here.
   - name: NE-specific provisioning rule
-    description: Everything about NE-specific provisioning rule. All CRUD actions for ZT rules are supported here. 
-
+    description: Everything about NE-specific provisioning rule. All CRUD actions for ZT rules are supported here.
     
 paths:
   /targeted-configurations:
@@ -116,22 +119,23 @@ paths:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
-  '/targeted-configurations/{id}':
+  '/targeted-configurations/{targetParameterTypeId}':
     parameters:
     - $ref: "#/components/parameters/auth"
     get:
       tags:
         - Targeted Configuration
       operationId: getTargetParameterType
-      summary: 'Get a Targeted Configuration identified by target Parameter Type Id'
-      description: 'Returns a Targeted Configuration identified by target Parameter Type Id'
+      summary: 'Get a Targeted Configuration identified by {targetParameterTypeId}'
+      description: 'Returns a Targeted Configuration identified by {targetParameterTypeId}'
       parameters:
-        - name: id
+        - name: targetParameterTypeId
           in: path
           required: true
-          description: The Targeted Configuration Parameter ID
+          description: The Targeted Configuration ID
           schema:
             type: integer
+            format: int32
       responses:
         200:
           description: A Targeted Configuration with all its parameters
@@ -164,12 +168,13 @@ paths:
       summary: removeTargetParameterType
       description: removeTargetParameterType
       parameters:
-        - name: id
+        - name: targetParameterTypeId
           in: path
           required: true
           description: Targeted Configuration ID
           schema:
-            type: integer        
+            type: integer
+            format: int32
       responses:
         200:
           description: OK - Request was successful
@@ -259,7 +264,7 @@ paths:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
-  '/ne-rules/{id}':
+  '/ne-rules/{ztRuleId}':
     parameters:
     - $ref: "#/components/parameters/auth"
     get:
@@ -269,12 +274,13 @@ paths:
       summary: 'Get a NE-specific ZT provisioning rule identified by {ztRuleId}'
       description: 'Returns a NE-specific ZT provisioning rule identified by {ztRuleId}'
       parameters:
-        - name: id
+        - name: ztRuleId
           in: path
           required: true
           description: The ZT rule ID
           schema:
             type: integer
+            format: int32
       responses:
         200:
           description: A NE-specific ZT provisioning rule with all its parameters
@@ -311,12 +317,13 @@ paths:
         Update an existing NE-specific ZT provisioning rule attribute(s)
         identified by {ztRuleId}
       parameters:
-        - name: id
+        - name: ztRuleId
           in: path
           required: true
           description: The ZT rule ID
           schema:
             type: integer
+            format: int32
       responses:
         200:
           description: OK - Request was successful
@@ -352,12 +359,13 @@ paths:
         Delete an existing NE-specific ZT provisioning rule identified by
         {ztRuleId}
       parameters:
-        - name: id
+        - name: ztRuleId
           in: path
           required: true
           description: The ZT rule ID
           schema:
             type: integer
+            format: int32
       responses:
         200:
           description: OK - Request was successful
@@ -394,10 +402,12 @@ components:
   schemas:
     ZeroTouchNeRule:
       required:
-        - ztRuleType
+        - ztRuleCpeUid
+        - ztRuleNerNodeName
       properties:
         id:
           type: integer
+          format: int32
           description: The ZT rule ID
         ztRuleType:
           type: string
@@ -405,6 +415,7 @@ components:
           enum:
             - Mass
             - Sub
+          default: Sub
         ztRuleName:
           type: string
           description: The ZT rule name
@@ -415,42 +426,36 @@ components:
           type: boolean
           description: The ZT state
           default: true
+          example: true
         ztRuleDeviceType:
           type: string
           description: 'The device type, related to a product family'
+          example: pCPE-260ES
         ztRuleCpeUid:
           type: string
-          description: A unique identifier of the NE
+          description: A unique identifier of the NE (DUID)
           pattern: '^([0-9A-Fa-f]{2}[:-]?){5}([0-9A-Fa-f]{2})$'
         ztRuleSubnetArray:
           type: array
           items:
-            $ref: '#/components/schemas/subnet'
-        ztRuleCustomer:
+            $ref: '#/components/schemas/ztRuleSubnet'
+        ztRuleLocation:
           type: string
-          description: A pointer to a customer configured in RV database
-        ztRulePhysicalLocation:
-          type: string
-          description: The physical location expected for the particular deployed NE
+          description: The expected location for the particular deployed NE
         ztRuleBootstrappingMethod:
           type: string
           description: >-
-            Determines whether a device-specific artifact shall be generated for
-            bootstrapping over public network
+            Determines whether a device-specific artifact and SW shall be
+            generated and uploaded to the bootstrap server (Public)
           enum:
             - Public
             - VPN
-        ztRuleNerSubdomain:
+          default: Public
+        ztRuleNerArea:
           type: string
-          description: A pointer to a pre-defined subdomain in RV
-        ztRuleNerNodeNamePrefix:
+          description: Area name
+        ztRuleNerNodeName:
           type: string
-        ztRuleNerNodeNameSuffix:
-          type: string
-        ztRuleNerAppendHostname:
-          type: boolean
-        ztRuleNerAppendIpAddress:
-          type: boolean
         ztRuleNeSwImageName:
           type: string
           description: >-
@@ -471,61 +476,99 @@ components:
           description: A textual pointer to a predefined CLI script stored in RV database
         ztTargetParametersArray:
           type: array
+          description: Targeted Parameters values
           items:
             $ref: '#/components/schemas/targetparametersvalues'
         ztRuleSnmpPort:
           type: integer
+          format: int32
           default: 161
+          example: 161
         ztRuleHttpPort:
           type: integer
+          format: int32
           default: 80
+          example: 80
         ztRuleTelnetPort:
           type: integer
+          format: int32
           default: 23
+          example: 23
         ztRuleSshPort:
           type: integer
+          format: int32
           default: 22
+          example: 22
         ztSnmpVersion:
           type: integer
+          format: int32
+          description: The SNMP version to be used for managing the NE
+          enum:
+          - value: 1
+            name: SNMPv1
+          - value: 3
+            name: SNMPv3
           default: 3
+          example: 3
         ztSnmpTimeout:
           type: integer
+          format: int32
+          description: The SNMP timeout (in milli seconds)
           default: 800
+          example: 800
         ztSnmpRetries:
           type: integer
+          format: int32
+          description: The SNMP number of retries
           default: 1
+          example: 1
         ztSnmpV1ReadCommunity:
           type: string
+          description: The SNMPv1 read request community
+          example: public
         ztSnmpV1WriteCommunity:
           type: string
+          description: The SNMPv1 write request community
+          example: private
         ztSnmpV3UserName:
           type: string
+          description: The SNMPv3 user
           default: initial
+          example: initial
         ztSnmpV3AuthenticationProtocol:
           type: string
+          description: The SNMPv3 authentication protocol to use
+          enum:
+            - No Auth.
+            - MD5
+            - SHA
           default: No Auth.
+          example: No Auth.
         ztSnmpV3AuthenticationPassword:
           type: string
+          description: The SNMPv3 authentication password
         ztSnmpV3PrivacyProtocol:
           type: string
+          description: The SNMPv3 privacy (encryption) protocol to use
+          enum:
+            - No Priv.
+            - DES
+            - AES128
           default: No Priv.
+          example: No Priv.
         ztSnmpV3PrivacyPassword:
           type: string
+          description: The SNMPv3 privacy (encryption) password
         ztCliSshUserName:
           type: string
+          description: The username for script authentication
           default: su
+          example: su
         ztCliSshPassword:
           type: string
+          description: The password for script authentication
           default: 1234
-        ztRuleNetworkScaning:
-          type: boolean
-          default: false
-        ztRuleInterval:
-          type: integer
-          default: 6
-        ztScanThirdPartyDevices:
-          type: boolean
-          default: false
+          example: 1234
     ZtTargetParamType:
           required:
             - name
@@ -544,7 +587,7 @@ components:
               - IP Address and Mask
               default: String
               example: IP Address
-    subnet:
+    ztRuleSubnet:
       type: object
       properties:
         ip:
@@ -557,12 +600,12 @@ components:
       properties:
         name:
           type: string
-          description: Target Parameter Name
+          description: Target parameter name
         value:
           type: string
-          description: Target Parameter Value
+          description: Target parameter value
       required:
-        - id
+        - name
         - value
         
   #------------------------------------ #
