@@ -158,6 +158,27 @@ paths:
     
           
   /files/{fileId}:
+    get:
+      tags:
+        - Files Repository
+      summary: Returns a specific file descriptor
+      operationId: getFileInfo
+      description: this API is to list files
+      parameters:
+        - $ref: '#/components/parameters/auth'
+        - $ref: '#/components/parameters/fileId'
+      responses:
+        200:
+          $ref: '#/components/schemas/fileDescriptor'
+        400:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
+        401:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+    
     patch:
       tags:
         - Files Repository
