@@ -68,6 +68,7 @@ paths:
                     fileDescription:
                       description: The description of the file
                       type: string
+                      example: "SW file for device, version 6.2.6"
                     neTypeIds:
                       $ref: '#/components/schemas/neTypeIdsList'
                 upload: # The file data part
@@ -248,31 +249,40 @@ components:
         id:
           description: the UID of the file
           type: string
+          example: 3005568778
         fileName:
           description: the original name of the file
           type: string
+          example: sw_image_v502.bin
         fileDescription:
           description: the description of the file
           type: string
+          example: SW file for device, version 5.0.2
         fileType:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/FileTypeEnum"
+          example: 27
         fileSize:
           description : the file size in bytes
           type: integer
           format: int64
+          example: 204800
         createdAt:
           description: date and time of the file creation (uploading)
           type: string
           format: date-time
+          example: 
         modifiedAt:
           description: date and time of the last file modification
           type: string
           format: date-time
+          example: 
         filePath:
           description: the fully quilified path on server
           type: string
+          example: "/repository/sw/sw_image_v502.bin"
         neTypeIds:
           $ref: '#/components/schemas/neTypeIdsList'
+          example: [300]
         domainFileDescriptorList:
           description: List of all fileDescriptor in the domains.
           type: array
