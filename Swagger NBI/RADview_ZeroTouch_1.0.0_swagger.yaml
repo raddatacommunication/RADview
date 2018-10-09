@@ -320,8 +320,8 @@ paths:
         - NE-specific provisioning rule
       operationId: updateNeZtRule
       summary: >-
-        Modify an existing NE-specific ZT provisioning rule identified by
-        {ztRuleId} ZT rule attribute(s) identified by {ztRuleId}
+        Modify an existing NE-specific ZT provisioning rule attribute(s)
+        identified by {ztRuleId}
       description: >-
         Update an existing NE-specific ZT provisioning rule attribute(s)
         identified by {ztRuleId}
