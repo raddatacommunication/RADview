@@ -24,7 +24,11 @@ info:
   version: '1.0.0'
   title: 'RADview Domain Servers'
   description: 'Domain Servers '
-  
+  contact:
+    name: RAD Data Communications Ltd.
+    url: 'http://www.rad.com/71-2379/support/'
+    email: support@rad.com
+    
 ########################################################################################################
 # The security object specifies the security or authorization protocol to use when submitting requests.
 ########################################################################################################
