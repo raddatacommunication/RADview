@@ -51,14 +51,14 @@ paths:
       tags:
         - Targeted Configuration
       operationId: addTargetParameterType
-      summary: Create Targeted Configuration
-      description: Create Targeted Configuration
+      summary: Create Targeted Parameter
+      description: Create Targeted Parameter
       requestBody:
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/ZtTargetParamType'
-        description: The Targeted Configuration to create
+        description: The Targeted Parameter to create
         required: true      
       responses:
         200:
@@ -126,19 +126,19 @@ paths:
       tags:
         - Targeted Configuration
       operationId: getTargetParameterType
-      summary: 'Get a Targeted Configuration identified by {targetParameterTypeId}'
-      description: 'Returns a Targeted Configuration identified by {targetParameterTypeId}'
+      summary: 'Get a Targeted Parameter identified by {targetParameterTypeId}'
+      description: 'Returns a Targeted Parameter identified by {targetParameterTypeId}'
       parameters:
         - name: targetParameterTypeId
           in: path
           required: true
-          description: The Targeted Configuration ID
+          description: The Targeted Parameter ID
           schema:
             type: integer
             format: int32
       responses:
         200:
-          description: A Targeted Configuration with all its parameters
+          description: A Targeted Parameter with all its attributes
           content:
             application/json:
               schema:
@@ -171,7 +171,7 @@ paths:
         - name: targetParameterTypeId
           in: path
           required: true
-          description: Targeted Configuration ID
+          description: Targeted Parameter ID
           schema:
             type: integer
             format: int32
@@ -573,6 +573,10 @@ components:
           required:
             - name
           properties:
+            id:
+              type: integer
+              format: int32
+              description: The Targeted Parameter ID
             name:
               type: string
               description: The Targeted Parameter name
