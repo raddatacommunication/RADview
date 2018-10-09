@@ -174,8 +174,8 @@ paths:
       tags:
         - Targeted Configuration
       operationId: removeTargetParameterType
-      summary: removeTargetParameterType
-      description: removeTargetParameterType
+      summary: 'Delete a Targeted Parameter identified by {targetParameterTypeId}'
+      description: 'Delete a Targeted Parameter identified by {targetParameterTypeId}'
       parameters:
         - name: targetParameterTypeId
           in: path
