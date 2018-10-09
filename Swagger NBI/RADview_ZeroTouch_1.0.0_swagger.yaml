@@ -17,9 +17,8 @@ servers:
         description: RADview server port number.
       environment:
         enum: 
-          - mng164/zt/ne-rules
-          - mng164/zt/targeted-configurations 
-        default: mng164/zt/ne-rules
+          - mng164/zt
+        default: mng164/zt
 
 info:
   version: 1.0.0
