@@ -24,7 +24,7 @@ servers:
 info:
   version: 1.0.0
   title: RADview Zero Touch
-  description: RADview Zero Touch
+  description: <h2><b>Targeted Configuration</b></h2> <p>Targeted Configuration parameter can't be updated. You should delete and create new if needed. Targeted Configuration parameter value is edited in the ZT patch.</p><ol><li>item one</li><li>item two<ul><l>sublist</li><li>sublist</li></ul></li></ol><h2><b>Zero Touch</b></h2> <p>You can try CommonMark here.</p><ol><li>item one</li><li>item two<ul><l>sublist</li><li>sublist</li></ul></li></ol>
 
 #############################################################################
 # The security object specifies the security or authorization protocol 
@@ -37,7 +37,8 @@ tags:
   - name: Targeted Configuration
     description: Everything about Targeted Configuration. All CRUD actions for Targeted Configuration are supported here.
   - name: NE-specific provisioning rule
-    description: Everything about NE-specific provisioning rule. All CRUD actions for ZT rules are supported here.
+    description: Everything about NE-specific provisioning rule. All CRUD actions for ZT rules are supported here. 
+
     
 paths:
   /targeted-configurations:
