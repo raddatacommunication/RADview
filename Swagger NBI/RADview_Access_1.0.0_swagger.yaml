@@ -41,6 +41,10 @@ info:
    
     <BR><b>Users</b><BR>
     User is the person who is logging into and using the RADview application. Every user has one Role assigned to him which defines his permissions and rights. User may be, for example, the system administrator of the enterprise, operator, technician or monitor.
+  contact:
+    name: RAD Data Communications Ltd.
+    url: 'http://www.rad.com/71-2379/support/'
+    email: support@rad.com
     
 #############################################################################
 # The security object specifies the security or authorization protocol 
