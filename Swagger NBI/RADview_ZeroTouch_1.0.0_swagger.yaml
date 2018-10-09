@@ -115,20 +115,20 @@ paths:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
-  '/targeted-configurations/{targetParameterTypeId}':
+  '/targeted-configurations/{id}':
     parameters:
     - $ref: "#/components/parameters/auth"
     get:
       tags:
         - Targeted Configuration
       operationId: getTargetParameterType
-      summary: 'Get a Targeted Configuration identified by {targetParameterTypeId}'
-      description: 'Returns a Targeted Configuration identified by {targetParameterTypeId}'
+      summary: 'Get a Targeted Configuration identified by target Parameter Type Id'
+      description: 'Returns a Targeted Configuration identified by target Parameter Type Id'
       parameters:
-        - name: targetParameterTypeId
+        - name: id
           in: path
           required: true
-          description: The Targeted Configuration ID
+          description: The Targeted Configuration Parameter ID
           schema:
             type: integer
       responses:
@@ -163,7 +163,7 @@ paths:
       summary: removeTargetParameterType
       description: removeTargetParameterType
       parameters:
-        - name: targetParameterTypeId
+        - name: id
           in: path
           required: true
           description: Targeted Configuration ID
@@ -258,7 +258,7 @@ paths:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
-  '/ne-rules/{ztRuleId}':
+  '/ne-rules/{id}':
     parameters:
     - $ref: "#/components/parameters/auth"
     get:
@@ -268,7 +268,7 @@ paths:
       summary: 'Get a NE-specific ZT provisioning rule identified by {ztRuleId}'
       description: 'Returns a NE-specific ZT provisioning rule identified by {ztRuleId}'
       parameters:
-        - name: ztRuleId
+        - name: id
           in: path
           required: true
           description: The ZT rule ID
@@ -310,7 +310,7 @@ paths:
         Update an existing NE-specific ZT provisioning rule attribute(s)
         identified by {ztRuleId}
       parameters:
-        - name: ztRuleId
+        - name: id
           in: path
           required: true
           description: The ZT rule ID
@@ -351,7 +351,7 @@ paths:
         Delete an existing NE-specific ZT provisioning rule identified by
         {ztRuleId}
       parameters:
-        - name: ztRuleId
+        - name: id
           in: path
           required: true
           description: The ZT rule ID
