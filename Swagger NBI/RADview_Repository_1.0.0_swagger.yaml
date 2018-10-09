@@ -24,6 +24,10 @@ info:
   version: 1.0.0
   title: RADview Repository
   description: "The file system repository allows you to upoad a file to the server repository and also receive information about files in repository like name, size, content. Note that file content is Base64 encoded. The file system repository allows access to files which have been uploaded into the server."
+  contact:
+    name: RAD Data Communications Ltd.
+    url: 'http://www.rad.com/71-2379/support/'
+    email: support@rad.com
   
 #############################################################################
 # The security object specifies the security or authorization protocol 
