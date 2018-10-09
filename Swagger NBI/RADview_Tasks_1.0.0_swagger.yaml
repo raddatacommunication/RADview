@@ -24,7 +24,11 @@ info:
   version: '1.0.0'
   title: 'Tasks'
   description: 'This API is for manage tasks in RADView for example adding new task, stop task or update and Etc.'
-
+  contact:
+    name: RAD Data Communications Ltd.
+    url: 'http://www.rad.com/71-2379/support/'
+    email: support@rad.com
+    
 #############################################################################
 # The security object specifies the security or authorization protocol 
 # used when submitting requests.
