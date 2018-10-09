@@ -24,7 +24,17 @@ servers:
 info:
   version: 1.0.0
   title: RADview Zero Touch
-  description: RADview Zero Touch
+  description: |
+    This is Zero-Touch NBI. 
+    The Zero-Touch/Call-Home process is an end-to-end solution, enabling the customer to mass deploy RAD devices across the network in an automated way.
+    
+    <BR><b>NE-specific provisioning rule</b><BR>
+    The Zerotouch NE-specific provisioning rule defines for each device all the relevant management parameters.
+    The matching criteria used inside a Zerotouch rule is an NE unique identifier (DUID).
+    
+    <BR><b>Targeted Configuration</b><BR>
+    Targeted Configuration enables the user to better customize the configuration file sent to each deployed device during the Zero-touch process.
+    The Targeted Parameters can exist in the different configuration templates as place-holders, which will be populated for each NE with the values defined in the ZT rule.
   contact:
     name: RAD Data Communications Ltd.
     url: 'http://www.rad.com/71-2379/support/'
