@@ -312,11 +312,6 @@ components:
           $ref: '#/components/schemas/TaskParameters'
         schedule:
           $ref: "#/components/schemas/TaskSchedule"
-        totalProgression:
-          description: "The total progression of this task from all domains. Max total is: number od somains * 100"
-          type: integer
-          format: int32
-          example: 300
         domainTasksList:
           description: List of all sub tasks in the domains.
           type: array
@@ -347,6 +342,11 @@ components:
                   description: the NE id.
                   readOnly: true
                   example: 20000001
+              progression:
+                description: "The progression of this task in this domain. in percentages."
+                type: integer
+                format: int32
+                example: 50
                   
     HubTaskReport:
       allOf:
