@@ -428,9 +428,11 @@ components:
         ztRuleName:
           type: string
           description: The ZT rule name
+          example: Product 00-20-D2-50-CF-FE
         ztRuleDescr:
           type: string
           description: The ZT rule description
+          example: ZT rule for branch A5B899X
         ztRuleEnabled:
           type: boolean
           description: The ZT state
@@ -444,13 +446,16 @@ components:
           type: string
           description: A unique identifier of the NE (DUID)
           pattern: '^([0-9A-Fa-f]{2}[:-]?){5}([0-9A-Fa-f]{2})$'
+          example: 00-20-D2-50-CF-FE
         ztRuleSubnetArray:
           type: array
           items:
             $ref: '#/components/schemas/ztRuleSubnet'
+          example: []
         ztRuleLocation:
           type: string
           description: The expected location for the particular deployed NE
+          example: Branch A5B899X
         ztRuleBootstrappingMethod:
           type: string
           description: >-
@@ -463,31 +468,47 @@ components:
         ztRuleNerArea:
           type: string
           description: Area name
+          example: North
         ztRuleNerNodeName:
           type: string
+          example: Branch A5B899X
         ztRuleNeSwImageName:
           type: string
           description: >-
             A textual pointer to 'first time SW upload' Network Element SW image
             stored in RV database
+          example: 1.0.0
         ztRuleVcpeosModuleSwImageName:
           type: string
           description: >-
             A textual pointer to a Network Element vCPEOS-Module image stored in
             RV database
+          example: ""
         ztRuleConfigurationTemplateName:
           type: string
           description: >-
             A textual pointer to a configuration template file stored in RV
             database
+          example: pCPEconf
         ztRuleCliScriptName:
           type: string
           description: A textual pointer to a predefined CLI script stored in RV database
+          example: ""
         ztTargetParametersArray:
           type: array
           description: Targeted Parameters values
           items:
             $ref: '#/components/schemas/targetparametersvalues'
+          example: [
+    {
+      "name": "Router IF",
+      "value": "3"
+    },
+    {
+      "name": "DHCP server IP",
+      "value": "103.58.116.178"
+    }
+  ]
         ztRuleSnmpPort:
           type: integer
           format: int32
@@ -556,6 +577,7 @@ components:
         ztSnmpV3AuthenticationPassword:
           type: string
           description: The SNMPv3 authentication password
+          example: ""
         ztSnmpV3PrivacyProtocol:
           type: string
           description: The SNMPv3 privacy (encryption) protocol to use
@@ -568,6 +590,7 @@ components:
         ztSnmpV3PrivacyPassword:
           type: string
           description: The SNMPv3 privacy (encryption) password
+          example: ""
         ztCliSshUserName:
           type: string
           description: The username for script authentication
