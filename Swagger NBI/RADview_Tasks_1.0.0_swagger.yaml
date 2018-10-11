@@ -261,7 +261,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
+                  data:
                     type: array
                     items:
                       $ref: '#/components/schemas/HubTaskReport'
@@ -316,6 +316,14 @@ paths:
       responses:
         200:
           description: task report deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+                    example: "d177088b-d869-48af-80b9-dab5aba508e4"
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
