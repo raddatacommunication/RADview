@@ -94,7 +94,14 @@ paths:
               $ref: '#/components/schemas/Task'
       responses:
         200:
-          $ref: '#/components/schemas/HubTask'
+          description: task returned successfully.
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/HubTask'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -152,7 +159,14 @@ paths:
               $ref: '#/components/schemas/Task'
       responses:
         200:
-          $ref: '#/components/schemas/HubTask'
+          description: task returned successfully.
+          content:
+            application/json:    
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/HubTask'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
