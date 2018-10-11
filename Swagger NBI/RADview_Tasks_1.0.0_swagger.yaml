@@ -65,7 +65,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
+                  data:
                     type: array
                     items:
                       $ref: '#/components/schemas/HubTask'
