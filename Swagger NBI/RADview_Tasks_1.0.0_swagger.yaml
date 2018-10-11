@@ -159,7 +159,7 @@ paths:
               $ref: '#/components/schemas/Task'
       responses:
         200:
-          description: task returned successfully.
+          description: task updated successfully.
           content:
             application/json:    
               schema:
@@ -187,6 +187,14 @@ paths:
       responses:
         200:
           description: task deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: string
+                    example: "d177088b-d869-48af-80b9-dab5aba508e4"
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -212,6 +220,16 @@ paths:
       responses:
         200:
           description: task action created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: string
+                    example: "d177088b-d869-48af-80b9-dab5aba508e4"
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
