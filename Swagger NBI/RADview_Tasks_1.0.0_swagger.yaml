@@ -339,11 +339,27 @@ paths:
 components:
   schemas:
     Task:
-      allOf:
-        - $ref: "https://api.swaggerhub.com/domains/RADview/Common-Models/1.0.0#/definitions/HubResource"
       description: Model containing hub task info.
       type: object
       properties:
+        id:
+          description: The id of this hub resource.
+          type: integer
+          format: int32
+          readOnly: true
+          example: 1
+        createdAt:
+          description: The date time that this resource created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: "yyyy-MM-ddTHH:mm:ss.sssZ"
+        modifiedAt:
+          description: The date time that this resource updated.
+          type: string
+          format: date-time
+          readOnly: true
+          example: "yyyy-MM-ddTHH:mm:ss.sssZ"
         taskAttr:
           $ref: "#/components/schemas/TaskAttributes"
         taskObjects:
@@ -355,6 +371,7 @@ components:
         domainTasksList:
           description: List of all sub tasks in the domains.
           type: array
+          readOnly: true
           items:
             type: object
             properties:
@@ -389,11 +406,27 @@ components:
                 example: 50
                   
     TaskReport:
-      allOf:
-        - $ref: "https://api.swaggerhub.com/domains/RADview/Common-Models/1.0.0#/definitions/HubResource"
       description: Model containing hub task report info.
       type: object
       properties:
+        id:
+          description: The id of this hub resource.
+          type: integer
+          format: int32
+          readOnly: true
+          example: 1
+        createdAt:
+          description: The date time that this resource created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: "yyyy-MM-ddTHH:mm:ss.sssZ"
+        modifiedAt:
+          description: The date time that this resource updated.
+          type: string
+          format: date-time
+          readOnly: true
+          example: "yyyy-MM-ddTHH:mm:ss.sssZ"
         domainTaskReportsList:
           description: List of all sub tasks reports in the domains.
           type: array
