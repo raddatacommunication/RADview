@@ -68,7 +68,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/HubTask'
+                      $ref: '#/components/schemas/Task'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -101,7 +101,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/HubTask'
+                    $ref: '#/components/schemas/Task'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -133,7 +133,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/HubTask'
+                    $ref: '#/components/schemas/Task'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -166,7 +166,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/HubTask'
+                    $ref: '#/components/schemas/Task'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -264,7 +264,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/HubTaskReport'
+                      $ref: '#/components/schemas/TaskReport'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -295,7 +295,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/HubTaskReport'
+                    $ref: '#/components/schemas/TaskReport'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -338,7 +338,7 @@ paths:
     
 components:
   schemas:
-    HubTask:
+    Task:
       allOf:
         - $ref: "https://api.swaggerhub.com/domains/RADview/Common-Models/1.0.0#/definitions/HubResource"
       description: Model containing hub task info.
@@ -388,7 +388,7 @@ components:
                 format: int32
                 example: 50
                   
-    HubTaskReport:
+    TaskReport:
       allOf:
         - $ref: "https://api.swaggerhub.com/domains/RADview/Common-Models/1.0.0#/definitions/HubResource"
       description: Model containing hub task report info.
@@ -442,15 +442,15 @@ components:
         reportNeDetailsList:
           type: array
           items:
-            $ref: "#/components/schemas/HubReportNeDetails"
+            $ref: "#/components/schemas/ReportNeDetails"
         reportFileDetailsList:
           type: array
           items:
-            $ref: "#/components/schemas/HubReportFileDetails"
+            $ref: "#/components/schemas/ReportFileDetails"
        
        
        
-    HubReportNeDetails:
+    ReportNeDetails:
       type: object
       properties:
         neId:
@@ -503,10 +503,10 @@ components:
           type: string
           readOnly: true
         packetCaptureDetails:
-          $ref: "#/components/schemas/HubReportNeDetailsPacketCapture"
+          $ref: "#/components/schemas/ReportNeDetailsPacketCapture"
           
           
-    HubReportNeDetailsPacketCapture:
+    ReportNeDetailsPacketCapture:
       type: object
       properties:
         transmittedPackets:
@@ -520,7 +520,7 @@ components:
           readOnly: true
           example: 20000451
           
-    HubReportFileDetails:
+    ReportFileDetails:
       type: object
       properties:
         reportStatus:
@@ -555,302 +555,6 @@ components:
           type: string
           example: 'going to execute command: cmd /c "C:\RV32\FE\backup\BackupRunner.bat'
           readOnly: true
-          
-          
-    Task:
-      description: Model containing task info.
-      type: object
-      properties:
-        id:
-          description: The id of this task.
-          type: integer
-          format: int32
-          readOnly: true
-          example: 1
-        taskAttr:
-          $ref: "#/components/schemas/TaskAttributes"
-        taskObjects:
-          $ref: "#/components/schemas/TaskObjects"
-        taskParams:
-          $ref: '#/components/schemas/TaskParameters'
-        schedule:
-          $ref: "#/components/schemas/TaskSchedule" 
-      example:
-        - taskAttr:
-            taskAction: 56
-            taskName: UploadAuxilaryFile
-          taskParams:
-            fileNameWithinNe: 22
-          taskObjects:
-            objects:
-              '3':
-                - '203'
-        - taskAttr:
-            taskName: DownloadAuxilaryFile
-            taskAction: 52
-          taskParams:
-            fileNameWithinNe: 22
-            auxiliaryFileParameters:
-              fileType: db-schema
-          taskObjects:
-            objects:
-              '3':
-              - '204'
-        - taskAttr:
-            taskAction: 1
-            taskName: DownloadConfiguration
-          taskParams:
-            fileNameWithinNe: 3
-          taskObjects:
-            objects:
-              '3':
-                - '200'
-                - '204'
-        - taskAttr:
-            taskAction: 33
-            taskName: DownloadLog
-          taskObjects:
-            objects:
-              '3':
-                - '201'
-        - taskAttr:
-            taskAction: 2
-            taskName: DownloadSoftware
-          taskParams:
-            swFileType: 1
-          taskObjects:
-            objects:
-              '3':
-                - '201'
-        - taskAttr:
-            taskAction: 20
-            taskName: ExecuteCliScript
-          taskParams:
-            script:
-              - ''
-              - "\t\t\tsave"
-          taskObjects:
-            objects:
-              '3':
-                - '202'
-        - taskAttr:
-            taskAction: 30
-            taskName: InstallSoftware
-          taskParams:
-            swFileType: 1
-            archiveFileId: 8
-          taskObjects:
-            objects:
-              '3':
-                - '197'
-        - taskAttr:
-            taskAction: 22
-            taskName: Reboot
-          taskObjects:
-            objects:
-              '3':
-                - '201'
-        - taskAttr:
-            taskAction: 34
-            taskName: SaveConfiguration
-          taskObjects:
-            objects:
-              '3':
-                - '202'
-        - taskAttr:
-            taskAction: 11
-            taskName: UploadConfiguration
-          taskParams:
-            fileNameWithinNe: 3
-            activateConfiguration: false
-            localFile: false
-            archiveMultiFilesType: 3
-            archiveFileId: 147
-          taskObjects:
-            objects:
-              '3':
-                - '204'
-        - taskAttr:
-            taskAction: 54
-            taskName: UploadLicense
-          taskObjects:
-            objects:
-              '3':
-                - '200'
-          taskParams:
-            files:
-              - name: shahar script.txt
-                link: /uploads/8a5a155d95b3ea2c67bd6132474b9ef7.txt
-                size: 2
-            fileAdded: 1
-        - taskAttr:
-            taskAction: 12
-            taskName: UploadSoftware
-          taskParams:
-            swFileType: 1
-            fileNameWithinNe: 1001
-            rebootAfterOperation: false
-            archiveFileId: 7
-          taskObjects:
-            objects:
-              '3':
-                - '200'
-        - taskAttr:
-            taskAction: 60
-            taskName: ComputeNodeBackup
-          taskObjects:
-            objects:
-              '4':
-                - '202_1'
-        - taskAttr:
-            taskAction: 1005
-            taskName: ComputeNodeReboot
-          taskObjects:
-            objects:
-              '3':
-                - '204_1'
-              '4':
-                - '204_1'
-        - taskAttr:
-            taskAction: 61
-            taskName: ComputeNodeRestore
-          taskParams:
-            archiveFileId: null
-            fileIndex: null
-          taskObjects:
-            objects:
-              '4':
-                - '201_1'
-        - taskAttr:
-            taskAction: 70
-            taskName: PacketCapture
-          taskParams:
-            packetCaptureParameters:
-              configurationParameters:
-                packetTruncation: false
-                overrideCurrentSessions: false
-                timestampSource: 1
-                portToCapture:
-                  - 2
-              endSessionCriteriaList:
-                - criteriaType: 4
-                  criteriaNumber: 10485760
-              filteringRuleList: []
-          taskObjects:
-            objects:
-              '4':
-                - '201_1'
-        - taskAttr:
-            taskName: ScanForNetworkElement
-            taskAction: 1000
-          taskParams:
-            networkDiscoveryParams:
-              addOnlyRadDevices: '1'
-              timeOut: 2
-              startIp: 172.17.231.30
-              endIp: 172.17.231.30
-              CIDR: ''
-              ne:
-                name: ''
-                customerId: 1
-                operStatus: 1
-                parentSubnetId: 1
-                IP: 0.0.0.0
-                readCommunity: public
-                writeCommunity: private
-                snmpv3User: initial
-                snmpv3SecurityLevel: 1
-                snmpv3AuthProtocol: 1
-                snmpv3PrivacyProtocol: 0
-                cliUser: su
-                cliPassword: '1234'
-                cliProtocolType: 2
-                snmpVersion: 3
-              objectType: 0
-              logAll: false
-        - taskAttr:
-            taskAction: 1004
-            taskName: ScanForServices
-          taskParams:
-            serviceDiscoveryParams:
-              name: ''
-              neIds:
-                - 197
-              subnetIds:
-                - 15
-              portsIds:
-                - _class_name: com.rad.model.network.PortIdentifier
-                  neId: 204
-                  vendorId: 164
-                  portNum: 4
-                  cardNum: 0
-                  portIndex: -1
-                  portName: ethernet 0/4
-                  entityType: 3
-                  portType: 3
-                - _class_name: com.rad.model.network.PortIdentifier
-                  neId: 204
-                  vendorId: 164
-                  portNum: 175
-                  cardNum: 1
-                  portIndex: -1
-                  portName: I/F 1.2
-                  entityType: 3
-                  portType: 37
-                - _class_name: com.rad.model.network.PortIdentifier
-                  neId: 204
-                  vendorId: 164
-                  portNum: 4
-                  cardNum: 0
-                  portIndex: -1
-                  portName: ethernet 0/4
-                  entityType: 3
-                  portType: 3
-              serviceType: 0
-              discoveryType: 0
-              discoverySourceType: 0
-              ports:
-                - '204_0_4'
-        - taskAttr:
-            taskAction: 5
-            taskName: CollectStatistics
-          taskParams:
-            statisticsParams:
-              daysToSaveStatisticsData: 90
-              statisticsCollectionMode: []
-          schedule:
-            frequency: 3
-            start: 1533197357446
-            endType: 0
-            reoccur: 900
-          taskObjects:
-            objects:
-              '3':
-                - '202'
-        - taskAttr:
-            taskAction: 50
-            taskName: GenerateStatisticsReport
-          taskParams:
-            statisticsReportParams:
-              reportType: 3
-              periodVal: 1
-              reportFormatIndex: 1
-              numberOfMonthsToKeep: -1
-              distributionType: 1
-          taskObjects:
-            objects:
-              '3':
-                - '201'
-        - taskAttr:
-            taskAction: 1001
-            taskName: NmsBackup
-          schedule:
-            frequency: 4
-            start: 1533197458069
-            endType: 1
-            reoccur: 3
-            endAfter: 17
-            
           
 
 
