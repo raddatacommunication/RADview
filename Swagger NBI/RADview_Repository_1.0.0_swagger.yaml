@@ -65,6 +65,10 @@ paths:
                   properties:
                     fileType:
                       $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/FileTypeEnum"
+                    name:
+                      description: the (unique) name of the file entity
+                      type: string
+                      example: "SW version 502"
                     fileDescription:
                       description: The description of the file
                       type: string
@@ -271,6 +275,10 @@ components:
           description: the UID of the file
           type: string
           example: 3005568778
+        name:
+          description: the (unique) name of the file entity
+          type: string
+          example: "SW version 502"
         fileName:
           description: the original name of the file
           type: string
@@ -298,7 +306,7 @@ components:
           format: date-time
           example: 
         filePath:
-          description: the fully quilified path on server
+          description: the relative path in server under the server root directory
           type: string
           example: "/repository/sw/sw_image_v502.bin"
         neTypeIds:
