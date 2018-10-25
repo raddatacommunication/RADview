@@ -193,30 +193,20 @@ paths:
         - $ref: "#/components/parameters/auth"
         - $ref: '#/components/parameters/fileId'
       requestBody:
-        description: The request body is in multipart HTTP format. The request payload comprises of two parts. The first part describes the file to upload, and second part contains original file name and file data. The content type of this part should be set in accordance with the file type.
+        description: The request body is json object with two fields
         content: 
-          multipart/form-data: # the expected content is multipart/form-data HTTP request
+          application/json: 
             schema: # request payload
               type: object
-              properties: # request parts
-                descriptor: # the file desciption part
-                  description: The descriptor of the file to be uploaded
-                  properties:
-                    fileType:
-                      $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/FileTypeEnum"
-                    fileDescription:
-                      description: The description of the file
-                      type: string
-                    neTypeIds:
-                      $ref: '#/components/schemas/neTypeIdsList'
-                upload: # The file data part
-                    type: string
-                    format: binary
-            encoding:
-              descriptor:
-                contentType: application/json
-              upload:
-                contentType: type/subtype
+              properties: 
+                name:
+                  description: the (unique) name of the file entity
+                  type: string
+                  example: SW image version 1.23
+                fileDescription: # the file description 
+                  description: The description of the file 
+                  type: string
+                  example: the SW image for version 1.23
       responses:
         202:
           description: Operation accepted.
