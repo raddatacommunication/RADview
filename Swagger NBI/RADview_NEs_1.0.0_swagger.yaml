@@ -270,7 +270,7 @@ components:
         rvid:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/RvIdType"
         severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithUnknownDefault"
         snmpConnectivityStatus:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/ConnectivityStateEnum"
         snmpPollingInterval:
