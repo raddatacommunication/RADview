@@ -586,7 +586,7 @@ definitions:
     description: "Oper Mode enum"
     default: 255
     example: 1
-  SeverityEnumWithNormalDefault:
+  SeverityEnumWithUnknownDefault:
     type: integer
     readOnly: true
     enum:
