@@ -208,9 +208,6 @@ components:
           type: string
           example: NorthState
           
-        severity:
-          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Enums/1.0.0#/definitions/SeverityEnumWithNormalDefault"
-          
         createdAt:
           type: string
           # format date-time according to RFC 3339, section 5.6,
