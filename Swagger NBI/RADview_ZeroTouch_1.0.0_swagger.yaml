@@ -467,8 +467,8 @@ components:
           default: Public
         ztRuleNerArea:
           type: string
-          description: Area name
-          example: North
+          description: Area full path
+          example: /CityA/North
         ztRuleNerNodeName:
           type: string
           example: Branch A5B899X
