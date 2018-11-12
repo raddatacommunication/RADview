@@ -226,6 +226,10 @@ components:
               description: Domain is DOWN
             - value: 255
               name: UNKNOWN
+        lastPollingTime:
+          description: the last time polling this domain server
+          type: integer
+          example: 1542027663601              
     NetData:
       description: Model containing domain Network info.
       type: object
