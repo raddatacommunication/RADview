@@ -133,33 +133,6 @@ definitions:
         type: string
         readOnly: true
         example: Resource operation error
-  ErrorModel:
-    required:
-      - "code"
-      - "message"
-    properties:
-      code:
-        type: "integer"
-        format: "int32"
-        example: 10045
-      message:
-        type: "string"
-        example: wrong range
-  ErrorModel2:
-    required:
-      - "p1"
-      - "p2"
-    properties:
-      p1:
-        type: "integer"
-        format: "int32"
-        example: 77777
-      p2:
-        type: "string"
-        example: wrong range2333
-    example:
-      p1: 45567
-      p2: abcdefg
   IdResponse:
     description: Successfully create/update task. 
     type: object
@@ -173,26 +146,25 @@ definitions:
     description: Bad Request. There was some error for this request.
     type: object
     properties:
-      error:
+      code:
         type: integer
         format: int32
         readOnly: true
-        example: 1
-      errorName:
+        example: 500
+      error:
+        type: boolean
+        format: int32
+        readOnly: true
+        example: true
+      caused_by:
         type: string
         readOnly: true
-        example: 'java.lang.IllegalArgumentException'
+        example: 'INTERNAL_SERVER_ERROR'
       errorMessage:
         type: string
         readOnly: true
-        example: 'Missing/invalid field Task Action.'
-      errorMessages:
-        type: array
-        readOnly: true
-        items:
-          type: string
-        example: ["Missing/invalid field Task Action."]
-      
+        example: 'Cannot find Available DomainServer, Mac Address Already used by Duid Mapping with id 1f1404e9-daa9-462f-8fcf-2510352d30f0'
+
 responses:
   BadRequestErrorResponse:
     description: Bad Request. There was some error for this request.  
