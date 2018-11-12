@@ -143,7 +143,8 @@ definitions:
         readOnly: true
         example: 8057
   ErrorResponse:
-    description: Bad Request. There was some error for this request.
+    description: Generic error response.
+    example: "{'code': 500, 'error': true,'caused_by': 'INTERNAL_SERVER_ERROR','errorMessage': 'Cannot find Available DomainServer, Mac Address Already used by Duid Mapping with id 1f1404e9-daa9-462f-8fcf-2510352d30f0'}"
     type: object
     properties:
       code:
