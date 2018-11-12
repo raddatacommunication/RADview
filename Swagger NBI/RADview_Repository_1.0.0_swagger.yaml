@@ -72,7 +72,7 @@ paths:
                     fileDescription:
                       description: The description of the file
                       type: string
-                      example: "SW file for device, version 6.2.6"
+                      example: "SW%20%file%20%for%20%device,%20%version%20%6.2.6"
                     neTypeIds:
                       $ref: '#/components/schemas/neTypeIdsList'
                 upload: # The file data part
@@ -266,6 +266,7 @@ components:
     neTypeIdsList:
       description: the list of IDs of associated NE types
       type: array
+      example: [300, 401]
       items:
         type: integer
         format: int32
