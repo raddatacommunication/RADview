@@ -657,12 +657,6 @@ components:
           format: date-time
           example: "2017-07-21T17:32:28.45Z"
           readOnly: true
-        expirationDate:
-          description: Date and time for token exipration for this user (e.g. 2018-06-14T18:34:239Z) according to RFC 3339, section 5.6"
-          type: string
-          format: date-time
-          example: "2018-06-14T18:34:29.45Z"
-          nullable: true
         files:
           # List of image files of the user
           nullable: true
