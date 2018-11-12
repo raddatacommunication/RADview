@@ -2,7 +2,7 @@ openapi: 3.0.0
 
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
-    description: "Web address for the RADview Northbound Interface (NBI). For example: https://127.0.0.1:3002/mng164/"
+    description: "Web address for the RADview Northbound Interface (NBI). For example: https://127.0.0.1:3300/mng164/"
     variables:
       protocol:
         enum:
@@ -13,7 +13,7 @@ servers:
         default: localhost
         description: RADview server IP Address or host name.
       port:
-        default: '3002'
+        default: '3300'
         description: RADview server port number.
       environment:
         enum: 
@@ -60,10 +60,10 @@ paths:
           $ref: '#/components/responses/DomainResponse'
         400:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
-        404:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         401:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        403:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse'
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
 
@@ -89,10 +89,12 @@ paths:
                       $ref: '#/components/schemas/DomainServer'
         400:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
-        404:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         401:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        403:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
 
@@ -116,10 +118,12 @@ paths:
                 $ref: '#/components/schemas/DomainServer'
         400:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
-        404:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         401:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        403:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
 
@@ -140,10 +144,12 @@ paths:
           $ref: '#/components/responses/DomainResponse'
         400:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
-        404:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         401:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        403:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
 
@@ -167,10 +173,12 @@ paths:
                     example: 1
         400:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
-        404:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         401:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        403:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse'
+        404:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
 
@@ -193,14 +201,18 @@ components:
           description: Description of this domain
           type: string
           example: RADview Server domain (TLV)
+        circleId:
+          description: Id of the circle contans this domain server
+          type: string
+          example: 36
+        maxSupportedNEs:
+          description: How many Network elements the Domain Server can manage. Default is 25,000
+          type: integer
+          example: 25000
         primaryNetData:
           $ref: '#/components/schemas/NetData'
         secondaryNetData:
            $ref: '#/components/schemas/NetData'
-        parentCircleId:
-          description:  Domain Server parent Group Id
-          type: string
-          example: 1
         operStatus:
           description: Operational status of this domain
           type: integer
