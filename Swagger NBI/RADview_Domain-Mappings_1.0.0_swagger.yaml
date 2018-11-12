@@ -2,7 +2,7 @@ openapi: 3.0.0
 
 servers:
   - url: '{protocol}://{host}:{port}/{environment}'
-    description: "Web address for the RADview Northbound Interface (NBI). For example: https://127.0.0.1:3002/mng164/"
+    description: "Web address for the RADview Northbound Interface (NBI). For example: https://127.0.0.1:3300/mng164/"
     variables:
       protocol:
         enum:
@@ -13,7 +13,7 @@ servers:
         default: localhost
         description: RADview server IP Address or host name.
       port:
-        default: '3002'
+        default: '3300'
         description: RADview server port number.
       environment:
         enum: 
@@ -66,8 +66,8 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         401:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
-        404:
-          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
+        403:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse'
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
 
@@ -95,6 +95,8 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         401:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        403:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse'
         404:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
@@ -128,6 +130,8 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         401:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        403:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse'
         404:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
@@ -152,6 +156,8 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         401:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        403:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse'
         404:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
@@ -179,6 +185,8 @@ paths:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse'
         401:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse'
+        403:
+          $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse'
         404:
           $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse'
         500:
@@ -204,8 +212,8 @@ components:
           type: string
           readOnly: true
           example: 207
-        uuid:
-          description: Mapping uuid
+        duid:
+          description: Device UID
           type: string
           example: AA-00-04-00-FF-4B 
         neId:
@@ -221,14 +229,14 @@ components:
           example: 3
           enum:
             - value: 1
-              name: MAPPED
-              description: Default status for Domain Mapping (not deployed)
+              name: AVILABLE
+              description: Default status for Domain Mapping (not deployed).
             - value: 2
-              name: BOOT_STRAP_READY
-              description: ZT rule exist but network element still not deployed
+              name: BOOTSTRAP_READY
+              description: ZT ne-rule exist but network element still not deployed
             - value: 3
               name: MANAGED
-              description: Network element deployed for this mapping
+              description: Network element deployed for this UID mapping
             - value: 255
               name: UNKNOWN
         
