@@ -185,7 +185,7 @@ components:
           description: "Compute Node Snmp Supported version"
           default: "6.5.0(0.11)"
     
-    NE:
+    Ne:
       properties:
         _id: 
           type: integer
