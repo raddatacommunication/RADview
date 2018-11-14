@@ -574,6 +574,11 @@ components:
         # Add/Edit packet capture
         - t70_write
       
+        # View Action Tracking
+        - actiontracking_read
+        # Add/Edit Action Tracking
+        - actiontracking_write
+      
       
     Role:
       properties:
