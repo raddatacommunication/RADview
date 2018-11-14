@@ -229,7 +229,7 @@ components:
           example: 3
           enum:
             - value: 1
-              name: AVILABLE
+              name: AVAILABLE
               description: Default status for Domain Mapping (not deployed).
             - value: 2
               name: BOOTSTRAP_READY
