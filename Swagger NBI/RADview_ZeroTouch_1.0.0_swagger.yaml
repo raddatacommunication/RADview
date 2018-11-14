@@ -404,12 +404,12 @@ components:
       description: Enable query on get response 
       schema:
         type: string
-      example: ?ztRuleName=rule_1&ztRuleCpeUid=aabbccddeeff      
+      example: ?ztRuleName=rule_1&ztRuleDuid=aabbccddeeff      
 
   schemas:
     ZeroTouchNeRule:
       required:
-        - ztRuleCpeUid
+        - ztRuleDuid
         - ztRuleNerNodeName
       properties:
         id:
@@ -440,7 +440,7 @@ components:
           type: string
           description: 'The device type, related to a product family'
           example: pCPE-260ES
-        ztRuleCpeUid:
+        ztRuleDuid:
           type: string
           description: A unique identifier of the NE (DUID)
           pattern: '^([0-9A-Fa-f]{2}[:-]?){5}([0-9A-Fa-f]{2})$'
