@@ -366,7 +366,7 @@ components:
           $ref: '#/components/schemas/TaskParameters'
         schedule:
           $ref: "#/components/schemas/TaskSchedule"
-        domainTasksList:
+        domainsList:
           description: List of all sub tasks in the domains.
           type: array
           readOnly: true
@@ -389,15 +389,7 @@ components:
                 description: error reference.
                 type: string
                 readOnly: true
-              neIds:
-                description: List of all the ne's in the task.
-                type: array
-                items:
-                  type: string
-                  description: the NE id.
-                  readOnly: true
-                  example: 20000001
-              progression:
+              additionalData:
                 description: "The progression of this task in this domain. in percentages."
                 type: integer
                 format: int32
