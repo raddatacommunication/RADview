@@ -542,8 +542,8 @@ components:
           type: integer
           format: int32
           description: The SNMP timeout (in milli seconds)
-          default: 800
-          example: 800
+          default: 20000
+          example: 20000
         ztSnmpRetries:
           type: integer
           format: int32
