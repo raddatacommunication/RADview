@@ -469,6 +469,7 @@ components:
           example: /CityA/North
         ztRuleNerNodeName:
           type: string
+          description: Device name
           example: Branch A5B899X
         ztRuleNeSwImageName:
           type: string
@@ -510,21 +511,25 @@ components:
         ztRuleSnmpPort:
           type: integer
           format: int32
+          description: SNMP port used by the Network Element
           default: 161
           example: 161
         ztRuleHttpPort:
           type: integer
           format: int32
+          description: HTTP port used by the Network Element
           default: 80
           example: 80
         ztRuleTelnetPort:
           type: integer
           format: int32
+          description: Telnet port used by the Network Element
           default: 23
           example: 23
         ztRuleSshPort:
           type: integer
           format: int32
+          description: SSH port used by the Network Element
           default: 22
           example: 22
         ztSnmpVersion:
