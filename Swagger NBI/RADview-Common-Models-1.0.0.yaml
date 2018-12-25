@@ -84,4 +84,5 @@ definitions:
         example: "SIP Verification Code"
       value:
         type: AnyValue
-        example: "3"
+        nullable: true
+      example: "3"
