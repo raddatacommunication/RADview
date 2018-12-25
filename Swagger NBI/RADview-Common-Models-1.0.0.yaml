@@ -73,3 +73,15 @@ definitions:
         type: integer
         format: int32
         example: 0
+        
+    AnyValue: {}
+  NameVal:
+    description: Model for name-value
+    type: object
+    properties:
+      name:
+        type: strint
+        example: "SIP Verification Code"
+      value:
+        type: AnyValue
+        example: "3"
