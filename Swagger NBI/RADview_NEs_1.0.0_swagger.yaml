@@ -382,13 +382,16 @@ components:
           description: "Snmp V1 write community"
           default: private
           
+    OperationEnum:
+      description: Enum for possible operations SET or GET
+      type: string
+      enum:
+        - GET
+        - SET
     EmsOperation:
       properties:
         operation:
-          type: string
-          enum:
-            - GET
-            - SET
+          $ref: "#/components/schemas/OperationEnum"
         duid:
           type: string
           description: duid for NE identification
