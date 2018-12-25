@@ -172,10 +172,10 @@ paths:
       tags:
         - NE Actions
       requestBody:
-        $ref: '#/components/requestBodies/OperationRequest'
+        $ref: '#/components/requestBodies/EmsOperationRequest'
       responses:
         200:
-          $ref: '#/components/schemas/Operation'
+          $ref: '#/components/schemas/EmsOperation'
         400:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
         401:
@@ -382,7 +382,7 @@ components:
           description: "Snmp V1 write community"
           default: private
           
-    Operation:
+    EmsOperation:
       properties:
         operation:
           type: string
@@ -414,11 +414,11 @@ components:
       description: Ne Object
       required: true
 
-    OperationRequest:
+    EmsOperationRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Operation'
+            $ref: '#/components/schemas/EmsOperation'
       description: Operation Object to set/get
       required: true
       
