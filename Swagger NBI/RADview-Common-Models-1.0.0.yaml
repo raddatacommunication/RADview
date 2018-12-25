@@ -85,4 +85,4 @@ definitions:
       value:
         type: AnyValue
         nullable: true
-      example: "3"
+        example: "3"
