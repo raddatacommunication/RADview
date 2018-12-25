@@ -397,6 +397,7 @@ components:
           type: string
           description: The entity instnace to which this operation refers
           example: 3
+          nullable: true
         parameters:
           type: array
           items:
