@@ -158,7 +158,37 @@ paths:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
         500:
           $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
-
+          
+#--------------------------------------------------------#
+#                 Ems-Operation                          # 
+#--------------------------------------------------------#
+  /nes/operation:
+    parameters:
+      - $ref: "#/components/parameters/auth"
+    post:
+      summary: Do an action on NE
+      operationId: neAction
+      description: Do an action on NEs. For example get/set attributes by list of NameValue.
+      tags:
+        - NE Actions
+      requestBody:
+        $ref: '#/components/requestBodies/OperationRequest'
+      responses:
+        200:
+          $ref: '#/components/schemas/Operation'
+        400:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/BadRequestErrorResponse"
+        401:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/UnauthorizedErrorResponse"
+        403:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ForbiddenErrorResponse"
+        404:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/NotFoundErrorResponse"
+        500:
+          $ref: "https://api.swaggerhub.com/domains/RADview/Common-Responses/1.0.0#/responses/ServerResourceErrorResponse"
+#--------------------------------------------------------#
+#                 Components                             # 
+#--------------------------------------------------------#
 components:
   schemas:
     Location:
@@ -351,6 +381,27 @@ components:
           type: string
           description: "Snmp V1 write community"
           default: private
+          
+    Operation:
+      properties:
+        operation:
+          type: string
+          enum:
+            - GET
+            - SET
+        duid:
+          type: string
+          description: duid for NE identification
+          example: 10-77-B0-F4-2C-64
+        parameters:
+          type: array
+          items:
+            $ref: 'https://api.swaggerhub.com/domains/RADview/Common-Models/1.0.0#/definitions/NameVal'
+          example: [{"name": "Z-Code","value": "2"},{"name": "SIP Verification Code","value": "3"} ]
+  
+#--------------------------------------------------------#
+#                 request Bodies                         # 
+#--------------------------------------------------------#
   requestBodies:
     Ne:
       content:
@@ -363,6 +414,14 @@ components:
       description: Ne Object
       required: true
 
+    OperationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Operation'
+      description: Operation Object to set/get
+      required: true
+      
   #---------------------------------------------#
   # Parameters                                  #
   #---------------------------------------------#
@@ -393,6 +452,9 @@ components:
         type: string
       example: ?name=subD_1&parentId=1      
       
+  #--------------------------------------------------------#
+  #                 Security                               # 
+  #--------------------------------------------------------#
   securitySchemes:
     BasicAuth:
       type: http
