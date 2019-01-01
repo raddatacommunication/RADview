@@ -170,7 +170,7 @@ paths:
       operationId: neAction
       description: Do an action on NEs. For example get/set attributes by list of NameValue.
       tags:
-        - NEs Actions
+        - NE Actions
       requestBody:
         $ref: '#/components/requestBodies/EmsOperationRequest'
       responses:
@@ -396,11 +396,11 @@ components:
           type: string
           description: duid for NE identification
           example: 10-77-B0-F4-2C-64
-        entityInstnace:
-          type: string
-          description: The entity instnace to which this operation refers
-          nullable: true
-          example: 3
+#        entityInstnace:
+#          type: string
+#          description: The entity instnace to which this operation refers
+#          nullable: true
+#          example: 3
         parameters:
           type: array
           items:
